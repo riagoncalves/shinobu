@@ -2,7 +2,10 @@
 token: NTQwODYwOTI1MzY4OTkxNzQ1.DztWPg.2nZG5nMM0-zH0xGwfQs62MBwyWI
 
 # The Bot's Client ID
-# client_id: insert_clientid
+client_id: 540860925368991745
+
+# The Bot's Prefix
+prefix: +
 
 # Your ID (Optional, for owner commands)
 # owner_id: insert_ownerid
