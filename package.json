@@ -1,0 +1,22 @@
+{
+  "name": "isabot-discord",
+  "version": "1.0.0",
+  "description": "Discord bot built using Discord.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riagoncalves/isabot-discord.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/riagoncalves/isabot-discord/issues"
+  },
+  "homepage": "https://github.com/riagoncalves/isabot-discord#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
