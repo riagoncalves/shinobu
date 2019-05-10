@@ -29,7 +29,7 @@ client.on('message', msg => {
 	}
 
   if (command === 'ping') {
-    msg.reply('Pong!');
+		msg.reply(`Your ping is **${Math.round(client.ping)} ms**!`) 
 	}
 
 	if (command === 'invitelink') {
