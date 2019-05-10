@@ -31,6 +31,10 @@ client.on('message', msg => {
   if (command === 'ping') {
     msg.reply('Pong!');
 	}
+
+	if (command === 'invitelink') {
+		msg.reply(`Invite me to another server: ${config.inviteLink}`);
+	}
 	
 	if (command === 'play') {
 		if (msg.author.id === owner){
