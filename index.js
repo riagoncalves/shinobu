@@ -1,8 +1,17 @@
 const Discord = require('discord.js');
+const http = require('http');
 const config = require('./config/config.json');
 const client = new Discord.Client();
 const prefix = config.prefix;
 const owner = config.ownerId;
+
+http.createServer((req, res) => {
+	res.writeHead(200, {
+			'Content-type': 'text/plain'
+	});
+	res.write('');
+	res.end();
+}).listen(4000);
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
