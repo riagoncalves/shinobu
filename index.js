@@ -47,17 +47,38 @@ client.on('message', msg => {
 	}
 
 	if (command === 'ftn') {
-		let xhttp = new XMLHttpRequest();
-		let udi;
+		let uidhttp = new XMLHttpRequest();
+		let uid;
 		
-		xhttp.open("GET", `https://fortnite-public-api.theapinetwork.com/prod09/users/id?username=${args[0]}`, true);
+		uidhttp.open("GET", `https://fortnite-public-api.theapinetwork.com/prod09/users/id?username=${args[0]}`, true);
 		
-		xhttp.addEventListener('load', function () {
+		uidhttp.addEventListener('load', function () {
 			uid = `${JSON.parse(this.responseText).uid}`;
-			msg.reply(uid);
+
+			switch (args[1]) {
+				case 'kills':
+					let killshttp = new XMLHttpRequest();
+					let killsNum;
+
+					killshttp.open("GET", `https://fortnite-public-api.theapinetwork.com/prod09/users/public/br_stats_v2?user_id=${uid}`, true);
+
+					killshttp.addEventListener('load', function () {
+						killsNum = `${JSON.parse(this.responseText).overallData.defaultModes.kills + JSON.parse(this.responseText).overallData.ltmModes.kills}`;
+
+						msg.channel.send(`${JSON.parse(uidhttp.responseText).username} killed ${killsNum} players overall!`)
+					});
+
+					killshttp.send();
+
+					break;
+
+				default:
+					break;
+			}
 		});
 
-		xhttp.send();
+		uidhttp.send();
+		
 	}
 
 });
