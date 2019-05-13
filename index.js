@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const http = require('http');
 const config = require('./config/config.json');
+const XMLHttpRequest = require('node-http-xhr');
 const client = new Discord.Client();
 const prefix = config.prefix;
 const owner = config.ownerId;
@@ -43,6 +44,20 @@ client.on('message', msg => {
 		} else {
 			msg.reply("You don't have permissions to do that!")
 		}
+	}
+
+	if (command === 'ftn') {
+		let xhttp = new XMLHttpRequest();
+		let udi;
+		
+		xhttp.open("GET", `https://fortnite-public-api.theapinetwork.com/prod09/users/id?username=${args[0]}`, true);
+		
+		xhttp.addEventListener('load', function () {
+			uid = `${JSON.parse(this.responseText).uid}`;
+			msg.reply(uid);
+		});
+
+		xhttp.send();
 	}
 
 });
