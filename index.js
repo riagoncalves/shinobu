@@ -65,11 +65,11 @@ client.on('message', msg => {
 					killshttp.addEventListener('load', function () {
 						killsNum = `${JSON.parse(this.responseText).overallData.defaultModes.kills + JSON.parse(this.responseText).overallData.ltmModes.kills}`;
 
-						msg.channel.send(`${JSON.parse(uidhttp.responseText).username} killed ${killsNum} players overall!`)
+						msg.channel.send(`${JSON.parse(uidhttp.responseText).username} killed ${killsNum} players overall!`);
 					});
 
 					killshttp.send();
-
+					
 					break;
 
 				default:
@@ -78,7 +78,18 @@ client.on('message', msg => {
 		});
 
 		uidhttp.send();
-		
+	}
+
+	if (command === 'urban') {
+		let searchhttp = new XMLHttpRequest();
+
+		searchhttp.open("GET", `https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, true);
+
+		searchhttp.addEventListener('load', function () {
+			msg.channel.send(`${JSON.parse(this.responseText).list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${JSON.parse(this.responseText).list[0].permalink}`);
+		});
+
+		searchhttp.send();
 	}
 
 });
