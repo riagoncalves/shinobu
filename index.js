@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const http = require('http');
 const config = require('./config/config.json');
-const XMLHttpRequest = require('node-http-xhr');
+const request = require('request');
 const client = new Discord.Client();
 const prefix = config.prefix;
 const owner = config.ownerId;
@@ -47,49 +47,29 @@ client.on('message', msg => {
 	}
 
 	if (command === 'ftn') {
-		let uidhttp = new XMLHttpRequest();
-		let uid;
-		
-		uidhttp.open("GET", `https://fortnite-public-api.theapinetwork.com/prod09/users/id?username=${args[0]}`, true);
-		
-		uidhttp.addEventListener('load', function () {
-			uid = `${JSON.parse(this.responseText).uid}`;
+		request.get(`https://fortnite-public-api.theapinetwork.com/prod09/users/id?username=${args[0]}`, function(err, res, body) {  
+			let userInfo = JSON.parse(body);
 
 			switch (args[1]) {
 				case 'kills':
-					let killshttp = new XMLHttpRequest();
-					let killsNum;
-
-					killshttp.open("GET", `https://fortnite-public-api.theapinetwork.com/prod09/users/public/br_stats_v2?user_id=${uid}`, true);
-
-					killshttp.addEventListener('load', function () {
-						killsNum = `${JSON.parse(this.responseText).overallData.defaultModes.kills + JSON.parse(this.responseText).overallData.ltmModes.kills}`;
-
-						msg.channel.send(`${JSON.parse(uidhttp.responseText).username} killed ${killsNum} players overall!`);
-					});
-
-					killshttp.send();
-					
+					request.get(`https://fortnite-public-api.theapinetwork.com/prod09/users/public/br_stats_v2?user_id=${userInfo.uid}`, function(err, res, body) {  
+						let userStatus = JSON.parse(body);
+						let killsNum = `${userStatus.overallData.defaultModes.kills + userStatus.overallData.ltmModes.kills}`;
+						msg.channel.send(`${userInfo.username} killed ${killsNum} players overall!`);
+					});					
 					break;
 
 				default:
 					break;
 			}
 		});
-
-		uidhttp.send();
 	}
 
 	if (command === 'urban') {
-		let searchhttp = new XMLHttpRequest();
-
-		searchhttp.open("GET", `https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, true);
-
-		searchhttp.addEventListener('load', function () {
-			msg.channel.send(`${JSON.parse(this.responseText).list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${JSON.parse(this.responseText).list[0].permalink}`);
+		request.get(`https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, function(err, res, body) {  
+			let json = JSON.parse(body);
+			msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
 		});
-
-		searchhttp.send();
 	}
 
 });
