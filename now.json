@@ -1,3 +1,7 @@
 {
-  "version": 1
+  "version": 1,
+  "github": {
+    "enabled": false
+  },
+  "dotenv": true
 }

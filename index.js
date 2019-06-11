@@ -1,10 +1,11 @@
 const Discord = require('discord.js');
+const env = require('dotenv').config();
 const http = require('http');
 const config = require('./config/config.json');
 const request = require('request');
 const client = new Discord.Client();
 const prefix = config.prefix;
-const owner = config.ownerId;
+const owner = process.env.OWNER_ID;
 
 http.createServer((req, res) => {
 	res.writeHead(200, {
@@ -74,4 +75,4 @@ client.on('message', msg => {
 
 });
 
-client.login(`${config.token}`);
+client.login(`${process.env.TOKEN}`);
