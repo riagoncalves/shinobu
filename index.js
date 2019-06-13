@@ -70,7 +70,7 @@ client.on('message', msg => {
 	}
 
 	if (command === 'wtt') {
-		request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join(",")}&APPID=${process.env.API_WTT}`, function(err, res, body) {
+		request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join("+")}&APPID=${process.env.API_WTT}`, function(err, res, body) {
 			try {
 				let wttInfo = JSON.parse(body);
 				msg.channel.send(`${wttInfo.name} ${Math.round(wttInfo.main.temp - 273.15)}ºC`)
