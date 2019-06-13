@@ -54,7 +54,7 @@ client.on('message', msg => {
 			headers: {
 				'TRN-Api-Key': `${process.env.API_TOKEN}`
 			}
-		}, function(err, res, body) {  
+		}, function(err, res, body) {
 			let userInfo = JSON.parse(body);
 
 			switch (args[2]) {
@@ -69,8 +69,19 @@ client.on('message', msg => {
 		});
 	}
 
+	if (command === 'wtt') {
+		request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join(",")}&APPID=${process.env.API_WTT}`, function(err, res, body) {
+			try {
+				let wttInfo = JSON.parse(body);
+				msg.channel.send(`${wttInfo.name} ${Math.round(wttInfo.main.temp - 273.15)}ºC`)
+			} catch(e) {
+				msg.channel.send('Invalid location!');
+			}
+		});
+	}
+
 	if (command === 'urban') {
-		request.get(`https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, function(err, res, body) {  
+		request.get(`https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, function(err, res, body) {
 			let json = JSON.parse(body);
 			msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
 		});
