@@ -48,21 +48,24 @@ client.on('message', msg => {
 	}
 
 	if (command === 'ftn') {
-		request.get(`https://fortnite-public-api.theapinetwork.com/prod09/users/id?username=${args[0]}`, function(err, res, body) {  
+		request({
+			method: 'GET',
+			url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${args[1]}`,
+			headers: {
+				'TRN-Api-Key': `${process.env.API_TOKEN}`
+			}
+		}, function(err, res, body) {  
 			let userInfo = JSON.parse(body);
 
-			switch (args[1]) {
+			switch (args[2]) {
 				case 'kills':
-					request.get(`https://fortnite-public-api.theapinetwork.com/prod09/users/public/br_stats_v2?user_id=${userInfo.uid}`, function(err, res, body) {  
-						let userStatus = JSON.parse(body);
-						let killsNum = `${userStatus.overallData.defaultModes.kills + userStatus.overallData.ltmModes.kills}`;
-						msg.channel.send(`${userInfo.username} killed ${killsNum} players overall!`);
-					});					
+					msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);				
 					break;
 
 				default:
 					break;
 			}
+			
 		});
 	}
 
