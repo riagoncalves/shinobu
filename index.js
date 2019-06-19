@@ -48,6 +48,12 @@ client.on('message', msg => {
 	}
 
 	if (command === 'ftn') {
+
+		if (args[0] != 'pc' && args[0] != 'psn' && args[0] != 'xb1'){
+			msg.channel.send('Invalid parameters!');
+			return;
+		}
+
 		request({
 			method: 'GET',
 			url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${args[1]}`,
