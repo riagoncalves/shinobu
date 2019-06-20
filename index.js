@@ -56,22 +56,13 @@ client.on('message', msg => {
 
 		request({
 			method: 'GET',
-			url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${args[1]}`,
+			url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${(args.slice(1)).join('%20')}`,
 			headers: {
 				'TRN-Api-Key': `${process.env.API_FTN}`
 			}
 		}, function(err, res, body) {
 			let userInfo = JSON.parse(body);
-
-			switch (args[2]) {
-				case 'kills':
-					msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);				
-					break;
-
-				default:
-					break;
-			}
-			
+			msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);		
 		});
 	}
 
