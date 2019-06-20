@@ -58,7 +58,7 @@ client.on('message', msg => {
 			method: 'GET',
 			url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${args[1]}`,
 			headers: {
-				'TRN-Api-Key': `${process.env.API_TOKEN}`
+				'TRN-Api-Key': `${process.env.API_FTN}`
 			}
 		}, function(err, res, body) {
 			let userInfo = JSON.parse(body);
