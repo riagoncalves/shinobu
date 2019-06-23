@@ -21,7 +21,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
 	
-	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+	if (!msg.content.startsWith(prefix) || msg.author.bot || msg.channel.type === 'dm') return;
 
 	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
