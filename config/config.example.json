@@ -1,0 +1,9 @@
+{
+  "prefix": "+",
+  "inviteLink": "YOUR_BOT_INVITE_LINK",
+  "token": "YOUR_BOT_TOKEN",
+  "clientID": "BOT_CLIENT_ID",
+  "ownerID": "BOT_OWNER_CLIENT_ID",
+  "apiFTN": "Get your key here https://fortnitetracker.com/site-api",
+  "apiWTT": "Get your key here https://openweathermap.org/current"
+}

@@ -1,11 +1,10 @@
 const Discord = require('discord.js');
-const env = require('dotenv').config();
 const http = require('http');
 const config = require('./config/config.json');
 const request = require('request');
 const client = new Discord.Client();
 const prefix = config.prefix;
-const owner = process.env.OWNER_ID;
+const owner = config.ownerID;
 
 http.createServer((req, res) => {
 	res.writeHead(200, {
@@ -87,7 +86,7 @@ client.on('message', msg => {
 			method: 'GET',
 			url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${(args.slice(1)).join('%20')}`,
 			headers: {
-				'TRN-Api-Key': `${process.env.API_FTN}`
+				'TRN-Api-Key': `${config.apiFTN}`
 			}
 		}, function(err, res, body) {
 			let userInfo = JSON.parse(body);
@@ -96,7 +95,7 @@ client.on('message', msg => {
 	}
 
 	if (command === 'wtt') {
-		request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join("+")}&APPID=${process.env.API_WTT}`, function(err, res, body) {
+		request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join("+")}&APPID=${config.apiWTT}`, function(err, res, body) {
 			try {
 				let wttInfo = JSON.parse(body);
 				msg.channel.send(`${wttInfo.name} ${Math.round(wttInfo.main.temp - 273.15)}ºC`)
@@ -115,4 +114,4 @@ client.on('message', msg => {
 
 });
 
-client.login(`${process.env.TOKEN}`);
+client.login(`${config.token}`);
