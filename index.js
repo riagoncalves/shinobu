@@ -16,7 +16,13 @@ http.createServer((req, res) => {
 }).listen(4000);
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+	console.log(`Logged in as ${client.user.tag}!`);
+
+	let activityTypes = ["LISTENING", "PLAYING", "WATCHING"],
+			rndType = Math.floor(Math.random() * activityTypes.length),
+			activities = require('./config/activities.json');
+
+	client.user.setActivity(activities[rndType][Math.floor(Math.random() * activities[rndType].length)], { type: activityTypes[rndType] });
 });
 
 client.on('message', msg => {
