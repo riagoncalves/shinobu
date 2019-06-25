@@ -38,10 +38,33 @@ client.on('message', msg => {
 		msg.reply(`Invite me to another server: ${config.inviteLink}`);
 	}
 	
-	if (command === 'play') {
+	if (command === 'activity') {
 		if (msg.author.id === owner){
-			client.user.setGame(args.join(' '));
-			msg.reply(`Playing ${args.join(' ')}!`);
+			let type = args.shift();
+			client.user.setActivity(args.join(' '), { type: type.toUpperCase() });
+
+			switch (type.toLowerCase()) {
+				case 'listening':
+						msg.reply(`I'm listening to ${args.join(' ')}!`);
+					break;
+				
+				case 'playing':
+					msg.reply(`I'm playing ${args.join(' ')}!`);
+					break;
+
+				case 'watching':
+					msg.reply(`I'm watching to ${args.join(' ')}!`);
+					break;
+			}
+		} else {
+			msg.reply("You don't have permissions to do that!")
+		}
+	}
+
+	if (command === 'stream') {
+		if (msg.author.id === owner) {
+			client.user.setActivity(args[0], { type: "STREAMING", url: args[1] });
+			msg.reply(`Streaming ${args[0]}!`);
 		} else {
 			msg.reply("You don't have permissions to do that!")
 		}
