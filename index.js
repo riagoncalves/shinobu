@@ -1,10 +1,10 @@
-const Discord = require('discord.js');
-const http = require('http');
-const config = require('./config/config.json');
-const request = require('request');
-const client = new Discord.Client();
-const prefix = config.prefix;
-const owner = config.ownerID;
+const Discord = require('discord.js'),
+			http = require('http'),
+			config = require('./config/config.json'),
+			request = require('request'),
+			client = new Discord.Client(),
+			prefix = config.prefix,
+			owner = config.ownerID;
 
 http.createServer((req, res) => {
 	res.writeHead(200, {
@@ -28,8 +28,8 @@ client.on('message', msg => {
 	
 	if (!msg.content.startsWith(prefix) || msg.author.bot || msg.channel.type === 'dm') return;
 
-	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
-	const command = args.shift().toLowerCase();
+	const args = msg.content.slice(prefix.length).trim().split(/ +/g),
+				command = args.shift().toLowerCase();
 	
 	if (command === 'myid') {
 		msg.reply(`Your ID is ${msg.author.id}`);
