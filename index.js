@@ -114,4 +114,12 @@ client.on('message', msg => {
 
 });
 
+setInterval(() => {
+	let activityTypes = ["LISTENING", "PLAYING", "WATCHING"],
+			rndType = Math.floor(Math.random() * activityTypes.length),
+			activities = require('./config/activities.json');
+	client.user.setActivity(activities[rndType][Math.floor(Math.random() * activities[rndType].length)], { type: activityTypes[rndType] });
+	console.log( "Updated bot's activity");
+}, 900000);
+
 client.login(`${config.token}`);
