@@ -4,21 +4,25 @@ const request = require('request'),
 
 module.exports =  {
 	'myid': {
+		desc: 'Sends own user client ID.',
 		process: function (client, msg, args) {
     	msg.reply(`Your ID is ${msg.author.id}`);
     }
   },
   'ping': {
+		desc: "Sends bot's ping.",
     process: function (client, msg, args) {
       msg.reply(`Your ping is **${Math.round(client.ping)} ms**!`);
     }
   },
   'inviteLink': {
+		desc: "Sends bot's invite link.",
 		process: function (client, msg, args) {
       msg.reply(`Invite me to another server: ${config.inviteLink}`);
     }
 	},
   'activity': {
+		desc: "Switches bot's activity!",
 		process: function (client, msg, args) {
       if (msg.author.id === owner){
 				let type = args.shift();
@@ -43,6 +47,7 @@ module.exports =  {
     }
 	},
   'stream': {
+		desc: 'Apply a stream activity with url to bot.',
 		process: function (client, msg, args) {
       if (msg.author.id === owner) {
 				client.user.setActivity(args[0], { type: "STREAMING", url: args[1] });
@@ -53,6 +58,7 @@ module.exports =  {
     }
 	},
   'ftn': {
+		desc: 'Gets searched user fortnite status!',
 		process: function (client, msg, args) {
       if (args[0] != 'pc' && args[0] != 'psn' && args[0] != 'xb1'){
 				msg.channel.send('Invalid parameters!');
@@ -72,6 +78,7 @@ module.exports =  {
     }
 	},
   'wtt': {
+		desc: 'Gets searched location temperature in Celsius.',
 		process: function (client, msg, args) {
       request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join("+")}&APPID=${config.apiWTT}`, function(err, res, body) {
 				try {
@@ -84,6 +91,7 @@ module.exports =  {
     }
 	},
   'urban': {
+		desc: 'Sends search urban dictionary description and url.',
 		process: function (client, msg, args) {
       request.get(`https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, function(err, res, body) {
 				let json = JSON.parse(body);
