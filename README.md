@@ -18,6 +18,5 @@ For production deploy ISABOT requires [NOW](https://zeit.co/now)...
 
 ```sh
 $ now
-$ now scale <deploy_url> sfo1 1
 ```
 Don't forget to remove the previous deploy.
