@@ -2,7 +2,7 @@ const request = require('request'),
       config = require('../config/config.json'),
       owner = config.ownerID;
 
-module.exports =  {
+var commands =  {
 	'myid': {
 		desc: 'Sends own user client ID.',
 		process: function (client, msg, args) {
@@ -98,5 +98,17 @@ module.exports =  {
 				msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
 			});
     }
+	},
+	'help': {
+		desc: 'Get the description of the searched command.',
+		process: function (client, msg, args) {
+			try {
+				msg.channel.send(`${commands[args[0]].desc}`);
+			} catch (e) {
+				msg.channel.send('Invalid parameters!');
+			}
+		}
 	}
 };
+
+module.exports = commands;
