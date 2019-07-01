@@ -4,25 +4,25 @@ const request = require('request'),
 
 var commands =  {
 	'myid': {
-		desc: 'Sends own user client ID.',
+		desc: 'Sends own user client ID.\nWrite `+myid` to use.',
 		process: function (client, msg, args) {
     	msg.reply(`Your ID is ${msg.author.id}`);
     }
   },
   'ping': {
-		desc: "Sends bot's ping.",
+		desc: "Sends bot's ping.\nWrite `+ping` to use.",
     process: function (client, msg, args) {
       msg.reply(`Your ping is **${Math.round(client.ping)} ms**!`);
     }
   },
-  'inviteLink': {
-		desc: "Sends bot's invite link.",
+  'invitelink': {
+		desc: "Sends bot's invite link.\nWrite `+invitelink` to use.",
 		process: function (client, msg, args) {
       msg.reply(`Invite me to another server: ${config.inviteLink}`);
     }
 	},
   'activity': {
-		desc: "Switches bot's activity!",
+		desc: "Switches bot's activity!\nWrite `+activity <listening/playing/watching> <activity>` to use.",
 		process: function (client, msg, args) {
       if (msg.author.id === owner){
 				let type = args.shift();
@@ -47,7 +47,7 @@ var commands =  {
     }
 	},
   'stream': {
-		desc: 'Apply a stream activity with url to bot.',
+		desc: 'Apply a stream activity with url to bot.\nWrite `+stream <game_name> <stream_url>` to use.',
 		process: function (client, msg, args) {
       if (msg.author.id === owner) {
 				client.user.setActivity(args[0], { type: "STREAMING", url: args[1] });
@@ -58,7 +58,7 @@ var commands =  {
     }
 	},
   'ftn': {
-		desc: 'Gets searched user fortnite status!',
+		desc: 'Gets searched user fortnite status!\nWrite `+ftn <pc/psn/xb1> <player_name>` to use.',
 		process: function (client, msg, args) {
       if (args[0] != 'pc' && args[0] != 'psn' && args[0] != 'xb1'){
 				msg.channel.send('Invalid parameters!');
@@ -82,7 +82,7 @@ var commands =  {
     }
 	},
   'wtt': {
-		desc: 'Gets searched location temperature in Celsius.',
+		desc: 'Gets searched location temperature in Celsius.\nWrite `+wtt <city_name>` to use.',
 		process: function (client, msg, args) {
       request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join("+")}&APPID=${config.apiWTT}`, function(err, res, body) {
 				try {
@@ -95,7 +95,7 @@ var commands =  {
     }
 	},
   'urban': {
-		desc: 'Sends search urban dictionary description and url.',
+		desc: 'Sends search urban dictionary description and url.\nWrite `+urban <search>` to use.',
 		process: function (client, msg, args) {
       request.get(`https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, function(err, res, body) {
 				let json = JSON.parse(body);
@@ -104,7 +104,7 @@ var commands =  {
     }
 	},
 	'help': {
-		desc: 'Get the description of the searched command.',
+		desc: 'Get the description of the searched command.\nWrite `+help <command>` to use.',
 		process: function (client, msg, args) {
 			try {
 				msg.channel.send(`${commands[args[0]].desc}`);
