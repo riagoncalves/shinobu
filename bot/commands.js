@@ -72,8 +72,12 @@ var commands =  {
 					'TRN-Api-Key': `${config.apiFTN}`
 				}
 			}, function(err, res, body) {
-				let userInfo = JSON.parse(body);
-				msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);		
+				try {
+					let userInfo = JSON.parse(body);
+					msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);	
+				} catch (e) {
+					msg.channel.send('User not found!');
+				}
 			});
     }
 	},
