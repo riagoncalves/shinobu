@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.14.0] - 2019-07-02
+### Added
+- Version command
+
 ## [0.13.3] - 2019-07-01
 ### Changed
 - Switch custom error by fortnite api error

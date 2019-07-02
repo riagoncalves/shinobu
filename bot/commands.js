@@ -1,6 +1,7 @@
 const request = require('request'),
       config = require('../config/config.json'),
-      owner = config.ownerID;
+			owner = config.ownerID,
+			version = require('../package.json').version;
 
 var commands =  {
 	'myid': {
@@ -102,6 +103,12 @@ var commands =  {
 				msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
 			});
     }
+	},
+	'version': {
+		desc: 'Get bot version.\nWrite `+version` to use.',
+		process: function (client, msg, args) {
+			msg.channel.send(`My version is ${version}!`);
+		}
 	},
 	'help': {
 		desc: 'Get the description of the searched command.\nWrite `+help <command>` to use.',
