@@ -16,25 +16,25 @@ let aliases = {
 
 let commands =  {
 	'myid': {
-		desc: 'Sends own user client ID.\nWrite `+myid` to use.',
+		desc: `Sends own user client ID.\nWrite \`${config.prefix}myid\` to use.`,
 		process: function (client, msg, args) {
     	msg.reply(`Your ID is ${msg.author.id}`);
     }
   },
   'ping': {
-		desc: "Sends bot's ping.\nWrite `+ping` to use.",
+		desc: `Sends bot's ping.\nWrite \`${config.prefix}ping\` to use.`,
     process: function (client, msg, args) {
       msg.reply(`Your ping is **${Math.round(client.ping)} ms**!`);
     }
   },
   'invitelink': {
-		desc: "Sends bot's invite link.\nWrite `+invitelink` to use.",
+		desc: `Sends bot's invite link.\nWrite \`${config.prefix}invitelink\` to use.`,
 		process: function (client, msg, args) {
       msg.reply(`Invite me to another server: ${config.inviteLink}`);
     }
 	},
   'activity': {
-		desc: "Switches bot's activity!\nWrite `+activity <listening/playing/watching> <activity>` to use.",
+		desc: `Switches bot's activity!\nWrite \`${config.prefix}activity <listening/playing/watching> <activity>\` to use.`,
 		process: function (client, msg, args) {
       if (msg.author.id === owner){
 				let type = args.shift();
@@ -59,7 +59,7 @@ let commands =  {
     }
 	},
   'stream': {
-		desc: 'Apply a stream activity with url to bot.\nWrite `+stream <game_name> <stream_url>` to use.',
+		desc: `Apply a stream activity with url to bot.\nWrite \`${config.prefix}stream <game_name> <stream_url>\` to use.`,
 		process: function (client, msg, args) {
       if (msg.author.id === owner) {
 				client.user.setActivity(args[0], { type: "STREAMING", url: args[1] });
@@ -70,7 +70,7 @@ let commands =  {
     }
 	},
   'ftn': {
-		desc: 'Gets searched user fortnite status!\nWrite `+ftn <pc/psn/xb1> <player_name>` to use.',
+		desc: `Gets searched user fortnite status!\nWrite \`${config.prefix}ftn <pc/psn/xb1> <player_name>\` to use.`,
 		process: function (client, msg, args) {
       if (args[0] != 'pc' && args[0] != 'psn' && args[0] != 'xb1'){
 				msg.channel.send('Invalid parameters!');
@@ -94,7 +94,7 @@ let commands =  {
     }
 	},
   'wtt': {
-		desc: 'Gets searched location temperature in Celsius.\nWrite `+wtt <city_name>` to use.',
+		desc: `Gets searched location temperature in Celsius.\nWrite \`${config.prefix}wtt <city_name>\` to use.`,
 		process: function (client, msg, args) {
       request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join("+")}&APPID=${config.apiWTT}`, function(err, res, body) {
 				try {
@@ -107,7 +107,7 @@ let commands =  {
     }
 	},
   'urban': {
-		desc: 'Sends search urban dictionary description and url.\nWrite `+urban <search>` to use.',
+		desc: `Sends search urban dictionary description and url.\nWrite \`${config.prefix}urban <search>\` to use.`,
 		process: function (client, msg, args) {
       request.get(`https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, function(err, res, body) {
 				let json = JSON.parse(body);
@@ -116,13 +116,13 @@ let commands =  {
     }
 	},
 	'version': {
-		desc: 'Get bot version.\nWrite `+version` to use.',
+		desc: `Get bot version.\nWrite \`${config.prefix}version\` to use.`,
 		process: function (client, msg, args) {
 			msg.channel.send(`My version is ${version}!`);
 		}
 	},
 	'help': {
-		desc: 'Get the description of the searched command.\nWrite `+help <command>` to use.',
+		desc: `Get the description of the searched command.\nWrite \`${config.prefix}help <command>\` to use.`,
 		process: function (client, msg, args) {
 			try {
 				msg.channel.send(`${commands[args[0]].desc}`);
