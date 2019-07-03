@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.14.1] - 2019-07-03
+### Added
+- Aliases for the existent commands
+
 ## [0.14.0] - 2019-07-02
 ### Added
 - Version command

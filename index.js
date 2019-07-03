@@ -30,7 +30,7 @@ client.on('message', msg => {
 	const args = msg.content.slice(prefix.length).trim().split(/ +/g),
 				cmd = args.shift().toLowerCase();
 
-	commands[cmd].process(client, msg, args);
+	commands(cmd, client, msg, args);
 
 });
 

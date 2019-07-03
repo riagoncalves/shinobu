@@ -3,7 +3,18 @@ const request = require('request'),
 			owner = config.ownerID,
 			version = require('../package.json').version;
 
-var commands =  {
+let aliases = {
+	'id': 'myid', 'mid': 'myid',
+	'invite': 'invitelink', 'inv': 'invitelink',
+	'status': 'activity', 'play': 'activity',
+	'fortnite': 'ftn',
+	'w': 'wtt', 'weather': 'wtt',
+	'ud': 'urban', 'urbandictionary': 'urban', 'udictionary': 'urban',
+	'v': 'version',
+	'h': 'help'
+}
+
+let commands =  {
 	'myid': {
 		desc: 'Sends own user client ID.\nWrite `+myid` to use.',
 		process: function (client, msg, args) {
@@ -122,4 +133,10 @@ var commands =  {
 	}
 };
 
-module.exports = commands;
+module.exports = function(cmd, client, msg, args){
+	if(commands.hasOwnProperty(cmd)) {
+		commands[cmd].process(client, msg, args);
+	} else {
+		commands[aliases[cmd]].process(client, msg, args);
+	}
+};
