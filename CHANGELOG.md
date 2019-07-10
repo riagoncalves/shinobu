@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.14.2] - 2019-07-10
+### Fixed
+- Get help information using commands' aliases
+
 ## [0.14.1] - 2019-07-03
 ### Added
 - Aliases for the existent commands
