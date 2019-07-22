@@ -146,7 +146,11 @@ let commands =  {
 		desc: `Get the description of the searched command.\nWrite \`${config.prefix}help <command>\` to use.`,
 		process: function (client, msg, args) {
 			try {
-				msg.channel.send(`${commands[args[0]].desc}`);
+				if(commands.hasOwnProperty(args[0])) {
+					msg.channel.send(`${commands[args[0]].desc}`);
+				} else {
+					msg.channel.send(`${commands[aliases[args[0]]].desc}`);
+				}
 			} catch (e) {
 				msg.channel.send('Invalid parameters!');
 			}
