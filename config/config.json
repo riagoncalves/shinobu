@@ -5,5 +5,7 @@
   "clientID": "BOT_CLIENT_ID",
   "ownerID": "BOT_OWNER_CLIENT_ID",
   "apiFTN": "Get your key here https://fortnitetracker.com/site-api",
-  "apiWTT": "Get your key here https://openweathermap.org/current"
+  "apiWTT": "Get your key here https://openweathermap.org/current",
+  "cseID": "Create a custom Search Engine and get your ID here https://cse.google.com/cse",
+  "apiGI": "Get your key here https://console.developers.google.com/"
 }
