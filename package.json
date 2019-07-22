@@ -18,6 +18,7 @@
   "homepage": "https://github.com/riagoncalves/isabot-discord#readme",
   "dependencies": {
     "discord.js": "^11.4.2",
+    "google-images": "^2.1.0",
     "request": "^2.88.0"
   }
 }

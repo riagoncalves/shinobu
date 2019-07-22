@@ -1,7 +1,10 @@
 const request = require('request'),
+			Discord = require('discord.js'),
       config = require('../config/config.json'),
 			owner = config.ownerID,
-			version = require('../package.json').version;
+			version = require('../package.json').version,
+			GoogleImages = require('google-images'),
+			imagesClient = new GoogleImages(config.cseID, config.apiGI);
 
 let aliases = {
 	'id': 'myid', 'mid': 'myid',
@@ -10,6 +13,7 @@ let aliases = {
 	'fortnite': 'ftn',
 	'w': 'wtt', 'weather': 'wtt',
 	'ud': 'urban', 'urbandictionary': 'urban', 'udictionary': 'urban',
+	'images': 'gi', 'google-images': 'gi', 'gimages': 'gi',
 	'v': 'version',
 	'h': 'help'
 }
@@ -114,6 +118,23 @@ let commands =  {
 				msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
 			});
     }
+	},
+	'gi': {
+		desc: `Get searched image.\nWrite \`${config.prefix}gi <search>\` to use.`,
+		process: async function (client, msg, args) {
+			try {
+				let images = await imagesClient.search(args.join(' ')),
+						replyImage = images[Math.floor(Math.random() * images.length)].url;
+				if (!replyImage.endsWith('.png') && !replyImage.endsWith('.jpeg') && !replyImage.endsWith('.jpg')){
+					replyImage = `${replyImage}.jpg`;
+				}
+				msg.channel.send(new Discord.Attachment(replyImage));
+			}
+			catch (e) {
+				console.error(e);
+				msg.channel.send('No results!');
+			}
+		}
 	},
 	'version': {
 		desc: `Get bot version.\nWrite \`${config.prefix}version\` to use.`,
