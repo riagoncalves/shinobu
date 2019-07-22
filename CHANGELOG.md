@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.15.0] - 2019-07-22
+### Added
+- Google Images command
+
 ## [0.14.2] - 2019-07-10
 ### Fixed
 - Get help information using commands' aliases
