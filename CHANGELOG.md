@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.16.0] - 2019-07-23
+### Added
+- Functional ship command
+### Changed
+- Version command copy
+
 ## [0.15.0] - 2019-07-22
 ### Added
 - Google Images command

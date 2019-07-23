@@ -136,10 +136,23 @@ let commands =  {
 			}
 		}
 	},
+	'ship': {
+		desc: `Ship a couple.\nWrite \`${config.prefix}ship <user1> <user2>\` to use.`,
+		process: function (client, msg, args) {
+			let firstUser = msg.mentions.users.first().username,
+					secondUser = msg.mentions.users.last().username,
+					shipName = `${firstUser.substring(0, 4)}${secondUser.slice(-4)}`.toLowerCase();
+
+			msg.channel.send(`Long live to ${shipName.charAt(0).toUpperCase() + shipName.slice(1)}! 🚢`)
+									.then(msg => {
+										msg.react('🚢');
+									});
+		}
+	},
 	'version': {
 		desc: `Get bot version.\nWrite \`${config.prefix}version\` to use.`,
 		process: function (client, msg, args) {
-			msg.channel.send(`My version is ${version}!`);
+			msg.channel.send(`My version is \`${version}\`!`);
 		}
 	},
 	'help': {
