@@ -34,7 +34,7 @@ client.on('message', msg => {
 
 setInterval(() => {
 	setActivity();
-}, 12000);
+}, 900000);
 
 let sendLog = () => {
 	parseChangelog('./CHANGELOG.md', (err, result) => {

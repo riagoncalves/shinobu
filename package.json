@@ -1,6 +1,6 @@
 {
   "name": "isabot-discord",
-  "version": "0.17.3",
+  "version": "0.17.2",
   "description": "Discord bot built using Discord.js",
   "main": "index.js",
   "scripts": {
