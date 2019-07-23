@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.17.2] - 2019-07-23
+### Added
+- Log command
+- Sends Log of last version on default channel when bot is ready
+### Changed
+- Bot's start console copy
+- Auto activity changer is now a function
+
 ## [0.16.0] - 2019-07-23
 ### Added
 - Functional ship command

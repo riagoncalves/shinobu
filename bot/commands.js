@@ -3,6 +3,7 @@ const request = require('request'),
       config = require('../config/config.json'),
 			owner = config.ownerID,
 			version = require('../package.json').version,
+			parseChangelog = require('changelog-parser'),
 			GoogleImages = require('google-images'),
 			imagesClient = new GoogleImages(config.cseID, config.apiGI);
 
@@ -14,6 +15,7 @@ let aliases = {
 	'w': 'wtt', 'weather': 'wtt',
 	'ud': 'urban', 'urbandictionary': 'urban', 'udictionary': 'urban',
 	'images': 'gi', 'google-images': 'gi', 'gimages': 'gi',
+	'changelog': 'log', 'clog': 'log',
 	'v': 'version',
 	'h': 'help'
 }
@@ -147,6 +149,16 @@ let commands =  {
 									.then(msg => {
 										msg.react('🚢');
 									});
+		}
+	},
+	'log': {
+		desc: `Get bot's last version changelog.\nWrite \`${config.prefix}log\` to use.`,
+		process: function (client, msg, args) {
+			parseChangelog('./CHANGELOG.md', (err, result) => {
+				if (err) throw err
+				console.log(`Sent CHANGELOG with ${version} modifications.`);
+				msg.channel.send(`\`\`\`md\n# ${result.title.toUpperCase()}\n\n## ${result.versions[0].title}\n\n${result.versions[0].body}\`\`\``);
+			});
 		}
 	},
 	'version': {
