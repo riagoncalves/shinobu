@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.17.3] - 2019-08-23
+### Changed
+- New deploy script on packake.json
+### Fixed
+- Bot no longer tries to run a non existent command
+
 ## [0.17.2] - 2019-07-23
 ### Added
 - Log command

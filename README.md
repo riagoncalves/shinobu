@@ -17,6 +17,6 @@ $ node index.js
 For production deploy ISABOT requires [NOW](https://zeit.co/now)...
 
 ```sh
-$ now
+$ npm run deploy
 ```
 Don't forget to remove the previous deploy.

@@ -184,9 +184,13 @@ let commands =  {
 };
 
 module.exports = function(cmd, client, msg, args){
-	if(commands.hasOwnProperty(cmd)) {
-		commands[cmd].process(client, msg, args);
-	} else {
-		commands[aliases[cmd]].process(client, msg, args);
+	try {
+		if(commands.hasOwnProperty(cmd)) {
+			commands[cmd].process(client, msg, args);
+		} else {
+			commands[aliases[cmd]].process(client, msg, args);
+		}
+	} catch(e) {
+		console.log('Invalid command.');
 	}
 };
