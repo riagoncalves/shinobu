@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.18.0] - 2019-09-01
+### Added
+- Search youtube videos command
+
+
 ## [0.17.3] - 2019-08-23
 ### Changed
 - New deploy script on packake.json

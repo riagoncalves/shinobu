@@ -1,11 +1,13 @@
 const request = require('request'),
 			Discord = require('discord.js'),
+			YouTube = require("discord-youtube-api"),
       config = require('../config/config.json'),
 			owner = config.ownerID,
 			version = require('../package.json').version,
 			parseChangelog = require('changelog-parser'),
 			GoogleImages = require('google-images'),
-			imagesClient = new GoogleImages(config.cseID, config.apiGI);
+			imagesClient = new GoogleImages(config.cseID, config.apiGI),
+			youtube = new YouTube(config.apiYT);
 
 let aliases = {
 	'id': 'myid', 'mid': 'myid',
@@ -15,6 +17,7 @@ let aliases = {
 	'w': 'wtt', 'weather': 'wtt',
 	'ud': 'urban', 'urbandictionary': 'urban', 'udictionary': 'urban',
 	'images': 'gi', 'google-images': 'gi', 'gimages': 'gi',
+	'youtube': 'yt', 'video': 'yt',
 	'changelog': 'log', 'clog': 'log',
 	'v': 'version',
 	'h': 'help'
@@ -131,6 +134,19 @@ let commands =  {
 					replyImage = `${replyImage}.jpg`;
 				}
 				msg.channel.send(new Discord.Attachment(replyImage));
+			}
+			catch (e) {
+				console.error(e);
+				msg.channel.send('No results!');
+			}
+		}
+	},
+	'yt': {
+		desc: `Sends youtube searched video.\nWrite \`${config.prefix}yt\` to use.`,
+		process: async function (client, msg, args) {
+			try {
+				let video = await youtube.searchVideos(args.join(' '));
+				msg.channel.send(`https://www.youtube.com/watch?v=${video.id}`);
 			}
 			catch (e) {
 				console.error(e);
