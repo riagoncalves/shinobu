@@ -1,9 +1,15 @@
 # Changelog
 
+## [0.18.1] - 2020-04-8
+### Added
+- New activities
+### Changed
+- Env vars instead of config file
+- Deploy is now on Heroku instead of NOW Zeit
+
 ## [0.18.0] - 2019-09-01
 ### Added
 - Search youtube videos command
-
 
 ## [0.17.3] - 2019-08-23
 ### Changed

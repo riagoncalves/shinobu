@@ -1,6 +1,6 @@
 {
   "name": "isabot-discord",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "Discord bot built using Discord.js",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "changelog-parser": "^2.8.0",
     "discord-youtube-api": "^0.1.0",
     "discord.js": "^11.4.2",
+    "dotenv": "^8.2.0",
     "google-images": "^2.1.0",
     "request": "^2.88.0"
   }

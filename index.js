@@ -1,9 +1,10 @@
+require('dotenv').config();
+
 const Discord = require('discord.js'),
 			http = require('http'),
-			config = require('./config/config.json'),
 			client = new Discord.Client(),
 			parseChangelog = require('changelog-parser'),
-			prefix = config.prefix,
+			prefix = process.env.PREFIX,
 			commands = require('./bot/commands.js'),
 			version = require('./package.json').version;
 
@@ -39,7 +40,7 @@ setInterval(() => {
 let sendLog = () => {
 	parseChangelog('./CHANGELOG.md', (err, result) => {
 		if (err) throw err
-		let channel = client.channels.get(`${config.defaultChannel}`);
+		let channel = client.channels.get(`${process.env.DEFAULT_CHANNEL}`);
 		channel.send(`\`\`\`md\n# ${result.title.toUpperCase()}\n\n## ${result.versions[0].title}\n\n${result.versions[0].body}\`\`\``);
 	});
 };
@@ -52,4 +53,4 @@ let setActivity = () => {
 	console.log("Updated bot's activity");
 };
 
-client.login(`${config.token}`);
+client.login(`${process.env.TOKEN}`);

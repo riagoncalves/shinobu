@@ -1,13 +1,12 @@
 const request = require('request'),
 			Discord = require('discord.js'),
 			YouTube = require("discord-youtube-api"),
-      config = require('../config/config.json'),
-			owner = config.ownerID,
+			owner = process.env.OWNER_ID,
 			version = require('../package.json').version,
 			parseChangelog = require('changelog-parser'),
 			GoogleImages = require('google-images'),
-			imagesClient = new GoogleImages(config.cseID, config.apiGI),
-			youtube = new YouTube(config.apiYT);
+			imagesClient = new GoogleImages(process.env.CSE_ID, process.env.API_GI),
+			youtube = new YouTube(process.env.API_YT);
 
 let aliases = {
 	'id': 'myid', 'mid': 'myid',
@@ -25,25 +24,25 @@ let aliases = {
 
 let commands =  {
 	'myid': {
-		desc: `Sends own user client ID.\nWrite \`${config.prefix}myid\` to use.`,
+		desc: `Sends own user client ID.\nWrite \`${process.env.PREFIX}myid\` to use.`,
 		process: function (client, msg, args) {
     	msg.reply(`Your ID is ${msg.author.id}`);
     }
   },
   'ping': {
-		desc: `Sends bot's ping.\nWrite \`${config.prefix}ping\` to use.`,
+		desc: `Sends bot's ping.\nWrite \`${process.env.PREFIX}ping\` to use.`,
     process: function (client, msg, args) {
       msg.reply(`Your ping is **${Math.round(client.ping)} ms**!`);
     }
   },
   'invitelink': {
-		desc: `Sends bot's invite link.\nWrite \`${config.prefix}invitelink\` to use.`,
+		desc: `Sends bot's invite link.\nWrite \`${process.env.PREFIX}invitelink\` to use.`,
 		process: function (client, msg, args) {
-      msg.reply(`Invite me to another server: ${config.inviteLink}`);
+      msg.reply(`Invite me to another server: ${process.env.INVITE_LINK}`);
     }
 	},
   'activity': {
-		desc: `Switches bot's activity!\nWrite \`${config.prefix}activity <listening/playing/watching> <activity>\` to use.`,
+		desc: `Switches bot's activity!\nWrite \`${process.env.PREFIX}activity <listening/playing/watching> <activity>\` to use.`,
 		process: function (client, msg, args) {
       if (msg.author.id === owner){
 				let type = args.shift();
@@ -68,7 +67,7 @@ let commands =  {
     }
 	},
   'stream': {
-		desc: `Apply a stream activity with url to bot.\nWrite \`${config.prefix}stream <game_name> <stream_url>\` to use.`,
+		desc: `Apply a stream activity with url to bot.\nWrite \`${process.env.PREFIX}stream <game_name> <stream_url>\` to use.`,
 		process: function (client, msg, args) {
       if (msg.author.id === owner) {
 				client.user.setActivity(args[0], { type: "STREAMING", url: args[1] });
@@ -79,7 +78,7 @@ let commands =  {
     }
 	},
   'ftn': {
-		desc: `Gets searched user fortnite status!\nWrite \`${config.prefix}ftn <pc/psn/xb1> <player_name>\` to use.`,
+		desc: `Gets searched user fortnite status!\nWrite \`${process.env.PREFIX}ftn <pc/psn/xb1> <player_name>\` to use.`,
 		process: function (client, msg, args) {
       if (args[0] != 'pc' && args[0] != 'psn' && args[0] != 'xb1'){
 				msg.channel.send('Invalid parameters!');
@@ -90,7 +89,7 @@ let commands =  {
 				method: 'GET',
 				url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${(args.slice(1)).join('%20')}`,
 				headers: {
-					'TRN-Api-Key': `${config.apiFTN}`
+					'TRN-Api-Key': `${process.env.API_FTN}`
 				}
 			}, function(err, res, body) {
 				let userInfo = JSON.parse(body);
@@ -103,9 +102,9 @@ let commands =  {
     }
 	},
   'wtt': {
-		desc: `Gets searched location temperature in Celsius.\nWrite \`${config.prefix}wtt <city_name>\` to use.`,
+		desc: `Gets searched location temperature in Celsius.\nWrite \`${process.env.PREFIX}wtt <city_name>\` to use.`,
 		process: function (client, msg, args) {
-      request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join("+")}&APPID=${config.apiWTT}`, function(err, res, body) {
+      request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join("+")}&APPID=${process.env.API_WTT}`, function(err, res, body) {
 				try {
 					let wttInfo = JSON.parse(body);
 					msg.channel.send(`${wttInfo.name} ${Math.round(wttInfo.main.temp - 273.15)}ºC`)
@@ -116,7 +115,7 @@ let commands =  {
     }
 	},
   'urban': {
-		desc: `Sends search urban dictionary description and url.\nWrite \`${config.prefix}urban <search>\` to use.`,
+		desc: `Sends search urban dictionary description and url.\nWrite \`${process.env.PREFIX}urban <search>\` to use.`,
 		process: function (client, msg, args) {
       request.get(`https://api.urbandictionary.com/v0/define?term=${args.join("-")}`, function(err, res, body) {
 				let json = JSON.parse(body);
@@ -125,7 +124,7 @@ let commands =  {
     }
 	},
 	'gi': {
-		desc: `Get searched image.\nWrite \`${config.prefix}gi <search>\` to use.`,
+		desc: `Get searched image.\nWrite \`${process.env.PREFIX}gi <search>\` to use.`,
 		process: async function (client, msg, args) {
 			try {
 				let images = await imagesClient.search(args.join(' ')),
@@ -142,7 +141,7 @@ let commands =  {
 		}
 	},
 	'yt': {
-		desc: `Sends youtube searched video.\nWrite \`${config.prefix}yt\` to use.`,
+		desc: `Sends youtube searched video.\nWrite \`${process.env.PREFIX}yt\` to use.`,
 		process: async function (client, msg, args) {
 			try {
 				let video = await youtube.searchVideos(args.join(' '));
@@ -155,7 +154,7 @@ let commands =  {
 		}
 	},
 	'ship': {
-		desc: `Ship a couple.\nWrite \`${config.prefix}ship <user1> <user2>\` to use.`,
+		desc: `Ship a couple.\nWrite \`${process.env.PREFIX}ship <user1> <user2>\` to use.`,
 		process: function (client, msg, args) {
 			let firstUser = msg.mentions.users.first().username,
 					secondUser = msg.mentions.users.last().username,
@@ -168,7 +167,7 @@ let commands =  {
 		}
 	},
 	'log': {
-		desc: `Get bot's last version changelog.\nWrite \`${config.prefix}log\` to use.`,
+		desc: `Get bot's last version changelog.\nWrite \`${process.env.PREFIX}log\` to use.`,
 		process: function (client, msg, args) {
 			parseChangelog('./CHANGELOG.md', (err, result) => {
 				if (err) throw err
@@ -178,13 +177,13 @@ let commands =  {
 		}
 	},
 	'version': {
-		desc: `Get bot version.\nWrite \`${config.prefix}version\` to use.`,
+		desc: `Get bot version.\nWrite \`${process.env.PREFIX}version\` to use.`,
 		process: function (client, msg, args) {
 			msg.channel.send(`My version is \`${version}\`!`);
 		}
 	},
 	'help': {
-		desc: `Get the description of the searched command.\nWrite \`${config.prefix}help <command>\` to use.`,
+		desc: `Get the description of the searched command.\nWrite \`${process.env.PREFIX}help <command>\` to use.`,
 		process: function (client, msg, args) {
 			try {
 				if(commands.hasOwnProperty(args[0])) {
