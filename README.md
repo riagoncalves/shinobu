@@ -1,6 +1,6 @@
 # ISABOT
 
-Discord bot based in DiscordJS and powered by NOW
+Discord bot based in DiscordJS and powered by Heroku
 
 ### Installation
 
