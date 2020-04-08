@@ -13,10 +13,3 @@ $ cd isabot-discord
 $ npm install
 $ node index.js
 ```
-
-For production deploy ISABOT requires [NOW](https://zeit.co/now)...
-
-```sh
-$ npm run deploy
-```
-Don't forget to remove the previous deploy.

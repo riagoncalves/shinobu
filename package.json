@@ -4,8 +4,7 @@
   "description": "Discord bot built using Discord.js",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "deploy": "now --public"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
