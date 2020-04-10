@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.19.0] - 2020-04-10
+### Changed
+- Bot Rename
+
 ## [0.18.1] - 2020-04-8
 ### Added
 - New activities

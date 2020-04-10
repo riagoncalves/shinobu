@@ -1,10 +1,10 @@
-# ISABOT
+# Shinobu : The Discord bot 
 
 Discord bot based in DiscordJS and powered by Heroku
 
 ### Installation
 
-ISABOT requires [Node.js](https://nodejs.org/) to run.
+Shinobu requires [Node.js](https://nodejs.org/) to run.
 
 Install all dependencies and start `index.js`.
 
