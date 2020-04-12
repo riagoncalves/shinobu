@@ -14,7 +14,7 @@ http.createServer((req, res) => {
 	res.end();
 }).listen(4000);
 
-client.on('ready', () => {
+client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag} v${version}!`);
 	setActivity();
 	sendLog();
