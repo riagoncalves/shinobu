@@ -63,7 +63,7 @@ const guildsChecker = () => {
 				guildName: guild.name,
 				ownerID: guild.ownerID,
 				ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
-				prefix: '+',
+				prefix: process.env.PREFIX,
 			});
 			console.log(`Creating ${guild.name}!`);
 		}
@@ -76,7 +76,7 @@ client.on('guildCreate', function(guild) {
 		guildName: guild.name,
 		ownerID: guild.ownerID,
 		ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
-		prefix: '+',
+		prefix: process.env.PREFIX,
 	});
 });
 
