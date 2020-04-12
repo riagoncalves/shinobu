@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/riagoncalves/isabot-discord.git"
   },
-  "author": "",
+  "author": "riagoncalves.dev",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/riagoncalves/isabot-discord/issues"
@@ -22,7 +22,10 @@
     "discord.js": "^11.4.2",
     "dotenv": "^8.2.0",
     "google-images": "^2.1.0",
-    "request": "^2.88.0"
+    "pg": "^8.0.2",
+    "request": "^2.88.0",
+    "sequelize": "^5.21.6",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0"
