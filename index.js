@@ -6,9 +6,17 @@ const parseChangelog = require('changelog-parser');
 const prefix = process.env.PREFIX;
 const commands = require('./bot/commands.js');
 const version = require('./package.json').version;
+const models = require('./db/models');
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag} v${version}!`);
+
+	models.sequelize.sync().then(function() {
+		console.log('Database connected..');
+	}).catch(function(err) {
+		console.log(`Error: ${err}`);
+	});
+
 	setActivity();
 	sendLog();
 });
