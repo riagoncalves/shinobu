@@ -19,6 +19,7 @@ client.once('ready', () => {
 
 	setActivity();
 	sendLog();
+	guildsChecker();
 });
 
 client.on('message', msg => {
@@ -49,6 +50,24 @@ const setActivity = () => {
 	const activities = require('./bot/activities.json');
 	client.user.setActivity(activities[rndType][Math.floor(Math.random() * activities[rndType].length)], { type: activityTypes[rndType] });
 	console.log('Updated bot\'s activity');
+};
+
+const guildsChecker = () => {
+	client.guilds.forEach(async guild => {
+		if(await models.Guild.findOne({ where: { guildID: guild.id } })) {
+			console.log(`${guild.name} exists!`);
+		}
+		else {
+			models.Guild.create({
+				guildID: guild.id,
+				guildName: guild.name,
+				ownerID: guild.ownerID,
+				ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
+				prefix: '+',
+			});
+			console.log(`Creating ${guild.name}!`);
+		}
+	});
 };
 
 client.on('guildCreate', function(guild) {
