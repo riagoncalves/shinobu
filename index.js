@@ -51,4 +51,19 @@ const setActivity = () => {
 	console.log('Updated bot\'s activity');
 };
 
+client.on('guildCreate', function(guild) {
+	models.Guild.create({
+		guildID: guild.id,
+		guildName: guild.name,
+		ownerID: guild.ownerID,
+		ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
+		prefix: '+',
+	});
+});
+
+client.on('guildDelete', async function(guild) {
+	const deletedGuild = await models.Guild.findOne({ where: { guildID: guild.id } });
+	deletedGuild.destroy();
+});
+
 client.login(`${process.env.TOKEN}`);
