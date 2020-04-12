@@ -7,6 +7,7 @@ const parseChangelog = require('changelog-parser');
 const GoogleImages = require('google-images');
 const imagesClient = new GoogleImages(process.env.CSE_ID, process.env.API_GI);
 const youtube = new YouTube(process.env.API_YT);
+const models = require('../db/models');
 
 const aliases = {
 	'id': 'myid', 'mid': 'myid',
@@ -24,25 +25,33 @@ const aliases = {
 
 const commands = {
 	'myid': {
-		desc: `Sends own user client ID.\nWrite \`${process.env.PREFIX}myid\` to use.`,
+		desc: function(prefix) {
+			return `Sends own user client ID.\nWrite \`${prefix}myid\` to use.`;
+		},
 		process: function(client, msg) {
 			msg.reply(`Your ID is ${msg.author.id}`);
 		},
 	},
 	'ping': {
-		desc: `Sends bot's ping.\nWrite \`${process.env.PREFIX}ping\` to use.`,
+		desc: function(prefix) {
+			return `Sends bot's ping.\nWrite \`${prefix}ping\` to use.`;
+		},
 		process: function(client, msg) {
 			msg.reply(`Your ping is **${Math.round(client.ping)} ms**!`);
 		},
 	},
 	'invitelink': {
-		desc: `Sends bot's invite link.\nWrite \`${process.env.PREFIX}invitelink\` to use.`,
+		desc: function(prefix) {
+			return `Sends bot's invite link.\nWrite \`${prefix}invitelink\` to use.`;
+		},
 		process: function(client, msg) {
 			msg.reply(`Invite me to another server: ${process.env.INVITE_LINK}`);
 		},
 	},
 	'activity': {
-		desc: `Switches bot's activity!\nWrite \`${process.env.PREFIX}activity <listening/playing/watching> <activity>\` to use.`,
+		desc: function(prefix) {
+			return `Switches bot's activity!\nWrite \`${prefix}activity <listening/playing/watching> <activity>\` to use.`;
+		},
 		process: function(client, msg, args) {
 			if (msg.author.id === owner) {
 				const type = args.shift();
@@ -68,7 +77,9 @@ const commands = {
 		},
 	},
 	'stream': {
-		desc: `Apply a stream activity with url to bot.\nWrite \`${process.env.PREFIX}stream <game_name> <stream_url>\` to use.`,
+		desc: function(prefix) {
+			return `Apply a stream activity with url to bot.\nWrite \`${prefix}stream <game_name> <stream_url>\` to use.`;
+		},
 		process: function(client, msg, args) {
 			if (msg.author.id === owner) {
 				client.user.setActivity(args[0], { type: 'STREAMING', url: args[1] });
@@ -80,7 +91,9 @@ const commands = {
 		},
 	},
 	'ftn': {
-		desc: `Gets searched user fortnite status!\nWrite \`${process.env.PREFIX}ftn <pc/psn/xb1> <player_name>\` to use.`,
+		desc: function(prefix) {
+			return `Gets searched user fortnite status!\nWrite \`${prefix}ftn <pc/psn/xb1> <player_name>\` to use.`;
+		},
 		process: function(client, msg, args) {
 			if (args[0] != 'pc' && args[0] != 'psn' && args[0] != 'xb1') {
 				msg.channel.send('Invalid parameters!');
@@ -105,7 +118,9 @@ const commands = {
 		},
 	},
 	'wtt': {
-		desc: `Gets searched location temperature in Celsius.\nWrite \`${process.env.PREFIX}wtt <city_name>\` to use.`,
+		desc: function(prefix) {
+			return `Gets searched location temperature in Celsius.\nWrite \`${prefix}wtt <city_name>\` to use.`;
+		},
 		process: function(client, msg, args) {
 			request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join('+')}&APPID=${process.env.API_WTT}`, function(err, res, body) {
 				try {
@@ -119,7 +134,9 @@ const commands = {
 		},
 	},
 	'urban': {
-		desc: `Sends search urban dictionary description and url.\nWrite \`${process.env.PREFIX}urban <search>\` to use.`,
+		desc: function(prefix) {
+			return `Sends search urban dictionary description and url.\nWrite \`${prefix}urban <search>\` to use.`;
+		},
 		process: function(client, msg, args) {
 			request.get(`https://api.urbandictionary.com/v0/define?term=${args.join('-')}`, function(err, res, body) {
 				const json = JSON.parse(body);
@@ -128,7 +145,9 @@ const commands = {
 		},
 	},
 	'gi': {
-		desc: `Get searched image.\nWrite \`${process.env.PREFIX}gi <search>\` to use.`,
+		desc: function(prefix) {
+			return `Get searched image.\nWrite \`${prefix}gi <search>\` to use.`;
+		},
 		process: async function(client, msg, args) {
 			try {
 				const images = await imagesClient.search(args.join(' '));
@@ -145,7 +164,9 @@ const commands = {
 		},
 	},
 	'yt': {
-		desc: `Sends youtube searched video.\nWrite \`${process.env.PREFIX}yt\` to use.`,
+		desc: function(prefix) {
+			return `Sends youtube searched video.\nWrite \`${prefix}yt\` to use.`;
+		},
 		process: async function(client, msg, args) {
 			try {
 				const video = await youtube.searchVideos(args.join(' '));
@@ -158,7 +179,9 @@ const commands = {
 		},
 	},
 	'ship': {
-		desc: `Ship a couple.\nWrite \`${process.env.PREFIX}ship <user1> <user2>\` to use.`,
+		desc: function(prefix) {
+			return `Ship a couple.\nWrite \`${prefix}ship <user1> <user2>\` to use.`;
+		},
 		process: function(client, msg) {
 			const firstUser = msg.mentions.users.first().username;
 			const secondUser = msg.mentions.users.last().username;
@@ -171,7 +194,9 @@ const commands = {
 		},
 	},
 	'log': {
-		desc: `Get bot's last version changelog.\nWrite \`${process.env.PREFIX}log\` to use.`,
+		desc: function(prefix) {
+			return `Get bot's last version changelog.\nWrite \`${prefix}log\` to use.`;
+		},
 		process: function(client, msg) {
 			parseChangelog('./CHANGELOG.md', (err, result) => {
 				if (err) throw err;
@@ -181,20 +206,34 @@ const commands = {
 		},
 	},
 	'version': {
-		desc: `Get bot version.\nWrite \`${process.env.PREFIX}version\` to use.`,
+		desc: function(prefix) {
+			return `Get bot version.\nWrite \`${prefix}version\` to use.`;
+		},
 		process: function(client, msg) {
 			msg.channel.send(`My version is \`${version}\`!`);
 		},
 	},
+	'newprefix': {
+		desc: function(prefix) {
+			return `Set new prefix for your server.\nWrite \`${prefix}newprefix\` to use.`;
+		},
+		process: async function(client, msg, args) {
+			const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
+			server.update({ prefix: args[0] });
+			msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
+		},
+	},
 	'help': {
-		desc: `Get the description of the searched command.\nWrite \`${process.env.PREFIX}help <command>\` to use.`,
-		process: function(client, msg, args) {
+		desc: function(prefix) {
+			return `Get the description of the searched command.\nWrite \`${prefix}help <command>\` to use.`;
+		},
+		process: function(client, msg, args, prefix) {
 			try {
 				if(commands.hasOwnProperty(args[0])) {
-					msg.channel.send(`${commands[args[0]].desc}`);
+					msg.channel.send(`${commands[args[0]].desc(prefix)}`);
 				}
 				else {
-					msg.channel.send(`${commands[aliases[args[0]]].desc}`);
+					msg.channel.send(`${commands[aliases[args[0]]].desc(prefix)}`);
 				}
 			}
 			catch (e) {
@@ -203,7 +242,9 @@ const commands = {
 		},
 	},
 	'debugger': {
-		desc: `Apply a stream activity with url to bot.\nWrite \`${process.env.PREFIX}debugger to get message info.`,
+		desc: function(prefix) {
+			return `Apply a stream activity with url to bot.\nWrite \`${prefix}debugger to get message info.`;
+		},
 		process: function(client, msg) {
 			if (msg.author.id === owner) {
 				msg.channel.send(`${msg.guild.name}, ${msg.guild.id}`);
@@ -216,13 +257,14 @@ const commands = {
 	},
 };
 
-module.exports = function(cmd, client, msg, args) {
+module.exports = function(cmd, client, msg, args, prefix) {
+
 	try {
 		if(commands.hasOwnProperty(cmd)) {
-			commands[cmd].process(client, msg, args);
+			commands[cmd].process(client, msg, args, prefix);
 		}
 		else {
-			commands[aliases[cmd]].process(client, msg, args);
+			commands[aliases[cmd]].process(client, msg, args, prefix);
 		}
 	}
 	catch(e) {

@@ -3,7 +3,6 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const parseChangelog = require('changelog-parser');
-const prefix = process.env.PREFIX;
 const commands = require('./bot/commands.js');
 const version = require('./package.json').version;
 const models = require('./db/models');
@@ -22,13 +21,14 @@ client.once('ready', () => {
 	guildsChecker();
 });
 
-client.on('message', msg => {
-	if (!msg.content.startsWith(prefix) || msg.author.bot || msg.channel.type === 'dm') return;
+client.on('message', async msg => {
+	const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
+	if (!msg.content.startsWith(server.prefix) || msg.author.bot || msg.channel.type === 'dm') return;
 
-	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
+	const args = msg.content.slice(server.prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
 
-	commands(cmd, client, msg, args);
+	commands(cmd, client, msg, args, server.prefix);
 
 });
 
