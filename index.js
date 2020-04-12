@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const Discord = require('discord.js');
-const http = require('http');
 const client = new Discord.Client();
 const parseChangelog = require('changelog-parser');
 const prefix = process.env.PREFIX;
@@ -39,7 +38,7 @@ const sendLog = () => {
 const setActivity = () => {
 	const activityTypes = ['LISTENING', 'PLAYING', 'WATCHING'];
 	const rndType = Math.floor(Math.random() * activityTypes.length);
-	const activities = require('./config/activities.json');
+	const activities = require('./bot/activities.json');
 	client.user.setActivity(activities[rndType][Math.floor(Math.random() * activities[rndType].length)], { type: activityTypes[rndType] });
 	console.log('Updated bot\'s activity');
 };
