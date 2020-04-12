@@ -202,6 +202,18 @@ const commands = {
 			}
 		},
 	},
+	'debugger': {
+		desc: `Apply a stream activity with url to bot.\nWrite \`${process.env.PREFIX}debugger to get message info.`,
+		process: function(client, msg) {
+			if (msg.author.id === owner) {
+				msg.channel.send(`${msg.guild.name}, ${msg.guild.id}`);
+				console.log(msg.guild);
+			}
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
+		},
+	},
 };
 
 module.exports = function(cmd, client, msg, args) {
