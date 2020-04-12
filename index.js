@@ -8,12 +8,6 @@ const prefix = process.env.PREFIX;
 const commands = require('./bot/commands.js');
 const version = require('./package.json').version;
 
-http.createServer((req, res) => {
-	res.writeHead(200, { 'Content-type': 'text/plain' });
-	res.write('');
-	res.end();
-}).listen(4000);
-
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag} v${version}!`);
 	setActivity();
