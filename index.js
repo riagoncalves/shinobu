@@ -22,8 +22,12 @@ client.once('ready', () => {
 });
 
 client.on('message', async msg => {
+
+	if (msg.author.bot) return;
+	if (msg.channel.type === 'dm') return;
+
 	const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
-	if (!msg.content.startsWith(server.prefix) || msg.author.bot || msg.channel.type === 'dm') return;
+	if (!msg.content.startsWith(server.prefix)) return;
 
 	const args = msg.content.slice(server.prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
