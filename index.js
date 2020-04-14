@@ -80,6 +80,16 @@ client.on('guildCreate', function(guild) {
 	});
 });
 
+client.on('guildUpdate', async function(oldGuild, newGuild) {
+	const guild = await models.Guild.findOne({ where: { guildID: oldGuild.id } });
+	guild.update({
+		guildID: newGuild.id,
+		guildName: newGuild.name,
+		ownerID: newGuild.ownerID,
+		ownerName: `${newGuild.owner.user.username}#${newGuild.owner.user.discriminator}`,
+	});
+});
+
 client.on('guildDelete', async function(guild) {
 	const deletedGuild = await models.Guild.findOne({ where: { guildID: guild.id } });
 	deletedGuild.destroy();
