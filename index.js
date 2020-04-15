@@ -33,7 +33,7 @@ client.on('message', async msg => {
 	const cmd = args.shift().toLowerCase();
 
 	commands(cmd, client, msg, args, server.prefix);
-
+	userChecker(msg.author);
 });
 
 setInterval(() => {
@@ -65,7 +65,7 @@ const guildsChecker = () => {
 			models.Guild.create({
 				guildID: guild.id,
 				guildName: guild.name,
-				banner: `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`,
+				banner: guild.iconURL,
 				ownerID: guild.ownerID,
 				ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 				prefix: process.env.DEFAULT_PREFIX,
@@ -75,11 +75,25 @@ const guildsChecker = () => {
 	});
 };
 
+const userChecker = async (user) => {
+	if (await models.User.findOne({ where: { userID: user.id } })) {
+		console.log(`${user.username}#${user.discriminator} exists!`);
+	}
+	else {
+		models.User.create({
+			userID: user.id,
+			username: `${user.username}#${user.discriminator}`,
+			photo: user.avatarURL,
+		});
+		console.log(`Creating ${user.username}#${user.discriminator}!`);
+	}
+};
+
 client.on('guildCreate', function(guild) {
 	models.Guild.create({
 		guildID: guild.id,
 		guildName: guild.name,
-		banner: `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`,
+		banner: guild.iconURL,
 		ownerID: guild.ownerID,
 		ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 		prefix: process.env.DEFAULT_PREFIX,
@@ -91,7 +105,7 @@ client.on('guildUpdate', async function(oldGuild, newGuild) {
 	guild.update({
 		guildID: newGuild.id,
 		guildName: newGuild.name,
-		banner: `https://cdn.discordapp.com/icons/${newGuild.id}/${newGuild.icon}.png`,
+		banner: newGuild.iconURL,
 		ownerID: newGuild.ownerID,
 		ownerName: `${newGuild.owner.user.username}#${newGuild.owner.user.discriminator}`,
 	});
