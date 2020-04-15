@@ -65,6 +65,7 @@ const guildsChecker = () => {
 			models.Guild.create({
 				guildID: guild.id,
 				guildName: guild.name,
+				banner: `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`,
 				ownerID: guild.ownerID,
 				ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 				prefix: process.env.PREFIX,
@@ -78,6 +79,7 @@ client.on('guildCreate', function(guild) {
 	models.Guild.create({
 		guildID: guild.id,
 		guildName: guild.name,
+		banner: `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`,
 		ownerID: guild.ownerID,
 		ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 		prefix: process.env.PREFIX,
@@ -89,6 +91,7 @@ client.on('guildUpdate', async function(oldGuild, newGuild) {
 	guild.update({
 		guildID: newGuild.id,
 		guildName: newGuild.name,
+		banner: `https://cdn.discordapp.com/icons/${newGuild.id}/${newGuild.icon}.png`,
 		ownerID: newGuild.ownerID,
 		ownerName: `${newGuild.owner.user.username}#${newGuild.owner.user.discriminator}`,
 	});
