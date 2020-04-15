@@ -18,6 +18,9 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: false,
 			},
+			banner: {
+				type: Sequelize.STRING,
+			},
 			ownerID: {
 				type: Sequelize.STRING,
 				allowNull: false,
