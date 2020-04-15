@@ -68,7 +68,7 @@ const guildsChecker = () => {
 				banner: `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`,
 				ownerID: guild.ownerID,
 				ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
-				prefix: process.env.PREFIX,
+				prefix: process.env.DEFAULT_PREFIX,
 			});
 			console.log(`Creating ${guild.name}!`);
 		}
@@ -82,7 +82,7 @@ client.on('guildCreate', function(guild) {
 		banner: `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`,
 		ownerID: guild.ownerID,
 		ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
-		prefix: process.env.PREFIX,
+		prefix: process.env.DEFAULT_PREFIX,
 	});
 });
 
