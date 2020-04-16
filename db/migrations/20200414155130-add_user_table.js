@@ -22,6 +22,14 @@ module.exports = {
 			photo: {
 				type: Sequelize.STRING,
 			},
+			balance: {
+				type: Sequelize.INTEGER,
+				defaultValue: 0,
+			},
+			experience: {
+				type: Sequelize.INTEGER,
+				defaultValue: 0,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
