@@ -6,6 +6,7 @@ const parseChangelog = require('changelog-parser');
 const commands = require('./bot/commands.js');
 const version = require('./package.json').version;
 const models = require('./db/models');
+const fs = require('fs');
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag} v${version}!`);
@@ -19,6 +20,7 @@ client.once('ready', () => {
 	setActivity();
 	sendLog();
 	guildsChecker();
+	prefixesJson();
 });
 
 client.on('message', async msg => {
@@ -26,13 +28,15 @@ client.on('message', async msg => {
 	if (msg.author.bot) return;
 	if (msg.channel.type === 'dm') return;
 
-	const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
-	if (!msg.content.startsWith(server.prefix)) return;
+	const prefixesFile = JSON.parse(fs.readFileSync('./bot/prefixes.json', 'utf8'));
+	const prefix = prefixesFile[msg.guild.id].prefix;
 
-	const args = msg.content.slice(server.prefix.length).trim().split(/ +/g);
+	if (!msg.content.startsWith(prefix)) return;
+
+	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
 
-	commands(cmd, client, msg, args, server.prefix);
+	commands(cmd, client, msg, args, prefix);
 	userChecker(msg.author);
 });
 
@@ -89,6 +93,25 @@ const userChecker = async (user) => {
 	}
 };
 
+const prefixesJson = async () => {
+	fs.unlink('./bot/prefixes.json', () => {
+		console.log('Deleting prefixes.json!');
+	});
+
+	const prefixes = {};
+	const guilds = await models.Guild.findAll({});
+
+	guilds.forEach(guild => {
+		prefixes[guild.guildID] = {
+			prefix: guild.prefix,
+		};
+	});
+
+	fs.writeFile('./bot/prefixes.json', JSON.stringify(prefixes), () => {
+		console.log('Creating prefixes.json!');
+	});
+};
+
 client.on('guildCreate', function(guild) {
 	models.Guild.create({
 		guildID: guild.id,
@@ -97,6 +120,14 @@ client.on('guildCreate', function(guild) {
 		ownerID: guild.ownerID,
 		ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 		prefix: process.env.DEFAULT_PREFIX,
+	});
+
+	const prefixesFile = JSON.parse(fs.readFileSync('./bot/prefixes.json', 'utf8'));
+	prefixesFile[guild.id] = {
+		prefix: process.env.DEFAULT_PREFIX,
+	};
+	fs.writeFile('./bot/prefixes.json', JSON.stringify(prefixesFile), () => {
+		console.log('Updating prefixes.json!');
 	});
 });
 

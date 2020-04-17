@@ -8,6 +8,7 @@ const GoogleImages = require('google-images');
 const imagesClient = new GoogleImages(process.env.CSE_ID, process.env.API_GI);
 const youtube = new YouTube(process.env.API_YT);
 const models = require('../db/models');
+const fs = require('fs');
 
 const aliases = {
 	'id': 'myid', 'mid': 'myid',
@@ -220,6 +221,15 @@ const commands = {
 		process: async function(client, msg, args) {
 			const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
 			server.update({ prefix: args[0] });
+
+			const prefixesFile = await JSON.parse(fs.readFileSync('./bot/prefixes.json', 'utf8'));
+			prefixesFile[server.guildID] = {
+				prefix: args[0],
+			};
+			fs.writeFile('./bot/prefixes.json', JSON.stringify(prefixesFile), () => {
+				console.log('Updating prefixes.json!');
+			});
+
 			msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
 		},
 	},
