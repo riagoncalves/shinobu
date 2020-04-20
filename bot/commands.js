@@ -1,4 +1,4 @@
-const request = require('request');
+const fetch = require('node-fetch');
 const Discord = require('discord.js');
 const YouTube = require('discord-youtube-api');
 const owner = process.env.OWNER_ID;
@@ -101,21 +101,20 @@ const commands = {
 				return;
 			}
 
-			request({
+			fetch(`https://api.fortnitetracker.com/v1/profile/${args[0]}/${(args.slice(1)).join('%20')}`, {
 				method: 'GET',
-				url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${(args.slice(1)).join('%20')}`,
 				headers: {
 					'TRN-Api-Key': `${process.env.API_FTN}`,
 				},
-			}, function(err, res, body) {
-				const userInfo = JSON.parse(body);
-				try {
-					msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);
-				}
-				catch (e) {
-					msg.channel.send(userInfo.error);
-				}
-			});
+			}).then(res => res.json())
+				.then(userInfo => {
+					try {
+						msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);
+					}
+					catch (e) {
+						msg.channel.send(userInfo.error);
+					}
+				});
 		},
 	},
 	'wtt': {
@@ -123,15 +122,15 @@ const commands = {
 			return `Gets searched location temperature in Celsius.\nWrite \`${prefix}wtt <city_name>\` to use.`;
 		},
 		process: function(client, msg, args) {
-			request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join('+')}&APPID=${process.env.API_WTT}`, function(err, res, body) {
-				try {
-					const wttInfo = JSON.parse(body);
-					msg.channel.send(`${wttInfo.name} ${Math.round(wttInfo.main.temp - 273.15)}ºC`);
-				}
-				catch(e) {
-					msg.channel.send('Invalid location!');
-				}
-			});
+			fetch(`http://api.openweathermap.org/data/2.5/weather?q=${args.join('+')}&APPID=${process.env.API_WTT}`).then(res => res.json())
+				.then(wttInfo => {
+					try {
+						msg.channel.send(`${wttInfo.name} ${Math.round(wttInfo.main.temp - 273.15)}ºC`);
+					}
+					catch(e) {
+						msg.channel.send('Invalid location!');
+					}
+				});
 		},
 	},
 	'urban': {
@@ -139,10 +138,10 @@ const commands = {
 			return `Sends search urban dictionary description and url.\nWrite \`${prefix}urban <search>\` to use.`;
 		},
 		process: function(client, msg, args) {
-			request.get(`https://api.urbandictionary.com/v0/define?term=${args.join('-')}`, function(err, res, body) {
-				const json = JSON.parse(body);
-				msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
-			});
+			fetch(`https://api.urbandictionary.com/v0/define?term=${args.join('-')}`).then(res => res.json())
+				.then(json => {
+					msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
+				});
 		},
 	},
 	'gi': {
