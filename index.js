@@ -47,7 +47,7 @@ setInterval(() => {
 const sendLog = () => {
 	parseChangelog('./CHANGELOG.md', (err, result) => {
 		if (err) throw err;
-		const channel = client.channels.get(`${process.env.DEFAULT_CHANNEL}`);
+		const channel = client.channels.cache.get(`${process.env.DEFAULT_CHANNEL}`);
 		channel.send(`\`\`\`md\n# ${result.title.toUpperCase()}\n\n## ${result.versions[0].title}\n\n${result.versions[0].body}\`\`\``);
 	});
 };
@@ -61,7 +61,7 @@ const setActivity = () => {
 };
 
 const guildsChecker = () => {
-	client.guilds.forEach(async guild => {
+	client.guilds.cache.forEach(async guild => {
 		if(await models.Guild.findOne({ where: { guildID: guild.id } })) {
 			console.log(`${guild.name} exists!`);
 		}
