@@ -22,6 +22,7 @@ const aliases = {
 	'changelog': 'log', 'clog': 'log',
 	'v': 'version',
 	'h': 'help',
+	'setprefix': 'newprefix',
 };
 
 const commands = {
@@ -218,18 +219,23 @@ const commands = {
 			return `Set new prefix for your server.\nWrite \`${prefix}newprefix\` to use.`;
 		},
 		process: async function(client, msg, args) {
-			const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
-			server.update({ prefix: args[0] });
+			if (msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('MANAGE_GUILD') || msg.author.id === owner) {
+				const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
+				server.update({ prefix: args[0] });
 
-			const prefixesFile = await JSON.parse(fs.readFileSync('./bot/prefixes.json', 'utf8'));
-			prefixesFile[server.guildID] = {
-				prefix: args[0],
-			};
-			fs.writeFile('./bot/prefixes.json', JSON.stringify(prefixesFile), () => {
-				console.log('Updating prefixes.json!');
-			});
+				const prefixesFile = await JSON.parse(fs.readFileSync('./bot/prefixes.json', 'utf8'));
+				prefixesFile[server.guildID] = {
+					prefix: args[0],
+				};
+				fs.writeFile('./bot/prefixes.json', JSON.stringify(prefixesFile), () => {
+					console.log('Updating prefixes.json!');
+				});
 
-			msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
+				msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
+			}
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
 		},
 	},
 	'help': {
