@@ -20,7 +20,10 @@ client.once('ready', () => {
 	setActivity();
 	sendLog();
 	guildsChecker();
-	prefixesJson();
+
+	setTimeout(() => {
+		prefixesJson();
+	}, 500);
 });
 
 client.on('message', async msg => {
@@ -69,7 +72,7 @@ const guildsChecker = () => {
 			models.Guild.create({
 				guildID: guild.id,
 				guildName: guild.name,
-				banner: guild.iconURL,
+				banner: guild.iconURL(),
 				ownerID: guild.ownerID,
 				ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 				prefix: process.env.DEFAULT_PREFIX,
@@ -87,7 +90,7 @@ const userChecker = async (user) => {
 		models.User.create({
 			userID: user.id,
 			username: `${user.username}#${user.discriminator}`,
-			photo: user.avatarURL,
+			photo: user.avatarURL(),
 		});
 		console.log(`Creating ${user.username}#${user.discriminator}!`);
 	}
@@ -116,7 +119,7 @@ client.on('guildCreate', function(guild) {
 	models.Guild.create({
 		guildID: guild.id,
 		guildName: guild.name,
-		banner: guild.iconURL,
+		banner: guild.iconURL(),
 		ownerID: guild.ownerID,
 		ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 		prefix: process.env.DEFAULT_PREFIX,
@@ -135,7 +138,7 @@ client.on('guildUpdate', async function(oldGuild, newGuild) {
 	const guild = await models.Guild.findOne({ where: { guildID: oldGuild.id } });
 	guild.update({
 		guildName: newGuild.name,
-		banner: newGuild.iconURL,
+		banner: newGuild.iconURL(),
 		ownerID: newGuild.ownerID,
 		ownerName: `${newGuild.owner.user.username}#${newGuild.owner.user.discriminator}`,
 	});
