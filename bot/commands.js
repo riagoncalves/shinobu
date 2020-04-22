@@ -223,11 +223,11 @@ const commands = {
 				const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
 				server.update({ prefix: args[0] });
 
-				const prefixesFile = await JSON.parse(fs.readFileSync('./bot/prefixes.json', 'utf8'));
+				const prefixesFile = await JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
 				prefixesFile[server.guildID] = {
 					prefix: args[0],
 				};
-				fs.writeFile('./bot/prefixes.json', JSON.stringify(prefixesFile), () => {
+				fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
 					console.log('Updating prefixes.json!');
 				});
 

@@ -31,7 +31,7 @@ client.on('message', async msg => {
 	if (msg.author.bot) return;
 	if (msg.channel.type === 'dm') return;
 
-	const prefixesFile = JSON.parse(fs.readFileSync('./bot/prefixes.json', 'utf8'));
+	const prefixesFile = JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
 	const prefix = prefixesFile[msg.guild.id].prefix;
 
 	if (!msg.content.startsWith(prefix)) return;
@@ -97,7 +97,7 @@ const userChecker = async (user) => {
 };
 
 const prefixesJson = async () => {
-	fs.unlink('./bot/prefixes.json', () => {
+	fs.unlink('./data/prefixes.json', () => {
 		console.log('Deleting prefixes.json!');
 	});
 
@@ -110,7 +110,7 @@ const prefixesJson = async () => {
 		};
 	});
 
-	fs.writeFile('./bot/prefixes.json', JSON.stringify(prefixes), () => {
+	fs.writeFile('./data/prefixes.json', JSON.stringify(prefixes), () => {
 		console.log('Creating prefixes.json!');
 	});
 };
@@ -125,11 +125,11 @@ client.on('guildCreate', (guild) => {
 		prefix: process.env.DEFAULT_PREFIX,
 	});
 
-	const prefixesFile = JSON.parse(fs.readFileSync('./bot/prefixes.json', 'utf8'));
+	const prefixesFile = JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
 	prefixesFile[guild.id] = {
 		prefix: process.env.DEFAULT_PREFIX,
 	};
-	fs.writeFile('./bot/prefixes.json', JSON.stringify(prefixesFile), () => {
+	fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
 		console.log('Updating prefixes.json!');
 	});
 });
