@@ -11,9 +11,9 @@ const fs = require('fs');
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag} v${version}!`);
 
-	models.sequelize.sync().then(function() {
+	models.sequelize.sync().then(() => {
 		console.log('Database connected..');
-	}).catch(function(err) {
+	}).catch((err) => {
 		console.log(`Error: ${err}`);
 	});
 
@@ -115,7 +115,7 @@ const prefixesJson = async () => {
 	});
 };
 
-client.on('guildCreate', function(guild) {
+client.on('guildCreate', (guild) => {
 	models.Guild.create({
 		guildID: guild.id,
 		guildName: guild.name,
@@ -134,7 +134,7 @@ client.on('guildCreate', function(guild) {
 	});
 });
 
-client.on('guildUpdate', async function(oldGuild, newGuild) {
+client.on('guildUpdate', async (oldGuild, newGuild) => {
 	const guild = await models.Guild.findOne({ where: { guildID: oldGuild.id } });
 	guild.update({
 		guildName: newGuild.name,
@@ -144,7 +144,7 @@ client.on('guildUpdate', async function(oldGuild, newGuild) {
 	});
 });
 
-client.on('guildDelete', async function(guild) {
+client.on('guildDelete', async (guild) => {
 	const deletedGuild = await models.Guild.findOne({ where: { guildID: guild.id } });
 	deletedGuild.destroy();
 });
