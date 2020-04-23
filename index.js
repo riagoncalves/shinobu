@@ -7,6 +7,7 @@ const commands = require('./bot/commands.js');
 const version = require('./package.json').version;
 const models = require('./db/models');
 const fs = require('fs');
+const messageExperience = 2;
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag} v${version}!`);
@@ -31,6 +32,8 @@ client.on('message', async msg => {
 	if (msg.author.bot) return;
 	if (msg.channel.type === 'dm') return;
 
+	userChecker(msg.author, msg);
+
 	const prefixesFile = JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
 	const prefix = prefixesFile[msg.guild.id].prefix;
 
@@ -40,7 +43,6 @@ client.on('message', async msg => {
 	const cmd = args.shift().toLowerCase();
 
 	commands(cmd, client, msg, args, prefix);
-	userChecker(msg.author);
 });
 
 setInterval(() => {
@@ -82,9 +84,11 @@ const guildsChecker = () => {
 	});
 };
 
-const userChecker = async (user) => {
-	if (await models.User.findOne({ where: { userID: user.id } })) {
+const userChecker = async (user, msg) => {
+	const savedUser = await models.User.findOne({ where: { userID: user.id } })
+	if (savedUser) {
 		console.log(`${user.username}#${user.discriminator} exists!`);
+		giveExp(savedUser, msg);
 	}
 	else {
 		models.User.create({
@@ -94,6 +98,20 @@ const userChecker = async (user) => {
 		});
 		console.log(`Creating ${user.username}#${user.discriminator}!`);
 	}
+};
+
+const giveExp = async (user, msg) => {
+	const finalExp = user.experience + messageExperience;
+	const level = user.level + 1 < finalExp ** (1 / 4) ? user.level + 1 : user.level;
+
+	if (level > user.level) {
+		msg.reply(`You reached level ${level}! Congratulations!!`);
+	}
+
+	user.update({
+		experience: finalExp,
+		level: level,
+	});
 };
 
 const prefixesJson = async () => {
