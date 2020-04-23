@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 		photo: DataTypes.STRING,
 		balance: DataTypes.INTEGER,
 		experience: DataTypes.INTEGER,
+		level: DataTypes.INTEGER,
 	}, {});
 	return User;
 };
