@@ -104,7 +104,6 @@ const userChecker = async (user, msg) => {
 const giveExp = async (user, msg) => {
 	const finalExp = user.experience + messageExperience;
 	const level = user.level * expMultiplier < finalExp ? user.level + 1 : user.level;
-	console.log(finalExp);
 
 	if (level > user.level) {
 		msg.reply(`You reached level ${level}! Congratulations!!`);

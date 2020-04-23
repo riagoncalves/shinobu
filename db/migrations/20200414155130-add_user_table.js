@@ -22,7 +22,7 @@ module.exports = {
 			photo: {
 				type: Sequelize.STRING,
 			},
-			balance: {
+			donuts: {
 				type: Sequelize.INTEGER,
 				defaultValue: 0,
 			},
