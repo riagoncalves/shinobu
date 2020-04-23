@@ -8,6 +8,7 @@ const version = require('./package.json').version;
 const models = require('./db/models');
 const fs = require('fs');
 const messageExperience = 2;
+const expMultiplier = 50;
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag} v${version}!`);
@@ -85,7 +86,7 @@ const guildsChecker = () => {
 };
 
 const userChecker = async (user, msg) => {
-	const savedUser = await models.User.findOne({ where: { userID: user.id } })
+	const savedUser = await models.User.findOne({ where: { userID: user.id } });
 	if (savedUser) {
 		console.log(`${user.username}#${user.discriminator} exists!`);
 		giveExp(savedUser, msg);
@@ -102,7 +103,8 @@ const userChecker = async (user, msg) => {
 
 const giveExp = async (user, msg) => {
 	const finalExp = user.experience + messageExperience;
-	const level = user.level + 1 < finalExp ** (1 / 4) ? user.level + 1 : user.level;
+	const level = user.level * expMultiplier < finalExp ? user.level + 1 : user.level;
+	console.log(finalExp);
 
 	if (level > user.level) {
 		msg.reply(`You reached level ${level}! Congratulations!!`);
