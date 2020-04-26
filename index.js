@@ -9,6 +9,8 @@ const models = require('./db/models');
 const fs = require('fs');
 const messageExperience = 2;
 const expMultiplier = 50;
+const initialDonuts = 2000;
+const levelUpDonuts = 500;
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag} v${version}!`);
@@ -96,6 +98,7 @@ const userChecker = async (user, msg) => {
 			userID: user.id,
 			username: `${user.username}#${user.discriminator}`,
 			photo: user.avatarURL({ size: 512, format: 'png' }),
+			donuts: initialDonuts,
 		});
 		console.log(`Creating ${user.username}#${user.discriminator}!`);
 	}
@@ -104,14 +107,17 @@ const userChecker = async (user, msg) => {
 const giveExp = async (user, msg) => {
 	const finalExp = user.experience + messageExperience;
 	const level = user.level * expMultiplier < finalExp ? user.level + 1 : user.level;
+	const donuts = level > user.level ? user.donuts + levelUpDonuts : user.donuts;
 
 	if (level > user.level) {
 		msg.reply(`You reached level ${level}! Congratulations!!`);
+		msg.author.send(`You won **${levelUpDonuts} donuts** for leveling up! 🍩`);
 	}
 
 	user.update({
 		experience: finalExp,
 		level: level,
+		donuts: donuts,
 	});
 };
 
