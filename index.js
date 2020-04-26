@@ -75,7 +75,7 @@ const guildsChecker = () => {
 			models.Guild.create({
 				guildID: guild.id,
 				guildName: guild.name,
-				banner: guild.iconURL(),
+				banner: guild.iconURL({ size: 512, format: 'png' }),
 				ownerID: guild.ownerID,
 				ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 				prefix: process.env.DEFAULT_PREFIX,
@@ -95,7 +95,7 @@ const userChecker = async (user, msg) => {
 		models.User.create({
 			userID: user.id,
 			username: `${user.username}#${user.discriminator}`,
-			photo: user.avatarURL(),
+			photo: user.avatarURL({ size: 512, format: 'png' }),
 		});
 		console.log(`Creating ${user.username}#${user.discriminator}!`);
 	}
@@ -138,7 +138,7 @@ client.on('guildCreate', (guild) => {
 	models.Guild.create({
 		guildID: guild.id,
 		guildName: guild.name,
-		banner: guild.iconURL(),
+		banner: guild.iconURL({ size: 512, format: 'png' }),
 		ownerID: guild.ownerID,
 		ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
 		prefix: process.env.DEFAULT_PREFIX,
@@ -157,7 +157,7 @@ client.on('guildUpdate', async (oldGuild, newGuild) => {
 	const guild = await models.Guild.findOne({ where: { guildID: oldGuild.id } });
 	guild.update({
 		guildName: newGuild.name,
-		banner: newGuild.iconURL(),
+		banner: newGuild.iconURL({ size: 512, format: 'png' }),
 		ownerID: newGuild.ownerID,
 		ownerName: `${newGuild.owner.user.username}#${newGuild.owner.user.discriminator}`,
 	});
