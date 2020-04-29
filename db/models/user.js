@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 		donuts: DataTypes.INTEGER,
 		experience: DataTypes.INTEGER,
 		level: DataTypes.INTEGER,
+		dailyCheck: DataTypes.DATE,
 	}, {});
 	return User;
 };

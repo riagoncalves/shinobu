@@ -99,6 +99,7 @@ const userChecker = async (user, msg) => {
 			username: `${user.username}#${user.discriminator}`,
 			photo: user.avatarURL({ size: 512, format: 'png' }),
 			donuts: initialDonuts,
+			dailyCheck: new Date(new Date().setDate(new Date().getDate() - 1)),
 		});
 		console.log(`Creating ${user.username}#${user.discriminator}!`);
 	}

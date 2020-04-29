@@ -9,6 +9,7 @@ const imagesClient = new GoogleImages(process.env.CSE_ID, process.env.API_GI);
 const youtube = new YouTube(process.env.API_YT);
 const models = require('../db/models');
 const fs = require('fs');
+const dailyDonuts = 100;
 
 const aliases = {
 	'id': 'myid', 'mid': 'myid',
@@ -258,7 +259,7 @@ const commands = {
 	},
 	'debugger': {
 		desc: function(prefix) {
-			return `Apply a stream activity with url to bot.\nWrite \`${prefix}debugger to get message info.`;
+			return `Apply a stream activity with url to bot.\nWrite \`${prefix}debugger\` to get message info.`;
 		},
 		process: function(client, msg) {
 			if (msg.author.id === owner) {
@@ -267,6 +268,28 @@ const commands = {
 			}
 			else {
 				msg.reply('You don\'t have permissions to do that!');
+			}
+		},
+	},
+	'daily': {
+		desc: function(prefix) {
+			return `Write \`${prefix}daily\` to get your daily donuts.`;
+		},
+		process: async function(client, msg) {
+			const user = await models.User.findOne({ where: { userID: msg.author.id } });
+			const hourDiff = Math.abs(user.dailyCheck.getTime() - new Date(Date.now()).getTime()) / 1000 / 60 / 60;
+
+			if(hourDiff >= 20) {
+				const donuts = user.donuts + dailyDonuts;
+				user.update({
+					donuts: donuts,
+					dailyCheck: new Date(Date.now()),
+				});
+
+				msg.reply(`You've received **${dailyDonuts} donuts** as your daily bonus! 🍩`);
+			}
+			else {
+				msg.reply(`It seems you already claimed your daily donuts today, you can get more in: **${20 - Math.round(hourDiff)} hours**`);
 			}
 		},
 	},

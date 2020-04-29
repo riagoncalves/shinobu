@@ -34,6 +34,9 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				defaultValue: 1,
 			},
+			dailyCheck: {
+				type: Sequelize.DATE,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
