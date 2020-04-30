@@ -283,7 +283,7 @@ const commands = {
 	},
 	'kick': {
 		desc: function(prefix) {
-			return `Write \`${prefix}kick <reason>\` to kick a server member.`;
+			return `Write \`${prefix}kick <user> <reason>\` to kick a server member.`;
 		},
 		process: function(client, msg, args) {
 			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
@@ -301,7 +301,7 @@ const commands = {
 	},
 	'ban': {
 		desc: function(prefix) {
-			return `Write \`${prefix}ban <reason>\` to ban a server member.`;
+			return `Write \`${prefix}ban <user> <reason>\` to ban a server member.`;
 		},
 		process: function(client, msg, args) {
 			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
@@ -335,6 +335,41 @@ const commands = {
 		process: function(client, msg, args) {
 			msg.delete();
 			msg.channel.send(args.join(' '));
+		},
+	},
+	'mute': {
+		desc: function(prefix) {
+			return `Write \`${prefix}mute <user>\` to mute temporarly a user.`;
+		},
+		process: async function(client, msg) {
+			if(!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !msg.member.hasPermission('MANAGE_MESSAGES') || !msg.member.hasPermission('MANAGE_CHANNELS') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const mentionMember = msg.mentions.members.first();
+			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+			if(mentionMember.hasPermission('MANAGE_MESSAGES')) return msg.reply('I cannot ban this user! Do I have ban permissions?');
+			let muteRole = msg.guild.roles.cache.find(role => role.name === 'Muted 🔇');
+			if(!muteRole) {
+				try {
+					muteRole = await msg.guild.roles.create({
+						data: {
+							name: 'Muted 🔇',
+							color: '#d49100',
+							permissions: [],
+						},
+					});
+					msg.guild.channels.cache.forEach(async (channel) => {
+						await channel.updateOverwrite(muteRole, {
+							SEND_MESSAGES: false,
+							ADD_REACTIONS: false,
+							SPEAK: false,
+						});
+					});
+				}
+				catch (err) {
+					msg.reply(`Sorry, I couldn't mute because of: ${err}`);
+				}
+			}
+			await (mentionMember.roles.add(muteRole.id));
+			msg.reply(`${mentionMember.displayName} has been muted!!🔇`);
 		},
 	},
 };
