@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const parseChangelog = require('changelog-parser');
+// const parseChangelog = require('changelog-parser');
 const commands = require('./bot/commands.js');
 const version = require('./package.json').version;
 const models = require('./db/models');
@@ -22,7 +22,7 @@ client.once('ready', () => {
 	});
 
 	setActivity();
-	sendLog();
+	// sendLog();
 	guildsChecker();
 
 	setTimeout(() => {
@@ -52,13 +52,13 @@ setInterval(() => {
 	setActivity();
 }, 900000);
 
-const sendLog = () => {
+/* const sendLog = () => {
 	parseChangelog('./CHANGELOG.md', (err, result) => {
 		if (err) throw err;
 		const channel = client.channels.cache.get(`${process.env.DEFAULT_CHANNEL}`);
 		channel.send(`\`\`\`md\n# ${result.title.toUpperCase()}\n\n## ${result.versions[0].title}\n\n${result.versions[0].body}\`\`\``);
 	});
-};
+}; */
 
 const setActivity = () => {
 	const activityTypes = ['LISTENING', 'PLAYING', 'WATCHING'];
