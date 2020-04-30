@@ -56,26 +56,22 @@ const commands = {
 			return `Switches bot's activity!\nWrite \`${prefix}activity <listening/playing/watching> <activity>\` to use.`;
 		},
 		process: function(client, msg, args) {
-			if (msg.author.id === owner) {
-				const type = args.shift();
-				client.user.setActivity(args.join(' '), { type: type.toUpperCase() });
+			if (!(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const type = args.shift();
+			client.user.setActivity(args.join(' '), { type: type.toUpperCase() });
 
-				switch (type.toLowerCase()) {
-				case 'listening':
-					msg.reply(`I'm listening to ${args.join(' ')}!`);
-					break;
+			switch (type.toLowerCase()) {
+			case 'listening':
+				msg.reply(`I'm listening to ${args.join(' ')}!`);
+				break;
 
-				case 'playing':
-					msg.reply(`I'm playing ${args.join(' ')}!`);
-					break;
+			case 'playing':
+				msg.reply(`I'm playing ${args.join(' ')}!`);
+				break;
 
-				case 'watching':
-					msg.reply(`I'm watching to ${args.join(' ')}!`);
-					break;
-				}
-			}
-			else {
-				msg.reply('You don\'t have permissions to do that!');
+			case 'watching':
+				msg.reply(`I'm watching to ${args.join(' ')}!`);
+				break;
 			}
 		},
 	},
@@ -84,13 +80,9 @@ const commands = {
 			return `Apply a stream activity with url to bot.\nWrite \`${prefix}stream <game_name> <stream_url>\` to use.`;
 		},
 		process: function(client, msg, args) {
-			if (msg.author.id === owner) {
-				client.user.setActivity(args[0], { type: 'STREAMING', url: args[1] });
-				msg.reply(`Streaming ${args[0]}!`);
-			}
-			else {
-				msg.reply('You don\'t have permissions to do that!');
-			}
+			if (!(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			client.user.setActivity(args[0], { type: 'STREAMING', url: args[1] });
+			msg.reply(`Streaming ${args[0]}!`);
 		},
 	},
 	'ftn': {
@@ -220,23 +212,19 @@ const commands = {
 			return `Set new prefix for your server.\nWrite \`${prefix}newprefix\` to use.`;
 		},
 		process: async function(client, msg, args) {
-			if (msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('MANAGE_GUILD') || msg.author.id === owner) {
-				const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
-				server.update({ prefix: args[0] });
+			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
+			server.update({ prefix: args[0] });
 
-				const prefixesFile = await JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
-				prefixesFile[server.guildID] = {
-					prefix: args[0],
-				};
-				fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
-					console.log('Updating prefixes.json!');
-				});
+			const prefixesFile = await JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
+			prefixesFile[server.guildID] = {
+				prefix: args[0],
+			};
+			fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
+				console.log('Updating prefixes.json!');
+			});
 
-				msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
-			}
-			else {
-				msg.reply('You don\'t have permissions to do that!');
-			}
+			msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
 		},
 	},
 	'help': {
@@ -291,6 +279,42 @@ const commands = {
 			else {
 				msg.reply(`It seems you already claimed your daily donuts today, you can get more in: **${20 - Math.round(hourDiff)} hours**`);
 			}
+		},
+	},
+	'kick': {
+		desc: function(prefix) {
+			return `Write \`${prefix}kick <reason>\` to kick a server member.`;
+		},
+		process: function(client, msg, args) {
+			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const mentionMember = msg.mentions.members.first();
+			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+			if(!mentionMember.kickable) return msg.reply('I cannot kick this user! Do I have kick permissions?');
+			let reason = args.slice(1).join(' ');
+			if(!reason) reason = 'No reason provided';
+			mentionMember.kick(reason).then((member) => {
+				msg.channel.send(`${member.displayName} has been successfully kicked!`);
+			}).catch((err) => {
+				msg.reply(`Sorry, I couldn't ban because of: ${err}`);
+			});
+		},
+	},
+	'ban': {
+		desc: function(prefix) {
+			return `Write \`${prefix}kick <reason>\` to kick a server member.`;
+		},
+		process: function(client, msg, args) {
+			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const mentionMember = msg.mentions.members.first();
+			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+			if(!mentionMember.bannable) return msg.reply('I cannot ban this user! Do I have ban permissions?');
+			let reason = args.slice(1).join(' ');
+			if(!reason) reason = 'No reason provided';
+			mentionMember.ban({ reason: reason }).then((member) => {
+				msg.channel.send(`${member.displayName} has been successfully banned!`);
+			}).catch((err) => {
+				msg.reply(`Sorry, I couldn't ban because of: ${err}`);
+			});
 		},
 	},
 };
