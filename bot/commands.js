@@ -301,7 +301,7 @@ const commands = {
 	},
 	'ban': {
 		desc: function(prefix) {
-			return `Write \`${prefix}kick <reason>\` to kick a server member.`;
+			return `Write \`${prefix}ban <reason>\` to ban a server member.`;
 		},
 		process: function(client, msg, args) {
 			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
