@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.0] - 2020-05-01
+### Added
+- Database
+- Level up system
+- Currency system
+- Daily currency command
+- Server custom prefix command
+- Profile command
+- Kick command
+- Ban command
+- Purge command
+- Set Nickname command
+### Fixed
+- Youtube command - Bot was not sending videos before because API Key expired
+- Ping command - Ping value was not the correct one
+### Removed
+- CHANGELOG on start
+
 ## [0.19.0] - 2020-04-10
 ### Changed
 - Bot Rename

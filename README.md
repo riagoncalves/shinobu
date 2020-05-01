@@ -9,7 +9,7 @@ Shinobu requires [Node.js](https://nodejs.org/) to run.
 Install all dependencies and start `index.js`.
 
 ```sh
-$ cd isabot-discord
+$ cd shinobu
 $ npm install
 $ node index.js
 ```
