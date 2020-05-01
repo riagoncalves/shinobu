@@ -1,4 +1,4 @@
-const request = require('request');
+const fetch = require('node-fetch');
 const Discord = require('discord.js');
 const YouTube = require('discord-youtube-api');
 const owner = process.env.OWNER_ID;
@@ -7,6 +7,9 @@ const parseChangelog = require('changelog-parser');
 const GoogleImages = require('google-images');
 const imagesClient = new GoogleImages(process.env.CSE_ID, process.env.API_GI);
 const youtube = new YouTube(process.env.API_YT);
+const models = require('../db/models');
+const fs = require('fs');
+const dailyDonuts = 100;
 
 const aliases = {
 	'id': 'myid', 'mid': 'myid',
@@ -20,115 +23,126 @@ const aliases = {
 	'changelog': 'log', 'clog': 'log',
 	'v': 'version',
 	'h': 'help',
+	'setprefix': 'newprefix',
+	'nick': 'setnickname', 'setnick': 'setnickname',
 };
 
 const commands = {
 	'myid': {
-		desc: `Sends own user client ID.\nWrite \`${process.env.PREFIX}myid\` to use.`,
+		desc: function(prefix) {
+			return `Sends own user client ID.\nWrite \`${prefix}myid\` to use.`;
+		},
 		process: function(client, msg) {
 			msg.reply(`Your ID is ${msg.author.id}`);
 		},
 	},
 	'ping': {
-		desc: `Sends bot's ping.\nWrite \`${process.env.PREFIX}ping\` to use.`,
+		desc: function(prefix) {
+			return `Sends bot's ping.\nWrite \`${prefix}ping\` to use.`;
+		},
 		process: function(client, msg) {
-			msg.reply(`Your ping is **${Math.round(client.ping)} ms**!`);
+			msg.reply(`Your ping is **${Math.round(Date.now() - msg.createdTimestamp)} ms**!`);
 		},
 	},
 	'invitelink': {
-		desc: `Sends bot's invite link.\nWrite \`${process.env.PREFIX}invitelink\` to use.`,
+		desc: function(prefix) {
+			return `Sends bot's invite link.\nWrite \`${prefix}invitelink\` to use.`;
+		},
 		process: function(client, msg) {
 			msg.reply(`Invite me to another server: ${process.env.INVITE_LINK}`);
 		},
 	},
 	'activity': {
-		desc: `Switches bot's activity!\nWrite \`${process.env.PREFIX}activity <listening/playing/watching> <activity>\` to use.`,
+		desc: function(prefix) {
+			return `Switches bot's activity!\nWrite \`${prefix}activity <listening/playing/watching> <activity>\` to use.`;
+		},
 		process: function(client, msg, args) {
-			if (msg.author.id === owner) {
-				const type = args.shift();
-				client.user.setActivity(args.join(' '), { type: type.toUpperCase() });
+			if (!(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const type = args.shift();
+			client.user.setActivity(args.join(' '), { type: type.toUpperCase() });
 
-				switch (type.toLowerCase()) {
-				case 'listening':
-					msg.reply(`I'm listening to ${args.join(' ')}!`);
-					break;
+			switch (type.toLowerCase()) {
+			case 'listening':
+				msg.reply(`I'm listening to ${args.join(' ')}!`);
+				break;
 
-				case 'playing':
-					msg.reply(`I'm playing ${args.join(' ')}!`);
-					break;
+			case 'playing':
+				msg.reply(`I'm playing ${args.join(' ')}!`);
+				break;
 
-				case 'watching':
-					msg.reply(`I'm watching to ${args.join(' ')}!`);
-					break;
-				}
-			}
-			else {
-				msg.reply('You don\'t have permissions to do that!');
+			case 'watching':
+				msg.reply(`I'm watching to ${args.join(' ')}!`);
+				break;
 			}
 		},
 	},
 	'stream': {
-		desc: `Apply a stream activity with url to bot.\nWrite \`${process.env.PREFIX}stream <game_name> <stream_url>\` to use.`,
+		desc: function(prefix) {
+			return `Apply a stream activity with url to bot.\nWrite \`${prefix}stream <game_name> <stream_url>\` to use.`;
+		},
 		process: function(client, msg, args) {
-			if (msg.author.id === owner) {
-				client.user.setActivity(args[0], { type: 'STREAMING', url: args[1] });
-				msg.reply(`Streaming ${args[0]}!`);
-			}
-			else {
-				msg.reply('You don\'t have permissions to do that!');
-			}
+			if (!(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			client.user.setActivity(args[0], { type: 'STREAMING', url: args[1] });
+			msg.reply(`Streaming ${args[0]}!`);
 		},
 	},
 	'ftn': {
-		desc: `Gets searched user fortnite status!\nWrite \`${process.env.PREFIX}ftn <pc/psn/xb1> <player_name>\` to use.`,
+		desc: function(prefix) {
+			return `Gets searched user fortnite status!\nWrite \`${prefix}ftn <pc/psn/xb1> <player_name>\` to use.`;
+		},
 		process: function(client, msg, args) {
 			if (args[0] != 'pc' && args[0] != 'psn' && args[0] != 'xb1') {
 				msg.channel.send('Invalid parameters!');
 				return;
 			}
 
-			request({
+			fetch(`https://api.fortnitetracker.com/v1/profile/${args[0]}/${(args.slice(1)).join('%20')}`, {
 				method: 'GET',
-				url: `https://api.fortnitetracker.com/v1/profile/${args[0]}/${(args.slice(1)).join('%20')}`,
 				headers: {
 					'TRN-Api-Key': `${process.env.API_FTN}`,
 				},
-			}, function(err, res, body) {
-				const userInfo = JSON.parse(body);
-				try {
-					msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);
-				}
-				catch (e) {
-					msg.channel.send(userInfo.error);
-				}
-			});
+			}).then(res => res.json())
+				.then(userInfo => {
+					try {
+						msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);
+					}
+					catch (e) {
+						msg.channel.send(userInfo.error);
+					}
+				});
 		},
 	},
 	'wtt': {
-		desc: `Gets searched location temperature in Celsius.\nWrite \`${process.env.PREFIX}wtt <city_name>\` to use.`,
+		desc: function(prefix) {
+			return `Gets searched location temperature in Celsius.\nWrite \`${prefix}wtt <city_name>\` to use.`;
+		},
 		process: function(client, msg, args) {
-			request.get(`http://api.openweathermap.org/data/2.5/weather?q=${args.join('+')}&APPID=${process.env.API_WTT}`, function(err, res, body) {
-				try {
-					const wttInfo = JSON.parse(body);
-					msg.channel.send(`${wttInfo.name} ${Math.round(wttInfo.main.temp - 273.15)}ºC`);
-				}
-				catch(e) {
-					msg.channel.send('Invalid location!');
-				}
-			});
+			fetch(`http://api.openweathermap.org/data/2.5/weather?q=${args.join('+')}&APPID=${process.env.API_WTT}`).then(res => res.json())
+				.then(wttInfo => {
+					try {
+						msg.channel.send(`${wttInfo.name} ${Math.round(wttInfo.main.temp - 273.15)}ºC`);
+					}
+					catch(e) {
+						msg.channel.send('Invalid location!');
+					}
+				});
 		},
 	},
 	'urban': {
-		desc: `Sends search urban dictionary description and url.\nWrite \`${process.env.PREFIX}urban <search>\` to use.`,
+		desc: function(prefix) {
+			return `Sends search urban dictionary description and url.\nWrite \`${prefix}urban <search>\` to use.`;
+		},
 		process: function(client, msg, args) {
-			request.get(`https://api.urbandictionary.com/v0/define?term=${args.join('-')}`, function(err, res, body) {
-				const json = JSON.parse(body);
-				msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
-			});
+			fetch(`https://api.urbandictionary.com/v0/define?term=${args.join('-')}`).then(res => res.json())
+				.then(json => {
+					msg.channel.send(`${json.list[0].definition.replace(/\[/g, '').replace(/\]/g, '')} ${json.list[0].permalink}`);
+				});
 		},
 	},
 	'gi': {
-		desc: `Get searched image.\nWrite \`${process.env.PREFIX}gi <search>\` to use.`,
+		desc: function(prefix) {
+			return `Get searched image.\nWrite \`${prefix}gi <search>\` to use.`;
+		},
 		process: async function(client, msg, args) {
 			try {
 				const images = await imagesClient.search(args.join(' '));
@@ -145,7 +159,9 @@ const commands = {
 		},
 	},
 	'yt': {
-		desc: `Sends youtube searched video.\nWrite \`${process.env.PREFIX}yt\` to use.`,
+		desc: function(prefix) {
+			return `Sends youtube searched video.\nWrite \`${prefix}yt\` to use.`;
+		},
 		process: async function(client, msg, args) {
 			try {
 				const video = await youtube.searchVideos(args.join(' '));
@@ -158,7 +174,9 @@ const commands = {
 		},
 	},
 	'ship': {
-		desc: `Ship a couple.\nWrite \`${process.env.PREFIX}ship <user1> <user2>\` to use.`,
+		desc: function(prefix) {
+			return `Ship a couple.\nWrite \`${prefix}ship <user1> <user2>\` to use.`;
+		},
 		process: function(client, msg) {
 			const firstUser = msg.mentions.users.first().username;
 			const secondUser = msg.mentions.users.last().username;
@@ -171,7 +189,9 @@ const commands = {
 		},
 	},
 	'log': {
-		desc: `Get bot's last version changelog.\nWrite \`${process.env.PREFIX}log\` to use.`,
+		desc: function(prefix) {
+			return `Get bot's last version changelog.\nWrite \`${prefix}log\` to use.`;
+		},
 		process: function(client, msg) {
 			parseChangelog('./CHANGELOG.md', (err, result) => {
 				if (err) throw err;
@@ -181,20 +201,44 @@ const commands = {
 		},
 	},
 	'version': {
-		desc: `Get bot version.\nWrite \`${process.env.PREFIX}version\` to use.`,
+		desc: function(prefix) {
+			return `Get bot version.\nWrite \`${prefix}version\` to use.`;
+		},
 		process: function(client, msg) {
 			msg.channel.send(`My version is \`${version}\`!`);
 		},
 	},
+	'newprefix': {
+		desc: function(prefix) {
+			return `Set new prefix for your server.\nWrite \`${prefix}newprefix\` to use.`;
+		},
+		process: async function(client, msg, args) {
+			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
+			server.update({ prefix: args[0] });
+
+			const prefixesFile = await JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
+			prefixesFile[server.guildID] = {
+				prefix: args[0],
+			};
+			fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
+				console.log('Updating prefixes.json!');
+			});
+
+			msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
+		},
+	},
 	'help': {
-		desc: `Get the description of the searched command.\nWrite \`${process.env.PREFIX}help <command>\` to use.`,
-		process: function(client, msg, args) {
+		desc: function(prefix) {
+			return `Get the description of the searched command.\nWrite \`${prefix}help <command>\` to use.`;
+		},
+		process: function(client, msg, args, prefix) {
 			try {
 				if(commands.hasOwnProperty(args[0])) {
-					msg.channel.send(`${commands[args[0]].desc}`);
+					msg.channel.send(`${commands[args[0]].desc(prefix)}`);
 				}
 				else {
-					msg.channel.send(`${commands[aliases[args[0]]].desc}`);
+					msg.channel.send(`${commands[aliases[args[0]]].desc(prefix)}`);
 				}
 			}
 			catch (e) {
@@ -202,15 +246,168 @@ const commands = {
 			}
 		},
 	},
+	'debugger': {
+		desc: function(prefix) {
+			return `Apply a stream activity with url to bot.\nWrite \`${prefix}debugger\` to get message info.`;
+		},
+		process: function(client, msg) {
+			if (msg.author.id === owner) {
+				msg.channel.send(`${msg.guild.name}, ${msg.guild.id}`);
+				console.log(msg.guild);
+			}
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
+		},
+	},
+	'daily': {
+		desc: function(prefix) {
+			return `Write \`${prefix}daily\` to get your daily donuts.`;
+		},
+		process: async function(client, msg) {
+			const user = await models.User.findOne({ where: { userID: msg.author.id } });
+			const hourDiff = Math.abs(user.dailyCheck.getTime() - new Date(Date.now()).getTime()) / 1000 / 60 / 60;
+
+			if(hourDiff >= 20) {
+				const donuts = user.donuts + dailyDonuts;
+				user.update({
+					donuts: donuts,
+					dailyCheck: new Date(Date.now()),
+				});
+
+				msg.reply(`You've received **${dailyDonuts} donuts** as your daily bonus! 🍩`);
+			}
+			else {
+				msg.reply(`It seems you already claimed your daily donuts today, you can get more in: **${20 - Math.round(hourDiff)} hours**`);
+			}
+		},
+	},
+	'kick': {
+		desc: function(prefix) {
+			return `Write \`${prefix}kick <user> <reason>\` to kick a server member.`;
+		},
+		process: function(client, msg, args) {
+			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const mentionMember = msg.mentions.members.first();
+			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+			if(!mentionMember.kickable) return msg.reply('I cannot kick this user! Do I have kick permissions?');
+			let reason = args.slice(1).join(' ');
+			if(!reason) reason = 'No reason provided';
+			mentionMember.kick(reason).then((member) => {
+				msg.channel.send(`${member.displayName} has been successfully kicked!`);
+			}).catch((err) => {
+				msg.reply(`Sorry, I couldn't ban because of: ${err}`);
+			});
+		},
+	},
+	'ban': {
+		desc: function(prefix) {
+			return `Write \`${prefix}ban <user> <reason>\` to ban a server member.`;
+		},
+		process: function(client, msg, args) {
+			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const mentionMember = msg.mentions.members.first();
+			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+			if(!mentionMember.bannable) return msg.reply('I cannot ban this user! Do I have ban permissions?');
+			let reason = args.slice(1).join(' ');
+			if(!reason) reason = 'No reason provided';
+			mentionMember.ban({ reason: reason }).then((member) => {
+				msg.channel.send(`${member.displayName} has been successfully banned!`);
+			}).catch((err) => {
+				msg.reply(`Sorry, I couldn't ban because of: ${err}`);
+			});
+		},
+	},
+	'purge': {
+		desc: function(prefix) {
+			return `Write \`${prefix}purge <number>\` to delete up to 100 messages.`;
+		},
+		process: function(client, msg, args) {
+			if(!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !msg.member.hasPermission('MANAGE_MESSAGES') || !msg.member.hasPermission('MANAGE_CHANNELS') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const deleteCount = parseInt(args[0], 10) + 1;
+			if(!deleteCount || deleteCount < 2 || deleteCount > 100) return msg.reply('Please provide a number between 2 and 100 for the number of messages to delete');
+			msg.channel.bulkDelete(deleteCount);
+		},
+	},
+	'say': {
+		desc: function(prefix) {
+			return `Write \`${prefix}say <what you want>\` to make the bot say what you want.`;
+		},
+		process: function(client, msg, args) {
+			msg.delete();
+			msg.channel.send(args.join(' '));
+		},
+	},
+	'mute': {
+		desc: function(prefix) {
+			return `Write \`${prefix}mute <user>\` to mute temporarly a user.`;
+		},
+		process: async function(client, msg) {
+			if(!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !msg.member.hasPermission('MANAGE_MESSAGES') || !msg.member.hasPermission('MANAGE_CHANNELS') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const mentionMember = msg.mentions.members.first();
+			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+			if(mentionMember.hasPermission('MANAGE_MESSAGES')) return msg.reply('I cannot ban this user! Do I have ban permissions?');
+			let muteRole = msg.guild.roles.cache.find(role => role.name === 'Muted 🔇');
+			if(!muteRole) {
+				try {
+					muteRole = await msg.guild.roles.create({
+						data: {
+							name: 'Muted 🔇',
+							color: '#d49100',
+							permissions: [],
+						},
+					});
+					msg.guild.channels.cache.forEach(async (channel) => {
+						await channel.updateOverwrite(muteRole, {
+							SEND_MESSAGES: false,
+							ADD_REACTIONS: false,
+							SPEAK: false,
+						});
+					});
+				}
+				catch (err) {
+					msg.reply(`Sorry, I couldn't mute because of: ${err}`);
+				}
+			}
+			await (mentionMember.roles.add(muteRole.id));
+			msg.reply(`${mentionMember.displayName} has been muted!!🔇`);
+		},
+	},
+	'setnickname': {
+		desc: function(prefix) {
+			return `Write \`${prefix}setnickname <user> <nickname>\` to change a user nickname.`;
+		},
+		process: function(client, msg, args) {
+			if(!msg.member.hasPermission('CHANGE_NICKNAME') || !msg.member.hasPermission('MANAGE_NICKNAMES') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const mentionMember = msg.mentions.members.first();
+			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+			const nickname = args.slice(1).join(' ');
+			mentionMember.setNickname(nickname).then(user => {
+				msg.reply(`${user.displayName} nickname has been changed!!`);
+			}).catch((err) => {
+				msg.reply(`Sorry, I couldn't change ${mentionMember.displayName} nickname because of: ${err}`);
+			});
+		},
+	},
+	'profile': {
+		desc: function(prefix) {
+			return `Write \`${prefix}profile\` to see your own profile.`;
+		},
+		process: async function(client, msg) {
+			const user = await models.User.findOne({ where: { userID: msg.author.id } });
+			msg.reply(`You are **level ${user.level}** and you have **${user.donuts} donuts**!!`);
+		},
+	},
 };
 
-module.exports = function(cmd, client, msg, args) {
+module.exports = function(cmd, client, msg, args, prefix) {
+
 	try {
 		if(commands.hasOwnProperty(cmd)) {
-			commands[cmd].process(client, msg, args);
+			commands[cmd].process(client, msg, args, prefix);
 		}
 		else {
-			commands[aliases[cmd]].process(client, msg, args);
+			commands[aliases[cmd]].process(client, msg, args, prefix);
 		}
 	}
 	catch(e) {
