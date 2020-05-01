@@ -389,6 +389,15 @@ const commands = {
 			});
 		},
 	},
+	'profile': {
+		desc: function(prefix) {
+			return `Write \`${prefix}profile\` to see your own profile.`;
+		},
+		process: async function(client, msg) {
+			const user = await models.User.findOne({ where: { userID: msg.author.id } });
+			msg.reply(`You are **level ${user.level}** and you have **${user.donuts} donuts**!!`);
+		},
+	},
 };
 
 module.exports = function(cmd, client, msg, args, prefix) {
