@@ -24,6 +24,7 @@ const aliases = {
 	'v': 'version',
 	'h': 'help',
 	'setprefix': 'newprefix',
+	'nick': 'setnickname', 'setnick': 'setnickname',
 };
 
 const commands = {
@@ -370,6 +371,22 @@ const commands = {
 			}
 			await (mentionMember.roles.add(muteRole.id));
 			msg.reply(`${mentionMember.displayName} has been muted!!🔇`);
+		},
+	},
+	'setnickname': {
+		desc: function(prefix) {
+			return `Write \`${prefix}setnickname <user> <nickname>\` to change a user nickname.`;
+		},
+		process: function(client, msg, args) {
+			if(!msg.member.hasPermission('CHANGE_NICKNAME') || !msg.member.hasPermission('MANAGE_NICKNAMES') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			const mentionMember = msg.mentions.members.first();
+			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+			const nickname = args.slice(1).join(' ');
+			mentionMember.setNickname(nickname).then(user => {
+				msg.reply(`${user.displayName} nickname has been changed!!`);
+			}).catch((err) => {
+				msg.reply(`Sorry, I couldn't change ${mentionMember.displayName} nickname because of: ${err}`);
+			});
 		},
 	},
 };
