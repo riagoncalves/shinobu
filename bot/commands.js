@@ -213,19 +213,22 @@ const commands = {
 			return `Set new prefix for your server.\nWrite \`${prefix}newprefix\` to use.`;
 		},
 		process: async function(client, msg, args) {
-			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
-			const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
-			server.update({ prefix: args[0] });
+			if (msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('MANAGE_GUILD') || (msg.author.id === owner)) {
+				const server = await models.Guild.findOne({ where: { guildID: msg.channel.guild.id } });
+				server.update({ prefix: args[0] });
 
-			const prefixesFile = await JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
-			prefixesFile[server.guildID] = {
-				prefix: args[0],
-			};
-			fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
-				console.log('Updating prefixes.json!');
-			});
-
-			msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
+				const prefixesFile = await JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
+				prefixesFile[server.guildID] = {
+					prefix: args[0],
+				};
+				fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
+					console.log('Updating prefixes.json!');
+				});
+				msg.channel.send(`Your server new prefix is \`${args[0]}\`!`);
+			}
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
 		},
 	},
 	'help': {
@@ -251,13 +254,9 @@ const commands = {
 			return `Apply a stream activity with url to bot.\nWrite \`${prefix}debugger\` to get message info.`;
 		},
 		process: function(client, msg) {
-			if (msg.author.id === owner) {
-				msg.channel.send(`${msg.guild.name}, ${msg.guild.id}`);
-				console.log(msg.guild);
-			}
-			else {
-				msg.reply('You don\'t have permissions to do that!');
-			}
+			if (!(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+			msg.channel.send(`${msg.guild.name}, ${msg.guild.id}`);
+			console.log(msg.guild);
 		},
 	},
 	'daily': {
@@ -287,17 +286,21 @@ const commands = {
 			return `Write \`${prefix}kick <user> <reason>\` to kick a server member.`;
 		},
 		process: function(client, msg, args) {
-			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
-			const mentionMember = msg.mentions.members.first();
-			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
-			if(!mentionMember.kickable) return msg.reply('I cannot kick this user! Do I have kick permissions?');
-			let reason = args.slice(1).join(' ');
-			if(!reason) reason = 'No reason provided';
-			mentionMember.kick(reason).then((member) => {
-				msg.channel.send(`${member.displayName} has been successfully kicked!`);
-			}).catch((err) => {
-				msg.reply(`Sorry, I couldn't ban because of: ${err}`);
-			});
+			if (msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('MANAGE_GUILD') || (msg.author.id === owner)) {
+				const mentionMember = msg.mentions.members.first();
+				if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+				if(!mentionMember.kickable) return msg.reply('I cannot kick this user! Do I have kick permissions?');
+				let reason = args.slice(1).join(' ');
+				if(!reason) reason = 'No reason provided';
+				mentionMember.kick(reason).then((member) => {
+					msg.channel.send(`${member.displayName} has been successfully kicked!`);
+				}).catch((err) => {
+					msg.reply(`Sorry, I couldn't ban because of: ${err}`);
+				});
+			}
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
 		},
 	},
 	'ban': {
@@ -305,17 +308,21 @@ const commands = {
 			return `Write \`${prefix}ban <user> <reason>\` to ban a server member.`;
 		},
 		process: function(client, msg, args) {
-			if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
-			const mentionMember = msg.mentions.members.first();
-			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
-			if(!mentionMember.bannable) return msg.reply('I cannot ban this user! Do I have ban permissions?');
-			let reason = args.slice(1).join(' ');
-			if(!reason) reason = 'No reason provided';
-			mentionMember.ban({ reason: reason }).then((member) => {
-				msg.channel.send(`${member.displayName} has been successfully banned!`);
-			}).catch((err) => {
-				msg.reply(`Sorry, I couldn't ban because of: ${err}`);
-			});
+			if (msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('MANAGE_GUILD') || (msg.author.id === owner)) {
+				const mentionMember = msg.mentions.members.first();
+				if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+				if(!mentionMember.bannable) return msg.reply('I cannot ban this user! Do I have ban permissions?');
+				let reason = args.slice(1).join(' ');
+				if(!reason) reason = 'No reason provided';
+				mentionMember.ban({ reason: reason }).then((member) => {
+					msg.channel.send(`${member.displayName} has been successfully banned!`);
+				}).catch((err) => {
+					msg.reply(`Sorry, I couldn't ban because of: ${err}`);
+				});
+			}
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
 		},
 	},
 	'purge': {
@@ -323,10 +330,14 @@ const commands = {
 			return `Write \`${prefix}purge <number>\` to delete up to 100 messages.`;
 		},
 		process: function(client, msg, args) {
-			if(!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !msg.member.hasPermission('MANAGE_MESSAGES') || !msg.member.hasPermission('MANAGE_CHANNELS') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
-			const deleteCount = parseInt(args[0], 10) + 1;
-			if(!deleteCount || deleteCount < 2 || deleteCount > 100) return msg.reply('Please provide a number between 2 and 100 for the number of messages to delete');
-			msg.channel.bulkDelete(deleteCount);
+			if(msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('MANAGE_GUILD') || msg.member.hasPermission('MANAGE_MESSAGES') || msg.member.hasPermission('MANAGE_CHANNELS') || (msg.author.id === owner)) {
+				const deleteCount = parseInt(args[0], 10) + 1;
+				if(!deleteCount || deleteCount < 2 || deleteCount > 100) return msg.reply('Please provide a number between 2 and 100 for the number of messages to delete');
+				msg.channel.bulkDelete(deleteCount);
+			}
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
 		},
 	},
 	'say': {
@@ -343,34 +354,38 @@ const commands = {
 			return `Write \`${prefix}mute <user>\` to mute temporarly a user.`;
 		},
 		process: async function(client, msg) {
-			if(!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('MANAGE_GUILD') || !msg.member.hasPermission('MANAGE_MESSAGES') || !msg.member.hasPermission('MANAGE_CHANNELS') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
-			const mentionMember = msg.mentions.members.first();
-			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
-			if(mentionMember.hasPermission('MANAGE_MESSAGES')) return msg.reply('I cannot ban this user! Do I have ban permissions?');
-			let muteRole = msg.guild.roles.cache.find(role => role.name === 'Muted 🔇');
-			if(!muteRole) {
-				try {
-					muteRole = await msg.guild.roles.create({
-						data: {
-							name: 'Muted 🔇',
-							color: '#d49100',
-							permissions: [],
-						},
-					});
-					msg.guild.channels.cache.forEach(async (channel) => {
-						await channel.updateOverwrite(muteRole, {
-							SEND_MESSAGES: false,
-							ADD_REACTIONS: false,
-							SPEAK: false,
+			if(msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('MANAGE_GUILD') || msg.member.hasPermission('MANAGE_MESSAGES') || msg.member.hasPermission('MANAGE_CHANNELS') || (msg.author.id === owner)) {
+				const mentionMember = msg.mentions.members.first();
+				if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+				if(mentionMember.hasPermission('MANAGE_MESSAGES')) return msg.reply('I cannot ban this user! Do I have ban permissions?');
+				let muteRole = msg.guild.roles.cache.find(role => role.name === 'Muted 🔇');
+				if(!muteRole) {
+					try {
+						muteRole = await msg.guild.roles.create({
+							data: {
+								name: 'Muted 🔇',
+								color: '#d49100',
+								permissions: [],
+							},
 						});
-					});
+						msg.guild.channels.cache.forEach(async (channel) => {
+							await channel.updateOverwrite(muteRole, {
+								SEND_MESSAGES: false,
+								ADD_REACTIONS: false,
+								SPEAK: false,
+							});
+						});
+					}
+					catch (err) {
+						msg.reply(`Sorry, I couldn't mute because of: ${err}`);
+					}
 				}
-				catch (err) {
-					msg.reply(`Sorry, I couldn't mute because of: ${err}`);
-				}
+				await (mentionMember.roles.add(muteRole.id));
+				msg.reply(`${mentionMember.displayName} has been muted!!🔇`);
 			}
-			await (mentionMember.roles.add(muteRole.id));
-			msg.reply(`${mentionMember.displayName} has been muted!!🔇`);
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
 		},
 	},
 	'setnickname': {
@@ -378,15 +393,19 @@ const commands = {
 			return `Write \`${prefix}setnickname <user> <nickname>\` to change a user nickname.`;
 		},
 		process: function(client, msg, args) {
-			if(!msg.member.hasPermission('CHANGE_NICKNAME') || !msg.member.hasPermission('MANAGE_NICKNAMES') || !(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
-			const mentionMember = msg.mentions.members.first();
-			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
-			const nickname = args.slice(1).join(' ');
-			mentionMember.setNickname(nickname).then(user => {
-				msg.reply(`${user.displayName} nickname has been changed!!`);
-			}).catch((err) => {
-				msg.reply(`Sorry, I couldn't change ${mentionMember.displayName} nickname because of: ${err}`);
-			});
+			if(msg.member.hasPermission('CHANGE_NICKNAME') || msg.member.hasPermission('MANAGE_NICKNAMES') || (msg.author.id === owner)) {
+				const mentionMember = msg.mentions.members.first();
+				if(!mentionMember) return msg.reply('Please mention a valid member of this server');
+				const nickname = args.slice(1).join(' ');
+				mentionMember.setNickname(nickname).then(user => {
+					msg.reply(`${user.displayName} nickname has been changed!!`);
+				}).catch((err) => {
+					msg.reply(`Sorry, I couldn't change ${mentionMember.displayName} nickname because of: ${err}`);
+				});
+			}
+			else {
+				msg.reply('You don\'t have permissions to do that!');
+			}
 		},
 	},
 	'profile': {
