@@ -111,7 +111,7 @@ const giveExp = async (user, msg) => {
 	const donuts = level > user.level ? user.donuts + levelUpDonuts : user.donuts;
 
 	if (level > user.level) {
-		msg.reply(`You reached level ${level}! Congratulations!!`);
+		msg.channel.send(`**${msg.author.username}** you reached **level ${level}**! Congratulations!!`);
 		msg.author.send(`You won **${levelUpDonuts} donuts** for leveling up! 🍩`);
 	}
 

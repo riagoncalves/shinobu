@@ -1,6 +1,8 @@
 # Changelog
 
 ## [1.0.1] - 2020-05-02
+### Changed
+- Level up copy no longer mentions the user
 ### Fixed
 - Level experience formula
 
