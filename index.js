@@ -107,7 +107,7 @@ const userChecker = async (user, msg) => {
 
 const giveExp = async (user, msg) => {
 	const finalExp = user.experience + messageExperience;
-	const level = user.level * expMultiplier < finalExp ? user.level + 1 : user.level;
+	const level = user.level * expMultiplier < finalExp - ((user.level - 1) * expMultiplier) ? user.level + 1 : user.level;
 	const donuts = level > user.level ? user.donuts + levelUpDonuts : user.donuts;
 
 	if (level > user.level) {
