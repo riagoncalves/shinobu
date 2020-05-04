@@ -106,9 +106,10 @@ const userChecker = async (user, msg) => {
 };
 
 const giveExp = async (user, msg) => {
-	const finalExp = user.experience + messageExperience;
-	const level = user.level * expMultiplier < finalExp - ((user.level - 1) * expMultiplier) ? user.level + 1 : user.level;
+	let finalExp = user.experience + messageExperience;
+	const level = user.level * expMultiplier < finalExp ? user.level + 1 : user.level;
 	const donuts = level > user.level ? user.donuts + levelUpDonuts : user.donuts;
+	finalExp = level > user.level ? 0 : finalExp;
 
 	if (level > user.level) {
 		msg.channel.send(`**${msg.author.username}** you reached **level ${level}**! Congratulations!!`);
