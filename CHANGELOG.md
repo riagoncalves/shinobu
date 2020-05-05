@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] - 2020-05-05
+### Added
+- Profile command displays other users profile too
+
 ## [1.0.2] - 2020-05-05
 ### Changed
 - Users now take 4x more messages to level up
