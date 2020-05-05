@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.2] - 2020-05-05
+### Changed
+- Users now take 4x more messages to level up
+### Fixed
+- Purge 100 messages
+
 ## [1.0.1] - 2020-05-02
 ### Changed
 - Level up copy no longer mentions the user

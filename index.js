@@ -8,7 +8,7 @@ const version = require('./package.json').version;
 const models = require('./db/models');
 const fs = require('fs');
 const messageExperience = 1;
-const expMultiplier = 50;
+const expMultiplier = 100;
 const initialDonuts = 2000;
 const levelUpDonuts = 500;
 
