@@ -416,6 +416,7 @@ const commands = {
 		process: async function(client, msg) {
 			if(msg.mentions.users.first()) {
 				const user = await models.User.findOne({ where: { userID: msg.mentions.users.first().id } });
+				if(!user) return msg.channel.send('Invalid user!');
 				return msg.channel.send(`**${msg.mentions.users.first().username}** is **level ${user.level}** and has **${user.donuts} donuts**!!`);
 			}
 			const user = await models.User.findOne({ where: { userID: msg.author.id } });
