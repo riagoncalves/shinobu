@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.1] - 2020-05-08
+### Changed
+- Bot no longer sends dms on level up, instead it sends the copy of donuts bonus with level up copy message
+
 ## [1.1.0] - 2020-05-05
 ### Added
 - Profile command displays other users profile too

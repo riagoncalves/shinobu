@@ -112,8 +112,8 @@ const giveExp = async (user, msg) => {
 	finalExp = level > user.level ? 0 : finalExp;
 
 	if (level > user.level) {
-		msg.channel.send(`**${msg.author.username}** you reached **level ${level}**! Congratulations!!`);
-		msg.author.send(`You won **${levelUpDonuts} donuts** for leveling up! 🍩`);
+		msg.channel.send(`**${msg.author.username}** you reached **level ${level}**! Congratulations!!\nYou won **${levelUpDonuts} donuts** for leveling up! 🍩`);
+		// msg.author.send(`You won **${levelUpDonuts} donuts** for leveling up! 🍩`);
 	}
 
 	user.update({
