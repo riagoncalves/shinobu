@@ -3,7 +3,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 // const parseChangelog = require('changelog-parser');
-const commands = require('./bot/commands.js');
+const commands = require('./bot/commands');
 const version = require('./package.json').version;
 const models = require('./db/models');
 const fs = require('fs');
