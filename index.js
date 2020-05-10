@@ -1,14 +1,7 @@
 require('dotenv').config();
 
-const actions = require('./bot/actions');
-const client = require('./bot/client.js');
+const { ShardingManager } = require('discord.js');
+const manager = new ShardingManager('./bot.js', { token: process.env.TOKEN });
 
-for (const action in actions) {
-	client.on(action, actions[action].init);
-}
-
-setInterval(() => {
-	actions['ready'].setActivity(client);
-}, 900000);
-
-client.login(`${process.env.TOKEN}`);
+manager.spawn();
+manager.on('shardCreate', shard => console.log(`Launched shard ${shard.id}`));

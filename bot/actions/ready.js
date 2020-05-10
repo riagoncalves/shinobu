@@ -12,22 +12,27 @@ const functions = {
 		bot.user.setActivity(activities[rndType][Math.floor(Math.random() * activities[rndType].length)], { type: activityTypes[rndType] });
 		console.log('Updated bot\'s activity');
 	},
-	guildsChecker(bot) {
-		bot.guilds.cache.forEach(async guild => {
-			if(await models.Guild.findOne({ where: { guildID: guild.id } })) {
-				console.log(`${guild.name} exists!`);
-			}
-			else {
-				models.Guild.create({
-					guildID: guild.id,
-					guildName: guild.name,
-					banner: guild.iconURL({ size: 512, format: 'png' }),
-					ownerID: guild.ownerID,
-					ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
-					prefix: process.env.DEFAULT_PREFIX,
+	async guildsChecker(bot) {
+		bot.shard.fetchClientValues('guilds.cache').then(results => {
+			results.forEach(result => {
+				result.forEach(async guild => {
+					if(await models.Guild.findOne({ where: { guildID: guild.id } })) {
+						console.log(`${guild.name} exists!`);
+					}
+					else {
+						const owner = await models.User.findOne({ where: { userID: guild.ownerID } });
+						models.Guild.create({
+							guildID: guild.id,
+							guildName: guild.name,
+							banner: guild.iconURL,
+							ownerID: guild.ownerID,
+							ownerName: owner.username || null,
+							prefix: process.env.DEFAULT_PREFIX,
+						});
+						console.log(`Creating ${guild.name}!`);
+					}
 				});
-				console.log(`Creating ${guild.name}!`);
-			}
+			});
 		});
 	},
 	async prefixesJson() {

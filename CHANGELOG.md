@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.0] - 2020-05-10
+### Added
+- Sharding system
+
 ## [1.1.1] - 2020-05-08
 ### Changed
 - Bot no longer sends dms on level up, instead it sends the copy of donuts bonus with level up copy message
