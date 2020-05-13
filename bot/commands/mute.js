@@ -8,7 +8,7 @@ module.exports = {
 		if(msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('MANAGE_GUILD') || msg.member.hasPermission('MANAGE_MESSAGES') || msg.member.hasPermission('MANAGE_CHANNELS') || (msg.author.id === owner)) {
 			const mentionMember = msg.mentions.members.first();
 			if(!mentionMember) return msg.reply('Please mention a valid member of this server');
-			if(mentionMember.hasPermission('MANAGE_MESSAGES')) return msg.reply('I cannot ban this user! Do I have ban permissions?');
+			if(mentionMember.hasPermission('MANAGE_MESSAGES')) return msg.reply('I cannot mute this user!');
 			let muteRole = msg.guild.roles.cache.find(role => role.name === 'Muted 🔇');
 			if(!muteRole) {
 				try {
