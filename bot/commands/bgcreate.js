@@ -7,7 +7,7 @@ module.exports = {
 	},
 	process: function(client, msg, args) {
 		if (!(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
-		if (args.length < 3) return msg.reply('There are arguments missing.');
+		if (args.length != 3) return msg.reply('Invalid arguments number!');
 
 		const name = args[0];
 		const link = args[1];
