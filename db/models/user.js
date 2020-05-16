@@ -9,5 +9,10 @@ module.exports = (sequelize, DataTypes) => {
 		level: DataTypes.INTEGER,
 		dailyCheck: DataTypes.DATE,
 	}, {});
+
+	User.associate = function(models) {
+		User.hasMany(models.UserBackground, { as: 'backgrounds' });
+	};
+
 	return User;
 };
