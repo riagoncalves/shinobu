@@ -20,10 +20,10 @@ commands['help'] = {
 	process: function(client, msg, args, prefix) {
 		try {
 			if(commands.hasOwnProperty(args[0])) {
-				msg.channel.send(`${commands[args[0]].desc(prefix)}`);
+				msg.channel.send(commands[args[0]].desc(prefix));
 			}
 			else {
-				msg.channel.send(`${commands[aliases[args[0]]].desc(prefix)}`);
+				msg.channel.send(commands[aliases[args[0]]].desc(prefix));
 			}
 		}
 		catch (e) {
