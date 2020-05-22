@@ -8,10 +8,14 @@ module.exports = (sequelize, DataTypes) => {
 		experience: DataTypes.INTEGER,
 		level: DataTypes.INTEGER,
 		dailyCheck: DataTypes.DATE,
+		rep: DataTypes.INTEGER,
+		repCheck: DataTypes.DATE,
+		title: DataTypes.STRING,
 	}, {});
 
 	User.associate = function(models) {
 		User.hasMany(models.UserBackground, { as: 'backgrounds' });
+		User.belongsTo(models.UserBackground, { as: 'Background' });
 	};
 
 	return User;

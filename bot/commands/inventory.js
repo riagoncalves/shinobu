@@ -12,7 +12,7 @@ module.exports = {
 		userbackgrounds.forEach(background => {
 			backgroundsList.push({
 				name: `\`${background.dataValues.Background.dataValues.name}\``,
-				value: `Type \`${prefix}bg ${background.dataValues.Background.dataValues.name}\` to preview!`,
+				value: `Type \`${prefix}bg show ${background.dataValues.Background.dataValues.name}\` to preview!`,
 			});
 		});
 

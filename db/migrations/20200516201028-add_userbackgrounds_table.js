@@ -2,7 +2,7 @@
 
 module.exports = {
 	up: (queryInterface, Sequelize) => {
-		return queryInterface.createTable('UserAnimes', {
+		return queryInterface.createTable('UserBackgrounds', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,

@@ -113,6 +113,23 @@ module.exports = {
 			break;
 		}
 
+		case 'select': {
+			if (!args[0]) return msg.reply('You need to write the background name!');
+			const name = args[0];
+			const user = await models.User.findOne({ where: { userID: msg.author.id } });
+			const userbackground = await models.UserBackground.findOne({ where: { UserId: user.id }, include: [ { model: models.Background, as: 'Background', where: { name: name } }] });
+
+			if (!userbackground) return msg.reply('You don\'t have this background or this background doesn\'t exist!');
+
+			user.update({
+				BackgroundId: userbackground.dataValues.id,
+			});
+
+			msg.channel.send(`${msg.author.username} you just selected **${name}** as your background!`, { files: [userbackground.dataValues.Background.dataValues.link] });
+
+			break;
+		}
+
 		default: {
 			const richEmbed = new Discord.MessageEmbed()
 				.setColor('#d49100')
