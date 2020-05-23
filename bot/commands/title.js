@@ -18,8 +18,7 @@ module.exports = {
 			return msg.channel.send(`**${msg.author.username}** your new title is **${title}**!`);
 		}
 		else {
-			const title = user.title == null ? 'Empty Head' : user.title;
-			return msg.channel.send(`**${msg.author.username}** your title is **${title}**!`);
+			return msg.channel.send(`**${msg.author.username}** your title is **${user.title}**!`);
 		}
 	},
 };

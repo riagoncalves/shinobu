@@ -24,6 +24,15 @@ module.exports = {
 				'title',
 				{
 					type: Sequelize.STRING,
+					defaultValue: 'Empty Head',
+				},
+			),
+			queryInterface.addColumn(
+				'Users',
+				'color',
+				{
+					type: Sequelize.STRING,
+					defaultValue: '#ffffff',
 				},
 			),
 			queryInterface.addColumn(
@@ -47,6 +56,7 @@ module.exports = {
 			queryInterface.removeColumn('Users', 'rep'),
 			queryInterface.removeColumn('Users', 'repCheck'),
 			queryInterface.removeColumn('Users', 'title'),
+			queryInterface.removeColumn('Users', 'color'),
 			queryInterface.removeColumn('Users', 'BackgroundId'),
 		]);
 	},

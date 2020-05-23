@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 		rep: DataTypes.INTEGER,
 		repCheck: DataTypes.DATE,
 		title: DataTypes.STRING,
+		color: DataTypes.STRING,
 	}, {});
 
 	User.associate = function(models) {
