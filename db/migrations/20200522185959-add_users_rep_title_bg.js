@@ -24,7 +24,7 @@ module.exports = {
 				'title',
 				{
 					type: Sequelize.STRING,
-					defaultValue: 'Empty Head',
+					defaultValue: 'Minion',
 				},
 			),
 			queryInterface.addColumn(
@@ -32,7 +32,7 @@ module.exports = {
 				'color',
 				{
 					type: Sequelize.STRING,
-					defaultValue: '#ffffff',
+					defaultValue: '#d49100',
 				},
 			),
 			queryInterface.addColumn(
