@@ -90,7 +90,7 @@ const functions = {
 		ctx.font = '15px Arial';
 		ctx.fillStyle = '#7a7a7a';
 		const finalExp = user.level * 100;
-		const experienceLimitLabel = ` / ${finalExp}`;
+		const experienceLimitLabel = ` / ${finalExp} XP`;
 		const expWidth = ctx.measureText(user.experience).width;
 		ctx.fillText(experienceLimitLabel, 635 + expWidth, ((15 * 1.5) / 2) + 450);
 
