@@ -30,7 +30,7 @@ const functions = {
 
 		// White Text Background
 		const textBg = await Canvas.loadImage('https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/text-bg.png');
-		ctx.drawImage(textBg, 18, 266, 762, 281);
+		ctx.drawImage(textBg, 18, 269, 762, 281);
 
 		// Username
 		ctx.font = 'bold 30px Arial';
@@ -51,11 +51,11 @@ const functions = {
 		ctx.fillText(user.rep, (306 / 2) - (repnumWidth / 2), ((30 * 1.5) / 2) + 289);
 
 		// Rep Label
-		ctx.font = '15px Verdana';
+		ctx.font = '20px Verdana';
 		ctx.fillStyle = '#000000';
 		const repLabel = 'Reputation';
 		const replblWidth = ctx.measureText(repLabel).width;
-		ctx.fillText(repLabel, (306 / 2) - (replblWidth / 2), ((15 * 1.5) / 2) + 328);
+		ctx.fillText(repLabel, (306 / 2) - (replblWidth / 2), ((20 * 1.5) / 2) + 328);
 
 		// Donuts Number
 		ctx.font = 'bold 30px Arial';
@@ -64,11 +64,11 @@ const functions = {
 		ctx.fillText(donuts, (1297 / 2) - (donutsnumWidth / 2), ((30 * 1.5) / 2) + 289);
 
 		// Donuts Label
-		ctx.font = '15px Verdana';
+		ctx.font = '20px Verdana';
 		ctx.fillStyle = '#000000';
 		const donutsLabel = 'Donuts';
 		const donutslblWidth = ctx.measureText(donutsLabel).width;
-		ctx.fillText(donutsLabel, (1297 / 2) - (donutslblWidth / 2), ((15 * 1.5) / 2) + 328);
+		ctx.fillText(donutsLabel, (1297 / 2) - (donutslblWidth / 2), ((20 * 1.5) / 2) + 328);
 
 		// Level Label
 		ctx.font = '15px Verdana';
@@ -82,17 +82,17 @@ const functions = {
 		ctx.fillText(user.level, 122, ((30 * 1.5) / 2) + 440);
 
 		// Experience Value
-		ctx.font = 'bold 15px Arial';
+		ctx.font = 'bold 20px Arial';
 		ctx.fillStyle = '#000000';
-		ctx.fillText(user.experience, 635, ((15 * 1.5) / 2) + 450);
+		ctx.fillText(user.experience, 600, ((20 * 1.5) / 2) + 450);
 
 		// Experience Limit
-		ctx.font = '15px Arial';
+		ctx.font = '20px Arial';
 		ctx.fillStyle = '#7a7a7a';
 		const finalExp = user.level * 100;
 		const experienceLimitLabel = ` / ${finalExp} XP`;
 		const expWidth = ctx.measureText(user.experience).width;
-		ctx.fillText(experienceLimitLabel, 635 + expWidth, ((15 * 1.5) / 2) + 450);
+		ctx.fillText(experienceLimitLabel, 600 + expWidth, ((20 * 1.5) / 2) + 450);
 
 		// Exp Limit Bar
 		const expLimitBar = await Canvas.loadImage('https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/level-limit.png');
