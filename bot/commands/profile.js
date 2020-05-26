@@ -21,7 +21,7 @@ const functions = {
 		}
 		else {
 			ctx.fillStyle = user.color;
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			ctx.fillRect(0, 0, canvas.width, 400);
 		}
 
 		// Custom Color Background
@@ -34,7 +34,7 @@ const functions = {
 
 		// White Text Background
 		const textBg = await Canvas.loadImage('https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/text-bg.png');
-		ctx.drawImage(textBg, 18, 269, 762, 281);
+		ctx.drawImage(textBg, 19, 269, 762, 281);
 
 		// Username
 		ctx.font = 'bold 30px Arial';
