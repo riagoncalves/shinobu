@@ -40,7 +40,7 @@ const functions = {
 
 		// Title
 		ctx.font = '20px Verdana';
-		ctx.fillStyle = user.color;
+		ctx.fillStyle = '#7a7a7a';
 		const titleWidth = ctx.measureText(user.title).width;
 		ctx.fillText(user.title, (canvas.width / 2) - (titleWidth / 2), ((20 * 1.5) / 2) + 401);
 
@@ -52,7 +52,7 @@ const functions = {
 
 		// Rep Label
 		ctx.font = '20px Verdana';
-		ctx.fillStyle = user.color;
+		ctx.fillStyle = '#7a7a7a';
 		const repLabel = 'Reputation';
 		const replblWidth = ctx.measureText(repLabel).width;
 		ctx.fillText(repLabel, (306 / 2) - (replblWidth / 2), ((20 * 1.5) / 2) + 328);
@@ -65,14 +65,14 @@ const functions = {
 
 		// Donuts Label
 		ctx.font = '20px Verdana';
-		ctx.fillStyle = user.color;
+		ctx.fillStyle = '#7a7a7a';
 		const donutsLabel = 'Donuts';
 		const donutslblWidth = ctx.measureText(donutsLabel).width;
 		ctx.fillText(donutsLabel, (1297 / 2) - (donutslblWidth / 2), ((20 * 1.5) / 2) + 328);
 
 		// Level Label
 		ctx.font = '15px Verdana';
-		ctx.fillStyle = user.color;
+		ctx.fillStyle = '#7a7a7a';
 		const levelLabel = 'Level';
 		ctx.fillText(levelLabel, 79, ((15 * 1.5) / 2) + 451);
 
