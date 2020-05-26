@@ -25,8 +25,12 @@ const functions = {
 		}
 
 		// Custom Color Background
+		ctx.lineJoin = 'round';
+		ctx.lineWidth = 35;
 		ctx.fillStyle = user.color;
-		ctx.fillRect(0, 252, canvas.width, 316);
+		ctx.strokeStyle = user.color;
+		ctx.strokeRect(0 + (35 / 2), 252 + (35 / 2), canvas.width - 35, 316 - 35);
+		ctx.fillRect(0 + (35 / 2), 252 + (35 / 2), canvas.width - 35, 316 - 35);
 
 		// White Text Background
 		const textBg = await Canvas.loadImage('https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/text-bg.png');
