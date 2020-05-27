@@ -1,5 +1,4 @@
 require('dotenv').config();
-require('typeface-roboto');
 
 const { ShardingManager } = require('discord.js');
 const manager = new ShardingManager('./bot.js', { token: process.env.TOKEN });

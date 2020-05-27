@@ -26,8 +26,7 @@
     "node-fetch": "^2.6.0",
     "pg": "^8.0.2",
     "sequelize": "^5.21.6",
-    "sequelize-cli": "^5.5.1",
-    "typeface-roboto": "^0.0.75"
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0"
