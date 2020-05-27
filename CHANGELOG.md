@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.1] - 2020-05-27
+### Added
+- Background system and commands (buy/list/preview/select)
+- Color command
+- Title command
+- Inventory command
+- Reputation system and commands
+### Changed
+- Profile command now sends a profile image
+
 ## [1.2.0] - 2020-05-10
 ### Added
 - Sharding system

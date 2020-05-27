@@ -21,6 +21,10 @@ module.exports = {
 					name: `\`${prefix}bg buy <bg_name>\``,
 					value: 'Buy a background!',
 				},
+				{
+					name: `\`${prefix}bg select <bg_name>\``,
+					value: 'Set this background as your cover!',
+				},
 			]);
 		return richEmbed;
 	},
@@ -57,12 +61,30 @@ module.exports = {
 			break;
 		}
 
+		case 'delete': {
+			if (!(msg.author.id === owner)) return msg.reply('You don\'t have permissions to do that!');
+
+			const name = args[0];
+
+			const background = await models.Background.findOne({ where: { name: name } });
+			if (!background) return msg.channel.send(`There isn't a background named **${name}**!`);
+
+			background.destroy().then(() => {
+				msg.channel.send(`Background **${name}** deleted!`);
+			});
+
+			break;
+		}
+
 		case 'show': {
 			if (args.length < 1) return msg.channel.send('You need to write the background name!');
 			const name = args[0];
 			const background = await models.Background.findOne({ where: { name: name } });
 			if (!background) return msg.channel.send(`There isn't a background named **${name}**!`);
-			msg.channel.send({ files: [background.link] });
+			const user = await models.User.findOne({ where: { userID: msg.author.id } });
+			const userbackground = await models.UserBackground.findOne({ where: { UserId: user.id, BackgroundId: background.id } });
+			const copy = userbackground ? '' : `Write \`${prefix}bg buy ${background.name}\` to buy this background for **${background.value} donuts** 🍩!`;
+			msg.channel.send(copy, { files: [background.link] });
 			break;
 		}
 
