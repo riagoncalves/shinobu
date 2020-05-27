@@ -42,6 +42,11 @@ const functions = {
 			console.log(`Creating ${user.username}#${user.discriminator}!`);
 		}
 	},
+	commandsRunner(msg, prefix) {
+		const args = msg.content.slice(prefix.length).trim().split(/ +/g);
+		const cmd = args.shift().toLowerCase();
+		commands(cmd, client, msg, args, prefix);
+	},
 };
 
 module.exports = {
@@ -55,11 +60,9 @@ module.exports = {
 		const prefixesFile = JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
 		const prefix = prefixesFile[msg.guild.id].prefix;
 
-		if (!msg.content.startsWith(prefix)) return;
+		if (msg.content.startsWith(prefix)) functions.commandsRunner(msg, prefix);
+		if (msg.content.startsWith(process.env.PREFIX)) functions.commandsRunner(msg, process.env.PREFIX);
 
-		const args = msg.content.slice(prefix.length).trim().split(/ +/g);
-		const cmd = args.shift().toLowerCase();
-
-		commands(cmd, client, msg, args, prefix);
+		return;
 	},
 };
