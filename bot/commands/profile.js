@@ -37,61 +37,61 @@ const functions = {
 		ctx.drawImage(textBg, 19, 269, 762, 281);
 
 		// Username
-		ctx.font = 'bold 30px Arial';
+		ctx.font = 'bold 30px Roboto';
 		ctx.fillStyle = user.color;
 		const usernameWidth = ctx.measureText(username).width;
 		ctx.fillText(username, (canvas.width / 2) - (usernameWidth / 2), ((30 * 1.5) / 2) + 356);
 
 		// Title
-		ctx.font = '20px Verdana';
+		ctx.font = '20px Roboto';
 		ctx.fillStyle = '#7a7a7a';
 		const titleWidth = ctx.measureText(user.title).width;
 		ctx.fillText(user.title, (canvas.width / 2) - (titleWidth / 2), ((20 * 1.5) / 2) + 401);
 
 		// Rep Number
-		ctx.font = 'bold 30px Arial';
+		ctx.font = 'bold 30px Roboto';
 		ctx.fillStyle = user.color;
 		const repnumWidth = ctx.measureText(user.rep).width;
 		ctx.fillText(user.rep, (306 / 2) - (repnumWidth / 2), ((30 * 1.5) / 2) + 289);
 
 		// Rep Label
-		ctx.font = '20px Verdana';
+		ctx.font = '20px Roboto';
 		ctx.fillStyle = '#7a7a7a';
 		const repLabel = 'Reputation';
 		const replblWidth = ctx.measureText(repLabel).width;
 		ctx.fillText(repLabel, (306 / 2) - (replblWidth / 2), ((20 * 1.5) / 2) + 328);
 
 		// Donuts Number
-		ctx.font = 'bold 30px Arial';
+		ctx.font = 'bold 30px Roboto';
 		ctx.fillStyle = user.color;
 		const donutsnumWidth = ctx.measureText(donuts).width;
 		ctx.fillText(donuts, (1297 / 2) - (donutsnumWidth / 2), ((30 * 1.5) / 2) + 289);
 
 		// Donuts Label
-		ctx.font = '20px Verdana';
+		ctx.font = '20px Roboto';
 		ctx.fillStyle = '#7a7a7a';
 		const donutsLabel = 'Donuts';
 		const donutslblWidth = ctx.measureText(donutsLabel).width;
 		ctx.fillText(donutsLabel, (1297 / 2) - (donutslblWidth / 2), ((20 * 1.5) / 2) + 328);
 
 		// Level Label
-		ctx.font = '15px Verdana';
+		ctx.font = '15px Roboto';
 		ctx.fillStyle = '#7a7a7a';
 		const levelLabel = 'Level';
 		ctx.fillText(levelLabel, 79, ((15 * 1.5) / 2) + 451);
 
 		// Level Num
-		ctx.font = 'bold 30px Arial';
+		ctx.font = 'bold 30px Roboto';
 		ctx.fillStyle = user.color;
 		ctx.fillText(user.level, 122, ((30 * 1.5) / 2) + 440);
 
 		// Experience Value
-		ctx.font = 'bold 20px Arial';
+		ctx.font = 'bold 20px Roboto';
 		ctx.fillStyle = user.color;
 		ctx.fillText(user.experience, 600, ((20 * 1.5) / 2) + 450);
 
 		// Experience Limit
-		ctx.font = '20px Arial';
+		ctx.font = '20px Roboto';
 		ctx.fillStyle = '#7a7a7a';
 		const finalExp = user.level * 100;
 		const experienceLimitLabel = ` / ${finalExp} XP`;
