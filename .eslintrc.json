@@ -5,7 +5,11 @@
 		"es6": true
 	},
 	"parserOptions": {
-		"ecmaVersion": 2019
+		"ecmaVersion": 2019,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],

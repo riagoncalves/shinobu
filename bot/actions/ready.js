@@ -2,6 +2,7 @@ const client = require('../client.js');
 const models = require('../../db/models');
 const version = require('../../package.json').version;
 const fs = require('fs');
+const webServer = require('../../web/server.js');
 // const parseChangelog = require('changelog-parser');
 
 const functions = {
@@ -80,5 +81,7 @@ module.exports = {
 		setTimeout(() => {
 			functions.prefixesJson();
 		}, 500);
+
+		webServer(client);
 	},
 };
