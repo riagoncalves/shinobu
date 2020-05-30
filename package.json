@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cd web && next build",
-    "start": "node index.js",
-    "serve": "yarn build && yarn start"
+    "start": "yarn build && node index.js"
   },
   "repository": {
     "type": "git",
