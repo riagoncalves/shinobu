@@ -1,5 +1,8 @@
 {
-	"extends": "eslint:recommended",
+	"extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+	],
 	"env": {
 		"node": true,
 		"es6": true
@@ -11,6 +14,9 @@
 			"jsx": true
 		}
 	},
+	"plugins": [
+    "react"
+  ],
 	"rules": {
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
 		"comma-dangle": ["error", "always-multiline"],
@@ -47,6 +53,9 @@
 		"space-infix-ops": "error",
 		"space-unary-ops": "error",
 		"spaced-comment": "error",
-		"yoda": "error"
+		"yoda": "error",
+		"react/jsx-uses-react": "error",
+		"react/jsx-uses-vars": "error",
+		"react/prop-types": "off"
 	}
 }
