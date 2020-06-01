@@ -2,5 +2,4 @@ node_modules
 package-lock.json
 .env
 data/prefixes.json
-web/src/.next
 web/.next
