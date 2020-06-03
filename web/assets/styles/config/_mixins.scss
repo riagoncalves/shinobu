@@ -1,0 +1,43 @@
+/*
+  Responsive
+*/
+@mixin screenMd {
+  @media screen and (max-width: $screen-md) {
+      @content;
+  }
+}
+
+@mixin biggerThanScreenSm {
+  @media screen and (min-width: $screen-sm + 1) {
+      @content;
+  }
+}
+
+@mixin screenSm {
+  @media screen and (max-width: $screen-sm) {
+      @content;
+  }
+}
+
+@mixin screenXs {
+  @media screen and (max-width: $screen-xs) {
+      @content;
+  }
+}
+
+/*
+Utils
+*/
+@mixin pseudo {
+  content: '';
+  display: inline-block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/*
+Text
+*/
+@mixin fontBold {
+  font-family: $font-family-bold;
+}
