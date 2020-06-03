@@ -3,7 +3,7 @@ import Layout from '../components/layout';
 
 const Index = () => (
 	<Layout>
-		<h1>Shinobu</h1>
+
 	</Layout>
 );
 
