@@ -1,0 +1,32 @@
+$section-name: #{$project-prefix}wrap;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, main, #__next {
+  width: 100%;
+  height: 100%;
+}
+
+.#{$section-name} {
+  width: 100%;
+  height: 100%;
+  padding: 1rem 2rem;
+  background-color: $dark;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+
+    &-center {
+      @extend .text;
+      align-items: center;
+    }
+
+    &-left {
+      @extend .text;
+      align-items: flex-start;
+    }
+  }
+}

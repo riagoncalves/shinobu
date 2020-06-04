@@ -26,7 +26,7 @@ const Layout = props => (
 			<meta name="keywords" content="discord, bot, administration, anime" />
 			<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap" rel="stylesheet"/>
 		</Head>
-		<div>
+		<div className="shinobu-wrap">
 			{props.children}
 		</div>
 	</main>

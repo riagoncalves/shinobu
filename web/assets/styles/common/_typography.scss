@@ -1,0 +1,85 @@
+.title {
+  font-family: $main-font;
+  font-weight: $bold;
+  text-align: center;
+
+  &-sm {
+    @extend .title;
+    font-size: 1.75rem;
+    line-height: 2rem;
+  }
+
+  &-md {
+    @extend .title;
+    font-size: 2.5rem;
+    line-height: 2.8rem;
+  }
+
+  &-lg {
+    @extend .title;
+    font-size: 3.125rem;
+    line-height: 3.75rem;
+  }
+
+  &-xl {
+    @extend .title;
+    font-size: 6rem;
+    line-height: 6.5rem;
+  }
+
+  &-black {
+    color: $black;
+  }
+
+  &-white {
+    color: $white;
+  }
+}
+
+.info {
+  font-family: $main-font;
+  font-weight: $regular;
+  text-align: center;
+
+  &-xsl {
+    @extend .info;
+    font-size: 0.75rem;
+  }
+
+  &-sl {
+    @extend .info;
+    font-size: 1rem;
+    line-height: 1.2rem;
+  }
+
+  &-md {
+    @extend .info;
+    font-size: 1.25rem;
+  }
+
+  &-lg {
+    @extend .info;
+    font-size: 1.375rem;
+    line-height: 1.7rem;
+  }
+
+  &-black {
+    color: $black;
+  }
+
+  &-white {
+    color: $white;
+  }
+
+  &-bold {
+    font-weight: $bold;
+  }
+}
+
+.tar {
+  text-align: right;
+}
+
+.tal {
+  text-align: left
+}
