@@ -12,7 +12,7 @@ const Index = () => (
 					<a href="https://discordapp.com/oauth2/authorize?client_id=540860925368991745&scope=bot&permissions=1609955447" className="btn-primary">
 						<img src={discordLogo} />
 					Add To Discord</a>
-					<a href="#" className="btn-secundary">Login</a>
+					<a href="#" className="btn-secundary">Learn more</a>
 				</div>
 			</div>
 		</section>

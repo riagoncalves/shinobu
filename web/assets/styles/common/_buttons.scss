@@ -22,8 +22,8 @@
   &-secundary {
     @extend .btn;
     color: $light-gray;
-    background-color: transparent;
-    border-color: $light-gray;
+    background-color: $black;
+    border-color: $black;
   }
 
   img {
