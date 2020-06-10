@@ -3,6 +3,12 @@
   font-weight: $bold;
   text-align: center;
 
+  &-xsl {
+    @extend .title;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+  }
+
   &-sm {
     @extend .title;
     font-size: 1.75rem;

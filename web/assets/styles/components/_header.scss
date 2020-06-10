@@ -2,4 +2,22 @@ $section-name: #{$project-prefix}header;
 
 .#{$section-name} {
   display: flex;
+
+  &-menu {
+    display: flex;
+    flex: 1;
+    align-items: center;
+
+    a {
+      padding: 0 1rem;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+
+  &-profile {
+    
+  }
 }

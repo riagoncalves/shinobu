@@ -2,6 +2,7 @@ import '../assets/styles/index.scss';
 import '../assets/scripts/common';
 import React from 'react';
 import Head from 'next/head';
+import Header from './header';
 
 const Layout = props => (
 	<main>
@@ -27,6 +28,7 @@ const Layout = props => (
 			<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet"/>
 		</Head>
 		<div className="shinobu-wrap">
+			<Header/>
 			{props.children}
 		</div>
 	</main>

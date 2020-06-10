@@ -15,5 +15,9 @@ module.exports = withCSS(
 
 			return config;
 		},
+		env: {
+			inviteLink: process.env.INVITE_LINK,
+			serverInvite: process.env.SERVER_INVITE,
+		},
 	}),
 );
