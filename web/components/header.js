@@ -14,7 +14,7 @@ const Header = () => (
 			<a href={process.env.serverInvite} className="info-xsl info-white" rel="noreferrer" target="_blank">Support server</a>
 		</nav>
 		<div className="shinobu-header-profile">
-			<button className="btn-primary btn-sl">Login</button>
+			<a href="auth/discord" className="btn-primary btn-sl">Login</a>
 		</div>
 	</header>
 );
