@@ -2,6 +2,7 @@ const express = require('express');
 const next = require('next');
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
+const cookieSession = require('cookie-session');
 const passport = require('passport');
 const DiscordStrategy = require('passport-discord').Strategy;
 const scopes = ['identify', 'email', 'guilds', 'guilds.join'];
@@ -45,9 +46,15 @@ const handle = app.getRequestHandler();
 module.exports = client => {
 	app.prepare().then(() => {
 		const server = express();
+		server.use(cookieSession({
+			maxAge: 24 * 60 * 60 * 1000,
+			keys: [process.env.COOKIE_KEY],
+		}));
 		server.use(passport.initialize());
+		server.use(passport.session());
 
 		server.get('/', (req, res) => {
+			// console.log(req.user);
 			return app.render(req, res, '/index', req.query);
 		});
 
@@ -56,6 +63,11 @@ module.exports = client => {
 		server.get('/callback', passport.authenticate('discord', {
 			failureRedirect: '/',
 		}), function(req, res) {
+			res.redirect('/');
+		});
+
+		server.get('/logout', function(req, res) {
+			req.logout();
 			res.redirect('/');
 		});
 

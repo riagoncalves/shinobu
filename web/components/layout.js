@@ -4,7 +4,7 @@ import React from 'react';
 import Head from 'next/head';
 import Header from './header';
 
-const Layout = props => (
+const Layout = (props) => (
 	<main>
 		<Head>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -28,7 +28,7 @@ const Layout = props => (
 			<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet"/>
 		</Head>
 		<div className="shinobu-wrap">
-			<Header/>
+			<Header user={props.user}/>
 			{props.children}
 		</div>
 	</main>
