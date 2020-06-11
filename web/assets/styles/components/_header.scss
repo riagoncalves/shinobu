@@ -18,6 +18,25 @@ $section-name: #{$project-prefix}header;
   }
 
   &-profile {
-    
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      outline: none;
+
+      img {
+        max-width: 1.8rem;
+        border-radius: 50%;
+      }
+
+      p {
+        padding: 0 .5rem;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }

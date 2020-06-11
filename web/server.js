@@ -54,19 +54,18 @@ module.exports = client => {
 		server.use(passport.session());
 
 		server.get('/', (req, res) => {
-			// console.log(req.user);
 			return app.render(req, res, '/index', req.query);
 		});
 
-		server.get('/auth/discord', passport.authenticate('discord'));
+		server.get('/login', passport.authenticate('discord'));
 
 		server.get('/callback', passport.authenticate('discord', {
 			failureRedirect: '/',
-		}), function(req, res) {
+		}), (req, res) => {
 			res.redirect('/');
 		});
 
-		server.get('/logout', function(req, res) {
+		server.get('/logout', (req, res) => {
 			req.logout();
 			res.redirect('/');
 		});

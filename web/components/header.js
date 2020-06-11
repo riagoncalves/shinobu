@@ -1,13 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import UserDropdown from './userdropdown';
 
 
 const Header = (props) => {
-	const authBtn = {
-		href: props.user ? '/logout' : '/auth/discord',
-		text: props.user ? 'Logout' : 'Login',
-	};
-
 	return (
 		<header className="shinobu-header">
 			<nav className="shinobu-header-menu">
@@ -20,7 +16,7 @@ const Header = (props) => {
 				<a href={process.env.serverInvite} className="info-xsl info-white" rel="noreferrer" target="_blank">Support server</a>
 			</nav>
 			<div className="shinobu-header-profile">
-				<a href={authBtn.href} className="btn-primary btn-sl">{authBtn.text}</a>
+				{ props.user ? <UserDropdown user={props.user} /> : <a href='/login' className="btn-primary btn-sl">Login</a> }
 			</div>
 		</header>
 	);
