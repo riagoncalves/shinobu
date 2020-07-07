@@ -1,12 +1,21 @@
 import React from 'react';
+import arrowDown from '../assets/images/down-arrow.svg';
 
 const UserDropdown = (props) => {
 	console.log(props.user);
 	return (
-		<button className="user-dropdown">
-			<img src={props.user.photo}/>
-			<p className="info-white info-xsl info-sbold">{props.user.username.split('#')[0]}</p>
-		</button>
+		<div className="user-dropdown-container" data-control="dropdown">
+			<button className="user-dropdown">
+				<img src={props.user.photo}/>
+				<p className="info-white info-xsl info-sbold">{props.user.username.split('#')[0]}</p>
+				<img src={arrowDown} className="arrow-down" />
+			</button>
+			<div className="user-dropdown-menu">
+				<a href="#" className="info-xsl">Dummy option</a>
+				<a href="#" className="info-xsl">Dummy option</a>
+				<a href="/logout" className="info-xsl">Logout</a>
+			</div>
+		</div>
 	);
 
 };

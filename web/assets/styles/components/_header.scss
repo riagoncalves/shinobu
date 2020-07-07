@@ -25,6 +25,50 @@ $section-name: #{$project-prefix}header;
       border: none;
       outline: none;
 
+      &-container {
+        position: relative;
+      }
+
+      &-menu {
+        display: flex;
+        position: absolute;
+        padding: .5rem 1rem;
+        top: 150%;
+        right: 0;
+        flex-direction: column;
+        border-radius: 5%;
+        background-color: $darker;
+        border: .5rem solid $darker;
+        visibility: hidden;
+        transition: ease all 100ms;
+        transform: scale(.9) translate(.5rem, -.5rem);
+        opacity: 0;
+
+        a {
+          flex: 1;
+          padding: .5rem;
+          margin-bottom: .5rem;
+          color: $light-gray;
+          transition: ease all 200ms;
+          border-radius: 5%;
+          white-space: nowrap;
+
+          &:hover {
+            background-color: $dark;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+
+        &.active {
+          transform: none;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
       img {
         max-width: 1.8rem;
         border-radius: 50%;
@@ -32,6 +76,15 @@ $section-name: #{$project-prefix}header;
 
       p {
         padding: 0 .5rem;
+      }
+
+      .arrow-down {
+        width: .5rem;
+        transition: all 75ms;
+
+        &.active {
+          transform: rotate(-180deg);
+        }
       }
 
       &:hover {
