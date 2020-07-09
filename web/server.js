@@ -8,6 +8,7 @@ const DiscordStrategy = require('passport-discord').Strategy;
 const scopes = ['identify', 'email', 'guilds', 'guilds.join'];
 const models = require('../db/models');
 const initialDonuts = 2000;
+let profileStore = {};
 
 passport.use(new DiscordStrategy({
 	clientID: process.env.CLIENT_ID,
@@ -16,6 +17,7 @@ passport.use(new DiscordStrategy({
 	scope: scopes,
 },
 async (accessToken, refreshToken, profile, cb) => {
+	profileStore = profile;
 	let user = await models.User.findOne({ where: { userID: profile.id } });
 	if (user) return cb(null, user);
 
@@ -55,6 +57,12 @@ module.exports = client => {
 
 		server.get('/', (req, res) => {
 			return app.render(req, res, '/index', req.query);
+		});
+
+		server.get('/dashboard', (req, res) => {
+			return app.render(req, res, '/dashboard', {
+				profileStore,
+			});
 		});
 
 		server.get('/login', passport.authenticate('discord'));
