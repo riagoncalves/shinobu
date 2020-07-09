@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from '../components/layout';
+import DashboardGuild from '../components/dashboardguild';
 
 export default class Dashboard extends React.Component {
 	static async getInitialProps({ req, query }) {
@@ -31,10 +32,11 @@ export default class Dashboard extends React.Component {
 
 		return (
 			<Layout user={props.user}>
-				<section className="shinobu-hero">
+				<section className="shinobu-dashboard">
 					<div className="text-center">
+						<h2 className="title-sm title-white">Your Servers</h2>
 						{props.guilds.map((guild) => (
-							guild.owner && <p key={guild.id}>{guild.name}</p>
+							guild.owner && <DashboardGuild guild={guild} />
 						))}
 					</div>
 				</section>

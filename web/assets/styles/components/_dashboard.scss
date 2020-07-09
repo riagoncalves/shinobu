@@ -1,0 +1,55 @@
+$section-name: #{$project-prefix}dashboard;
+
+.#{$section-name} {
+  height: 100%;
+
+  h2 {
+    padding: 5rem 1rem 4rem;
+  }
+
+  &-guild {
+    display: flex;
+    width: 80%;
+    max-width: 42rem;
+    align-items: center;
+    padding: .8rem 0;
+
+    &-container {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .guild-image-backup {
+      display: flex;
+      width: 2.5rem;
+      height: 2.5rem;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      border: 1px solid $white;
+      border-radius: 50%;
+    }
+
+    img {
+      width: 2.5rem;
+      border-radius: 50%;
+    }
+
+    p {
+      padding: 0 1rem;
+    }
+
+    a {
+      padding: .5rem 1rem;
+      background-color: $darker;
+      color: $light-gray;
+      border-radius: 5px;
+      transition: ease all 200ms;
+
+      &:hover {
+        background-color: $black;
+      }
+    }
+  }
+}
