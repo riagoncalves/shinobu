@@ -60,9 +60,12 @@ module.exports = client => {
 		});
 
 		server.get('/dashboard', (req, res) => {
-			return app.render(req, res, '/dashboard', {
-				profileStore,
-			});
+			return app.render(req, res, '/dashboard',
+				{
+					profile: profileStore,
+					botGuilds: client.guilds,
+				},
+			);
 		});
 
 		server.get('/login', passport.authenticate('discord'));

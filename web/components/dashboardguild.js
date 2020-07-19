@@ -9,7 +9,10 @@ const DashboardGuild = (props) => (
 				<span className="guild-image-backup info-white info-bold info-xsl">{props.guild.name.match(/\b(\w)/g).join('')}</span>}
 			<p className="info-xsl info-white info-bold">{props.guild.name}</p>
 		</div>
-		<a href={`${process.env.inviteLink}&guild_id=${props.guild.id}`} target="_blank" rel="noreferrer" className="info-xsl info-bold">Set up Shinobu</a>
+		{props.botGuild ?
+			<a href={`dashboard/${props.guild.id}`} className="info-xsl info-bold success">Manage Server</a>
+			:
+			<a href={`${process.env.inviteLink}&guild_id=${props.guild.id}`} target="_blank" rel="noreferrer" className="info-xsl info-bold">Set up Shinobu</a> }
 	</div>
 );
 

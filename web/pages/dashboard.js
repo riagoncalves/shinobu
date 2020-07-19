@@ -9,7 +9,8 @@ export default class Dashboard extends React.Component {
 		if(req && req.user) {
 			console.log(query);
 			pageProps.user = req.user;
-			pageProps.guilds = query.profileStore.guilds;
+			pageProps.guilds = query.profile.guilds;
+			pageProps.botGuilds = query.botGuilds;
 		}
 		return pageProps;
 	}
@@ -19,6 +20,7 @@ export default class Dashboard extends React.Component {
 		this.state = {
 			user: props.user,
 			guilds: props.guilds,
+			botGuilds: props.botGuilds,
 		};
 	}
 
@@ -28,15 +30,25 @@ export default class Dashboard extends React.Component {
 			...this.props,
 			user: this.state.user,
 			guilds: this.state.guilds,
+			botGuilds: this.state.botGuilds,
+		};
+
+		const hasId = function(guildId) {
+			const guilds = Array.from(props.botGuilds.cache.values());
+			const ids = [];
+			guilds.forEach(guild => {
+				ids.push(guild.id);
+			});
+			return ids.includes(guildId.toString());
 		};
 
 		return (
 			<Layout user={props.user}>
 				<section className="shinobu-dashboard">
 					<div className="text-center">
-						<h2 className="title-sm title-white">Your Servers</h2>
+						<h2 className="title-sm title-white">YOUR SERVERS</h2>
 						{props.guilds.map((guild) => (
-							guild.owner && <DashboardGuild guild={guild} />
+							guild.owner && <DashboardGuild guild={guild} botGuild={hasId(guild.id)} />
 						))}
 					</div>
 				</section>
