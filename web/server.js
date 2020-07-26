@@ -68,6 +68,20 @@ module.exports = client => {
 			);
 		});
 
+		server.get('/dashboard/:guildID', async (req, res) => {
+			const guild = client.guilds.cache.filter(sGuild => sGuild.id == req.params.guildID);
+			const dbGuild = await models.Guild.findOne({ where: { guildID:req.params.guildID } });
+			if (!guild) return res.status(404);
+			if (!dbGuild) return res.status(404);
+			return app.render(req, res, '/guild',
+				{
+					profile: profileStore,
+					guild: guild,
+					dbGuild: dbGuild,
+				},
+			);
+		});
+
 		server.get('/login', passport.authenticate('discord'));
 
 		server.get('/callback', passport.authenticate('discord', {
