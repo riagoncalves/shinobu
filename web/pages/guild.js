@@ -35,6 +35,11 @@ export default class Guild extends React.Component {
 		return (
 			<Layout user={props.user}>
 				<section className="shinobu-guild">
+					<div className="text-center">
+						<form method="POST" action={`/dasboard/${props.dbGuild.id}/edit`}>
+							<input type="text" value={props.dbGuild.prefix} name="prefix"/>
+						</form>
+					</div>
 				</section>
 			</Layout>
 		);

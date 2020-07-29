@@ -76,10 +76,14 @@ module.exports = client => {
 			return app.render(req, res, '/guild',
 				{
 					profile: profileStore,
-					guild: guild,
-					dbGuild: dbGuild,
+					guild: Array.from(guild.values())[0],
+					dbGuild: dbGuild.dataValues,
 				},
 			);
+		});
+
+		server.post('/dasboard/:guildID/edit', async (req, res) => {
+			console.log(req);
 		});
 
 		server.get('/login', passport.authenticate('discord'));

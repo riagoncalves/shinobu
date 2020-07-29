@@ -11,8 +11,8 @@ const UserDropdown = (props) => {
 				<img src={arrowDown} className="arrow-down" />
 			</button>
 			<div className="user-dropdown-menu">
+				<a href="/profile" className="info-xsl">Profile</a>
 				<a href="/dashboard" className="info-xsl">Dashboard</a>
-				<a href="#" className="info-xsl">Dummy option</a>
 				<a href="/logout" className="info-xsl">Logout</a>
 			</div>
 		</div>
