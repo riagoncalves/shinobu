@@ -13,7 +13,7 @@ const UserDropdown = (props) => {
 			<div className="user-dropdown-menu">
 				<a href="/profile" className="info-xsl">Profile</a>
 				<a href="/dashboard" className="info-xsl">Dashboard</a>
-				<a href="/logout" className="info-xsl">Logout</a>
+				<a href="/logout" className="info-xsl logout">Logout</a>
 			</div>
 		</div>
 	);

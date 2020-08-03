@@ -59,6 +59,10 @@ module.exports = client => {
 			return app.render(req, res, '/index', req.query);
 		});
 
+		server.get('/profile', (req, res) => {
+			return app.render(req, res, '/profile', req.query);
+		});
+
 		server.get('/dashboard', (req, res) => {
 			return app.render(req, res, '/dashboard',
 				{

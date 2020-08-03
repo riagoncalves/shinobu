@@ -7,10 +7,10 @@ const Header = (props) => {
 	return (
 		<header className="shinobu-header">
 			<nav className="shinobu-header-menu">
-				<Link href="/">
+				<Link href='/'>
 					<a className="title-xsl title-white">Shinobu</a>
 				</Link>
-				<Link href="/features">
+				<Link href='/features'>
 					<a className="info-xsl info-white">Features</a>
 				</Link>
 				<a href={process.env.serverInvite} className="info-xsl info-white" rel="noreferrer" target="_blank">Support server</a>
