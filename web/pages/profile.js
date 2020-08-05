@@ -3,11 +3,12 @@ import Layout from '../components/layout';
 import Router from 'next/router';
 
 export default class Profile extends React.Component {
-	static async getInitialProps({ req }) {
+	static async getInitialProps({ req, query }) {
 		const pageProps = {};
 
 		if(req && req.user) {
 			pageProps.user = req.user;
+			pageProps.background = query.background;
 		}
 		return pageProps;
 	}
@@ -22,6 +23,7 @@ export default class Profile extends React.Component {
 		super(props);
 		this.state = {
 			user: props.user,
+			background: props.background,
 		};
 	}
 
@@ -30,11 +32,20 @@ export default class Profile extends React.Component {
 		const props = {
 			...this.props,
 			user: this.state.user,
+			background: this.state.background,
 		};
 
 		return (
 			<Layout user={props.user}>
 				<section className="shinobu-profile">
+					<span className="shinobu-profile-background" style={{ backgroundImage: `url(${props.background})` }}></span>
+					<div className="shinobu-profile-card container">
+						<img src={props.user.photo} />
+						<div className="shinobu-profile-card-info">
+							<h2 className="title-sm title-white tal">{props.user.username.split('#')[0]}</h2>
+							<p className="info-sl info-white tal">{props.user.title}</p>
+						</div>
+					</div>
 				</section>
 			</Layout>
 		);

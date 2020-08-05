@@ -59,8 +59,11 @@ module.exports = client => {
 			return app.render(req, res, '/index', req.query);
 		});
 
-		server.get('/profile', (req, res) => {
-			return app.render(req, res, '/profile', req.query);
+		server.get('/profile', async (req, res) => {
+			const background = await models.Background.findOne({ where: { id: req.user.BackgroundId } });
+			return app.render(req, res, '/profile', {
+				background: background ? background.link : 'https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/default-pfp.jpg',
+			});
 		});
 
 		server.get('/dashboard', (req, res) => {

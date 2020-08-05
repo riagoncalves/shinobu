@@ -6,7 +6,6 @@ export default class Guild extends React.Component {
 		const pageProps = {};
 
 		if(req && req.user) {
-			console.log(query);
 			pageProps.user = req.user;
 			pageProps.guild = query.guild;
 			pageProps.dbGuild = query.dbGuild;
