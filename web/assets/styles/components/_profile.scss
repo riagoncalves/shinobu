@@ -39,11 +39,86 @@ $section-name: #{$project-prefix}profile;
     }
   }
 
+  &-details {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: $dark;
+    border-radius: 10px;
+    z-index: 2;
+
+    &-level {
+      display: flex;
+      width: 50%;
+      flex-direction: column;
+
+      &-bar {
+        display: block;
+        position: relative;
+        margin: 1rem 0 .5rem;
+        width: 18rem;
+        height: 1rem;
+        border-radius: 5px;
+        background-color: $darker;
+
+        &-completed {
+          display: block;
+          position: absolute;
+          height: 1rem;
+          left: 0;
+          top: 0;
+          border-radius: 5px;
+          background-color: $main;
+        }
+      }
+    }
+
+    &-customize {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      img {
+        max-width: 20rem;
+      }
+
+      &-background {
+        padding-bottom: 2rem;
+
+        p {
+          padding-bottom: 0.5rem;
+        }
+      }
+
+      &-color {
+        width: 100%;
+        display: flex;
+        padding: 1rem 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid $gray;
+
+        p {
+          padding: 1rem 0 .5rem;
+        }
+
+        span {
+          display: block;
+          width: 10rem;
+          height: 5rem;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+
   .container {
     width: 100%;
     max-width: 1200px;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     margin: 0 auto;
   }
 

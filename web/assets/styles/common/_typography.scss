@@ -70,6 +70,12 @@
     line-height: 1.7rem;
   }
 
+  &-xlg {
+    @extend .info;
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
   &-black {
     color: $black;
   }
@@ -79,7 +85,7 @@
   }
 
   &-gray {
-    color: $light-gray;
+    color: $gray;
   }
 
   &-sbold {

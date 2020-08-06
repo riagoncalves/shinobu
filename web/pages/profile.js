@@ -46,6 +46,29 @@ export default class Profile extends React.Component {
 							<p className="info-sl info-white tal">{props.user.title}</p>
 						</div>
 					</div>
+					<div className="shinobu-profile-details container">
+						<div className="flex">
+							<div className="shinobu-profile-details-level">
+								<p className="info-xlg info-white tal info-bold">Level {props.user.level}</p>
+								<span className="shinobu-profile-details-level-bar">
+									<span className="shinobu-profile-details-level-bar-completed" style={{ width: `${(props.user.experience / (props.user.level * 100)) * 100}%` }}></span>
+								</span>
+								<div className="shinobu-profile-details-level-experience">
+									<p className="info-gray info-sl tal"><span className="info-sbold info-white">{props.user.experience}</span> / {props.user.level * 100}</p>
+								</div>
+							</div>
+							<div className="shinobu-profile-details-customize">
+								<div className="shinobu-profile-details-customize-background">
+									<p className="info-md info-white info-sbold">Background</p>
+									<img src={props.background} />
+								</div>
+								<div className="shinobu-profile-details-customize-color">
+									<p className="info-md info-white info-sbold">Color</p>
+									<span style={{ backgroundColor: props.user.color }}></span>
+								</div>
+							</div>
+						</div>
+					</div>
 				</section>
 			</Layout>
 		);
