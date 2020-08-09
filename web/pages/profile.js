@@ -1,6 +1,9 @@
 import React from 'react';
 import Layout from '../components/layout';
 import Router from 'next/router';
+import Link from 'next/link';
+import donut from '../assets/images/donut.png';
+import edit from '../assets/images/edit.svg';
 
 export default class Profile extends React.Component {
 	static async getInitialProps({ req, query }) {
@@ -35,6 +38,10 @@ export default class Profile extends React.Component {
 			background: this.state.background,
 		};
 
+		function numFormatter(num) {
+			return Math.abs(num) > 999 ? Math.sign(num) * ((Math.abs(num) / 1000).toFixed(1)) + 'K' : Math.sign(num) * Math.abs(num);
+		}
+
 		return (
 			<Layout user={props.user}>
 				<section className="shinobu-profile">
@@ -47,17 +54,39 @@ export default class Profile extends React.Component {
 						</div>
 					</div>
 					<div className="shinobu-profile-details container">
+						<Link href='/profile/edit'>
+							<a className="shinobu-profile-details-edit">
+								<img src={edit} className="shinobu-profile-details-edit-img" />
+								<p className="shinobu-profile-details-edit-label info-xsl info-white">Edit profile</p>
+							</a>
+						</Link>
 						<div className="flex">
-							<div className="shinobu-profile-details-level">
-								<p className="info-xlg info-white tal info-bold">Level {props.user.level}</p>
-								<span className="shinobu-profile-details-level-bar">
-									<span className="shinobu-profile-details-level-bar-completed" style={{ width: `${(props.user.experience / (props.user.level * 100)) * 100}%` }}></span>
-								</span>
-								<div className="shinobu-profile-details-level-experience">
-									<p className="info-gray info-sl tal"><span className="info-sbold info-white">{props.user.experience}</span> / {props.user.level * 100}</p>
+							<div className="shinobu-profile-details-info flex flex-col flex-1">
+								<div className="shinobu-profile-details-info-level">
+									<p className="info-xlg info-white tal info-bold">Level {props.user.level}</p>
+									<span className="shinobu-profile-details-info-level-bar">
+										<span className="shinobu-profile-details-info-level-bar-completed" style={{ width: `${(props.user.experience / (props.user.level * 100)) * 100}%` }}></span>
+									</span>
+									<div className="shinobu-profile-details-info-level-experience">
+										<p className="info-gray info-sl tar"><span className="info-sbold info-white">{props.user.experience}</span> / {props.user.level * 100}</p>
+									</div>
+								</div>
+								<div className="shinobu-profile-details-info-currency">
+									<h3 className="title-white title-xsl tal">Currency</h3>
+									<div className="flex items-center shinobu-profile-details-info-currency-single">
+										<img src={donut} className="donuts-img" />
+										<p className="info-gray info-xsl info-sbold tal donuts-label">Donuts:</p>
+										<p className="info-white info-xsl info-sbold tal">{numFormatter(props.user.donuts)}</p>
+									</div>
+								</div>
+								<div className="shinobu-profile-details-info-rep">
+									<h3 className="title-white title-xsl tal">Reputation</h3>
+									<div className="flex items-center shinobu-profile-details-info-rep-single">
+										<p className="info-white info-xsl info-sbold tal">{props.user.rep}</p>
+									</div>
 								</div>
 							</div>
-							<div className="shinobu-profile-details-customize">
+							<div className="shinobu-profile-details-customize flex-1">
 								<div className="shinobu-profile-details-customize-background">
 									<p className="info-md info-white info-sbold">Background</p>
 									<img src={props.background} />
