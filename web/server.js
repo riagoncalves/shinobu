@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const bodyParser = require('body-parser');
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const cookieSession = require('cookie-session');
@@ -54,6 +55,8 @@ module.exports = client => {
 		}));
 		server.use(passport.initialize());
 		server.use(passport.session());
+		server.use(bodyParser.urlencoded({ extended: true }));
+		server.use(bodyParser.json());
 
 		server.get('/', (req, res) => {
 			return app.render(req, res, '/index', req.query);
@@ -68,9 +71,25 @@ module.exports = client => {
 
 		server.get('/profile/edit', async (req, res) => {
 			const background = await models.Background.findOne({ where: { id: req.user.BackgroundId } });
+			const userbackgrounds = await models.UserBackground.findAll(({ where: { UserId: req.user.id }, include: ['Background'] }));
 			return app.render(req, res, '/profileEdit', {
 				background: background ? background.link : 'https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/default-pfp.jpg',
+				inventory: userbackgrounds,
 			});
+		});
+
+		server.put('/profile/edit', async (req, res) => {
+			const user = await models.User.findOne({ where: { id: req.user.id } });
+			if (user.update({
+				title: req.body.title,
+				color: req.body.color,
+				BackgroundId: parseInt(req.body.BackgroundId),
+			})) {
+				req.login(user, function(err) {
+					if (err) { return next(err); }
+					return res.redirect('/profile');
+				});
+			}
 		});
 
 		server.get('/dashboard', (req, res) => {
