@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/layout';
 import Router from 'next/router';
+import save from '../assets/images/save.svg';
 
 export default class ProfileEdit extends React.Component {
 	static async getInitialProps({ req, query }) {
@@ -72,15 +73,15 @@ export default class ProfileEdit extends React.Component {
 					</div>
 					<div className="shinobu-profile_edit-details container">
 						<form onSubmit={this.handleSubmit}>
-							<div>
+							<div className="form-control">
 								<label htmlFor="title" className="info-md info-white">Title</label>
 								<input type="text" id="title" defaultValue={props.user.title} name="title"/>
 							</div>
-							<div>
-								<label htmlFor="color" className="info-md info-white">Select your favorite color:</label>
+							<div className="form-control">
+								<label htmlFor="color" className="info-md info-white">Select your favorite color</label>
 								<input type="color" id="color" name="color" defaultValue={props.user.color}/>
 							</div>
-							<div>
+							<div className="form-control">
 								<label htmlFor="background" className="info-md info-white">Background</label>
 								<select name="BackgroundId" id="background" defaultValue={props.user.BackgroundId}>
 									{props.inventory.map((background) => (
@@ -90,7 +91,10 @@ export default class ProfileEdit extends React.Component {
 									))}
 								</select>
 							</div>
-							<button type="submit" value="Submit">Save</button>
+							<button type="submit" className="shinobu-profile_edit-details-save">
+								<img src={save} className="shinobu-profile_edit-details-save-img" />
+								<p className="shinobu-profile_edit-details-save-label info-xsl info-white">Save profile</p>
+							</button>
 						</form>
 					</div>
 				</section>

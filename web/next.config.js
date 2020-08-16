@@ -16,6 +16,7 @@ module.exports = withCSS(
 			return config;
 		},
 		env: {
+			ownerID: process.env.OWNER_ID,
 			inviteLink: process.env.INVITE_LINK,
 			serverInvite: process.env.SERVER_INVITE,
 		},

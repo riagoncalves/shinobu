@@ -46,6 +46,70 @@ $section-name: #{$project-prefix}profile_edit;
     background-color: $dark;
     border-radius: 10px;
     z-index: 2;
+
+    &-save {
+      position: absolute;
+      display: flex;
+      padding: .2rem .5rem;
+      bottom: 100%;
+      right: 1rem;
+      align-items: center;
+      justify-content: center;
+      background-color: $main;
+      border-radius: 5px 5px 0 0;
+      transition: ease all 250ms;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      
+      &-img {
+        width: .7rem;
+      }
+
+      &-label {
+        padding-left: 0.5rem;
+        margin-left: 0.5rem;
+        border-left: 1px solid $white;
+      }
+
+      &:hover {
+        background-color: $secundary;
+      }
+    }
+
+    .form-control {
+      display: flex;
+      padding: 1rem 0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      label {
+        padding-bottom: .5rem;
+      }
+
+      input, select {
+        padding: .5rem .8rem;
+        border: 2px solid transparent;
+        transition: all 150ms;
+
+        &[type=color] {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 5px;
+          padding: 0;
+        }
+
+        &:active, &:focus{
+          outline: none;
+          border-color: $main;
+        }
+      }
+
+      &:first-child {
+        padding-top: 0;
+      }
+    }
   }
 
   .container {
