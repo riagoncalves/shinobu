@@ -44,7 +44,9 @@ export default class ProfileEdit extends React.Component {
 			}),
 		})
 			.then(response => response.json())
-			.then(data => console.log(data))
+			.then(data => {
+				if(data.success == true) return window.location.assign('/profile');
+			})
 			.catch(error => console.log(error));
 	}
 

@@ -86,8 +86,8 @@ module.exports = client => {
 				BackgroundId: parseInt(req.body.BackgroundId),
 			})) {
 				req.login(user, function(err) {
-					if (err) { return next(err); }
-					return res.redirect('/profile');
+					if (err) return res.json({ success: false, error: err });
+					return res.json({ success: true });
 				});
 			}
 		});
