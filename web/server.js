@@ -115,10 +115,6 @@ module.exports = client => {
 			);
 		});
 
-		server.post('/dasboard/:guildID/edit', async (req, res) => {
-			console.log(req);
-		});
-
 		server.get('/login', passport.authenticate('discord'));
 
 		server.get('/callback', passport.authenticate('discord', {
