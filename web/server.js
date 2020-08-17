@@ -115,6 +115,10 @@ module.exports = client => {
 			);
 		});
 
+		server.get('/commands', (req, res) => {
+			return app.render(req, res, '/commands', req.query);
+		});
+
 		server.get('/login', passport.authenticate('discord'));
 
 		server.get('/callback', passport.authenticate('discord', {

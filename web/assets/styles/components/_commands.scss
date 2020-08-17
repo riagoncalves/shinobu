@@ -1,0 +1,45 @@
+$section-name: #{$project-prefix}commands;
+
+.#{$section-name} {
+
+  &-container{
+    width: 100%;
+    max-height: calc(100vh - 50px);
+    overflow: hidden;
+  }
+
+  &-navigation {
+    padding: 3rem 0.5rem;
+    height: 100%;
+    justify-content: center;
+
+    nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      padding-top: 1rem;
+    }
+  }
+
+  &-list {
+    flex: 1;
+    padding: 3rem .5rem;
+    overflow-y: scroll;
+    max-height: 100%;
+
+    table {
+      margin: 4rem auto;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      th, td {
+        padding: .5rem;
+        border: 1px solid $main;
+      }
+    }
+  }
+}

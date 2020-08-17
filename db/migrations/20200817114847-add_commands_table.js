@@ -22,6 +22,9 @@ module.exports = {
 			description: {
 				type: Sequelize.TEXT,
 			},
+			usage: {
+				type: Sequelize.TEXT,
+			},
 			aliases: {
 				type: Sequelize.ARRAY(Sequelize.STRING),
 			},

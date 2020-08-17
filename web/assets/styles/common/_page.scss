@@ -45,4 +45,8 @@ html, body, main, #__next {
   .items-center {
     align-items: center;
   }
+
+  .bg-main {
+    background-color: $main;
+  }
 }
