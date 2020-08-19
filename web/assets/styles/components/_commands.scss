@@ -2,6 +2,11 @@ $section-name: #{$project-prefix}commands;
 
 .#{$section-name} {
 
+  &-header {
+    padding-top: 2rem;
+    justify-content: flex-end;
+  }
+
   &-container{
     width: 100%;
     max-height: calc(100vh - 50px);
@@ -25,7 +30,8 @@ $section-name: #{$project-prefix}commands;
 
   &-list {
     flex: 1;
-    padding: 3rem .5rem;
+    margin-top: 3rem;
+    padding: 0 .5rem 3rem;
     overflow-y: scroll;
     max-height: 100%;
 
