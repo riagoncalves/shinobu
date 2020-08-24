@@ -1,0 +1,39 @@
+$section-name: #{$project-prefix}commands_new;
+
+.#{$section-name} {
+  padding: 4rem 1rem;
+
+  .form-group {
+    display: flex;
+    padding: 1rem 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    label {
+      padding-bottom: .5rem;
+    }
+
+    input, select {
+      padding: .5rem .8rem;
+      border: 2px solid transparent;
+      transition: all 150ms;
+
+      &[type=color] {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 5px;
+        padding: 0;
+      }
+
+      &:active, &:focus{
+        outline: none;
+        border-color: $main;
+      }
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
