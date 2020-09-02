@@ -3,6 +3,33 @@ $section-name: #{$project-prefix}commands_new;
 .#{$section-name} {
   padding: 4rem 1rem;
 
+  &-save {
+    display: flex;
+    padding: .5rem .5rem;
+    align-items: center;
+    justify-content: center;
+    background-color: $main;
+    border-radius: 5px;
+    transition: ease all 250ms;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    
+    &-img {
+      width: .7rem;
+    }
+
+    &-label {
+      padding-left: 0.5rem;
+      margin-left: 0.5rem;
+      border-left: 1px solid $white;
+    }
+
+    &:hover {
+      background-color: $secundary;
+    }
+  }
+
   .form-group {
     display: flex;
     padding: 1rem 0;

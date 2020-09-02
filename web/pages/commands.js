@@ -9,6 +9,11 @@ export default class Commands extends React.Component {
 		if(req && req.user) {
 			console.log(query);
 			pageProps.user = req.user;
+			pageProps.moderation = query.moderation;
+			pageProps.cosmetics = query.cosmetics;
+			pageProps.utility = query.utility;
+			pageProps.currency = query.currency;
+			pageProps.memes = query.memes;
 		}
 		return pageProps;
 	}
@@ -17,6 +22,11 @@ export default class Commands extends React.Component {
 		super(props);
 		this.state = {
 			user: props.user,
+			moderation: props.moderation,
+			cosmetics: props.cosmetics,
+			utility: props.utility,
+			currency: props.currency,
+			memes: props.memes,
 		};
 	}
 
@@ -25,6 +35,11 @@ export default class Commands extends React.Component {
 		const props = {
 			...this.props,
 			user: this.state.user,
+			moderation: this.state.moderation,
+			cosmetics: this.state.cosmetics,
+			utility: this.state.utility,
+			currency: this.state.currency,
+			memes: this.state.memes,
 		};
 
 		return (

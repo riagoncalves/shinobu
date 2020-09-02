@@ -115,12 +115,34 @@ module.exports = client => {
 			);
 		});
 
-		server.get('/commands', (req, res) => {
-			return app.render(req, res, '/commands', req.query);
+		server.get('/commands', async (req, res) => {
+			return app.render(req, res, '/commands', {
+				moderation: await models.Command.findOne({ where: { category: 'Moderation' } }).dataValues,
+				cosmetics: await models.Command.findOne({ where: { category: 'Cosmetics' } }).dataValues,
+				utility: await models.Command.findOne({ where: { category: 'Utility' } }).dataValues,
+				currency: await models.Command.findOne({ where: { category: 'Currency' } }).dataValues,
+				memes: await models.Command.findOne({ where: { category: 'Memes' } }).dataValues,
+			});
 		});
 
 		server.get('/commands/new', (req, res) => {
 			return app.render(req, res, '/commandsNew', req.query);
+		});
+
+		server.post('/commands/new', async (req, res) => {
+			const command = await models.Command.findOne({ where: { name: req.body.name } });
+			if (!command) {
+				const newCommand = models.Command.create(req.body);
+				if (newCommand) {
+					return res.json({ success: true });
+				}
+				else {
+					return res.json({ success: false });
+				}
+			}
+			else {
+				return res.json({ success: false, error: 'Command already exists.' });
+			}
 		});
 
 		server.get('/login', passport.authenticate('discord'));
