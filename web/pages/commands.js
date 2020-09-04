@@ -42,6 +42,8 @@ export default class Commands extends React.Component {
 			memes: this.state.memes,
 		};
 
+		console.log(props.cosmetics);
+
 		return (
 			<Layout user={props.user}>
 				<section className="shinobu-commands">
@@ -61,7 +63,11 @@ export default class Commands extends React.Component {
 							</nav>
 						</div>
 						<div className="shinobu-commands-list">
-							<CommandsTable title="Moderation"/>
+							{props.moderation.length > 0 && <CommandsTable user={props.user} title="Moderation" rows={props.moderation}/>}
+							{props.cosmetics.length > 0 && <CommandsTable user={props.user} title="Cosmetics" rows={props.cosmetics}/>}
+							{props.utility.length > 0 && <CommandsTable user={props.user} title="Utility" rows={props.utility}/>}
+							{props.currency.length > 0 && <CommandsTable user={props.user} title="Currency" rows={props.currency}/>}
+							{props.memes.length > 0 && <CommandsTable user={props.user} title="Memes" rows={props.memes}/>}
 						</div>
 					</div>
 				</section>

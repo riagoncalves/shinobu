@@ -117,11 +117,11 @@ module.exports = client => {
 
 		server.get('/commands', async (req, res) => {
 			return app.render(req, res, '/commands', {
-				moderation: await models.Command.findOne({ where: { category: 'Moderation' } }).dataValues,
-				cosmetics: await models.Command.findOne({ where: { category: 'Cosmetics' } }).dataValues,
-				utility: await models.Command.findOne({ where: { category: 'Utility' } }).dataValues,
-				currency: await models.Command.findOne({ where: { category: 'Currency' } }).dataValues,
-				memes: await models.Command.findOne({ where: { category: 'Memes' } }).dataValues,
+				moderation: await models.Command.findAll({ where: { category: 'Moderation' } }),
+				cosmetics: await models.Command.findAll({ where: { category: 'Cosmetics' } }),
+				utility: await models.Command.findAll({ where: { category: 'Utility' } }),
+				currency: await models.Command.findAll({ where: { category: 'Currency' } }),
+				memes: await models.Command.findAll({ where: { category: 'Memes' } }),
 			});
 		});
 
