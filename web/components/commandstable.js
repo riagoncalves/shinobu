@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CommandsTable = (props) => (
-	<table>
+	<table className={`${props.title}`}>
 		<thead>
 			<tr>
 				<th colSpan="5" className="title-white title-xsl bg-main">

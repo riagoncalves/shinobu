@@ -55,11 +55,11 @@ export default class Commands extends React.Component {
 						<div className="shinobu-commands-navigation">
 							<h3 className="title-sm title-white tal">Categories</h3>
 							<nav>
-								<a className="info-sl info-gray info-bold tal">Moderation</a>
-								<a className="info-sl info-gray info-bold tal">Cosmetics</a>
-								<a className="info-sl info-gray info-bold tal">Utility</a>
-								<a className="info-sl info-gray info-bold tal">Currency</a>
-								<a className="info-sl info-gray info-bold tal">Memes</a>
+								{props.moderation.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Moderation">Moderation</a>}
+								{props.cosmetics.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Cosmetics">Cosmetics</a>}
+								{props.utility.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Utility">Utility</a>}
+								{props.currency.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Currency">Currency</a>}
+								{props.memes.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Memes">Memes</a>}
 							</nav>
 						</div>
 						<div className="shinobu-commands-list">

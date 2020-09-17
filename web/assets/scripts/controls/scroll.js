@@ -8,10 +8,9 @@ export default {
 					'left': 0,
 					'top': document.querySelector(`.${el.dataset.scroll}`).offsetTop,
 				});
-				document.querySelector('input[type=checkbox]').click();
 			}
 			catch (error) {
-				window.location.href = window.location.origin;
+				console.log(error);
 			}
 		});
 	},
