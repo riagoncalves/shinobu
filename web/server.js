@@ -59,7 +59,7 @@ module.exports = client => {
 		server.use(bodyParser.json());
 
 		server.get('/', (req, res) => {
-			return app.render(req, res, '/index', req.query);
+			return app.render(req, res, '/home', req.query);
 		});
 
 		server.get('/profile', async (req, res) => {
@@ -72,7 +72,7 @@ module.exports = client => {
 		server.get('/profile/edit', async (req, res) => {
 			const background = await models.Background.findOne({ where: { id: req.user.BackgroundId } });
 			const userbackgrounds = await models.UserBackground.findAll(({ where: { UserId: req.user.id }, include: ['Background'] }));
-			return app.render(req, res, '/profileEdit', {
+			return app.render(req, res, '/profile/edit', {
 				background: background ? background.link : 'https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/default-pfp.jpg',
 				inventory: userbackgrounds,
 			});
@@ -106,7 +106,7 @@ module.exports = client => {
 			const dbGuild = await models.Guild.findOne({ where: { guildID:req.params.guildID } });
 			if (!guild) return res.status(404);
 			if (!dbGuild) return res.status(404);
-			return app.render(req, res, '/guild',
+			return app.render(req, res, '/dashboard/edit',
 				{
 					profile: profileStore,
 					guild: Array.from(guild.values())[0],
@@ -126,7 +126,7 @@ module.exports = client => {
 		});
 
 		server.get('/commands/new', (req, res) => {
-			return app.render(req, res, '/commandsNew', req.query);
+			return app.render(req, res, '/commands/new', req.query);
 		});
 
 		server.post('/commands/new', async (req, res) => {

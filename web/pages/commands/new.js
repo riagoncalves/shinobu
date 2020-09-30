@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from '../components/layout';
-import save from '../assets/images/save.svg';
+import Layout from '../../components/layout';
+import save from '../../assets/images/save.svg';
 
 export default class CommandsNew extends React.Component {
 	static async getInitialProps({ req, query }) {

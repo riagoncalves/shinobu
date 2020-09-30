@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from '../components/layout';
-import DashboardGuild from '../components/dashboardguild';
+import Layout from '../../components/layout';
+import DashboardGuild from '../../components/dashboardguild';
 
 export default class Dashboard extends React.Component {
 	static async getInitialProps({ req, query }) {
