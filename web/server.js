@@ -145,6 +145,17 @@ module.exports = client => {
 			}
 		});
 
+		server.delete('/commands/:id', async (req, res) => {
+			const command = await models.Command.findOne({ where: { id: req.params.id } });
+			if (command) {
+				command.destroy();
+				return res.json({ success: true });
+			}
+			else {
+				return res.json({ success: false });
+			}
+		});
+
 		server.get('/login', passport.authenticate('discord'));
 
 		server.get('/callback', passport.authenticate('discord', {
