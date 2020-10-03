@@ -42,8 +42,6 @@ export default class Commands extends React.Component {
 			memes: this.state.memes,
 		};
 
-		console.log(props.cosmetics);
-
 		return (
 			<Layout user={props.user}>
 				<section className="shinobu-commands">
