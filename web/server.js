@@ -122,6 +122,7 @@ module.exports = client => {
 				utility: await models.Command.findAll({ where: { category: 'Utility' } }),
 				currency: await models.Command.findAll({ where: { category: 'Currency' } }),
 				memes: await models.Command.findAll({ where: { category: 'Memes' } }),
+				nsfw: await models.Command.findAll({ where: { category: 'NSFW' } }),
 			});
 		});
 
@@ -149,6 +150,23 @@ module.exports = client => {
 			const command = await models.Command.findOne({ where: { id: req.params.id } });
 			if (command) {
 				command.destroy();
+				return res.json({ success: true });
+			}
+			else {
+				return res.json({ success: false });
+			}
+		});
+
+		server.get('/commands/:id/edit', async (req, res) => {
+			const command = await models.Command.findOne({ where: { id: req.params.id } });
+			return app.render(req, res, '/commands/edit', {
+				command: command.dataValues,
+			});
+		});
+
+		server.put('/commands/:id/edit', async (req, res) => {
+			const command = await models.Command.findOne({ where: { id: req.params.id } });
+			if (command.update(req.body)) {
 				return res.json({ success: true });
 			}
 			else {

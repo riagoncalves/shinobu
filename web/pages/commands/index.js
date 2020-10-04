@@ -14,6 +14,7 @@ export default class Commands extends React.Component {
 			pageProps.utility = query.utility;
 			pageProps.currency = query.currency;
 			pageProps.memes = query.memes;
+			pageProps.nsfw = query.nsfw;
 		}
 		return pageProps;
 	}
@@ -27,6 +28,7 @@ export default class Commands extends React.Component {
 			utility: props.utility,
 			currency: props.currency,
 			memes: props.memes,
+			nsfw: props.nsfw,
 		};
 	}
 
@@ -40,6 +42,7 @@ export default class Commands extends React.Component {
 			utility: this.state.utility,
 			currency: this.state.currency,
 			memes: this.state.memes,
+			nsfw: this.state.nsfw,
 		};
 
 		return (
@@ -58,6 +61,7 @@ export default class Commands extends React.Component {
 								{props.utility.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Utility">Utility</a>}
 								{props.currency.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Currency">Currency</a>}
 								{props.memes.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Memes">Memes</a>}
+								{props.nsfw.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="NSFW">NSFW</a>}
 							</nav>
 						</div>
 						<div className="shinobu-commands-list">
@@ -66,6 +70,7 @@ export default class Commands extends React.Component {
 							{props.utility.length > 0 && <CommandsTable user={props.user} title="Utility" rows={props.utility}/>}
 							{props.currency.length > 0 && <CommandsTable user={props.user} title="Currency" rows={props.currency}/>}
 							{props.memes.length > 0 && <CommandsTable user={props.user} title="Memes" rows={props.memes}/>}
+							{props.nsfw.length > 0 && <CommandsTable user={props.user} title="NSFW" rows={props.nsfw}/>}
 						</div>
 					</div>
 				</section>
