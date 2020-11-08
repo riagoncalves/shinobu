@@ -43,7 +43,7 @@ export default class Dashboard extends React.Component {
 		};
 
 		return (
-			<Layout user={props.user}>
+			<Layout user={props.user} title="Dashboard">
 				<section className="shinobu-dashboard">
 					<div className="text-center">
 						<h2 className="title-sm title-white">YOUR SERVERS</h2>

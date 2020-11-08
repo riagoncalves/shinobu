@@ -32,7 +32,7 @@ export default class Guild extends React.Component {
 		};
 
 		return (
-			<Layout user={props.user}>
+			<Layout user={props.user} title={`Edit ${props.guild.name}`}>
 				<section className="shinobu-guild">
 					<div className="text-center">
 						<form method="POST" action={`/dasboard/${props.dbGuild.id}/edit`}>

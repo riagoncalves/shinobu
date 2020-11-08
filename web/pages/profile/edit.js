@@ -61,7 +61,7 @@ export default class ProfileEdit extends React.Component {
 		};
 
 		return (
-			<Layout user={props.user}>
+			<Layout user={props.user} title="Edit Profile">
 				<section className="shinobu-profile_edit">
 					<span className="shinobu-profile_edit-background" style={{ backgroundImage: `url(${props.background})` }}></span>
 					<div className="shinobu-profile_edit-card container">

@@ -52,7 +52,7 @@ export default class CommandsEdit extends React.Component {
 		};
 
 		return (
-			<Layout user={props.user}>
+			<Layout user={props.user} title={`Edit ${props.command.name}`}>
 				<section className="shinobu-commands_new">
 					<form onSubmit={(e) => {
 						e.preventDefault();

@@ -50,7 +50,7 @@ export default class CommandsNew extends React.Component {
 		};
 
 		return (
-			<Layout user={props.user}>
+			<Layout user={props.user} title="New Command">
 				<section className="shinobu-commands_new">
 					<form onSubmit={this.handleSubmit}>
 						<div className="form-group">

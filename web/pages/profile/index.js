@@ -43,7 +43,7 @@ export default class Profile extends React.Component {
 		}
 
 		return (
-			<Layout user={props.user}>
+			<Layout user={props.user} title="Profile">
 				<section className="shinobu-profile">
 					<span className="shinobu-profile-background" style={{ backgroundImage: `url(${props.background})` }}></span>
 					<div className="shinobu-profile-card container">
@@ -54,12 +54,10 @@ export default class Profile extends React.Component {
 						</div>
 					</div>
 					<div className="shinobu-profile-details container">
-						<Link href='/profile/edit'>
-							<a className="shinobu-profile-details-edit">
-								<img src={edit} className="shinobu-profile-details-edit-img" />
-								<p className="shinobu-profile-details-edit-label info-xsl info-white">Edit profile</p>
-							</a>
-						</Link>
+						<a href='/profile/edit' className="shinobu-profile-details-edit">
+							<img src={edit} className="shinobu-profile-details-edit-img" />
+							<p className="shinobu-profile-details-edit-label info-xsl info-white">Edit profile</p>
+						</a>
 						<div className="flex">
 							<div className="shinobu-profile-details-info flex flex-col flex-1">
 								<div className="shinobu-profile-details-info-level">

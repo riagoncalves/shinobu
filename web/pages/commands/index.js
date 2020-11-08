@@ -46,7 +46,7 @@ export default class Commands extends React.Component {
 		};
 
 		return (
-			<Layout user={props.user}>
+			<Layout user={props.user} title="Commands">
 				<section className="shinobu-commands">
 					{props.user && props.user.userID == process.env.ownerID &&
 					<div className="flex shinobu-commands-header">
