@@ -3,7 +3,7 @@ import Layout from '../../components/layout';
 import save from '../../assets/images/save.svg';
 
 export default class CommandsNew extends React.Component {
-	static async getInitialProps({ req, query }) {
+	static async getInitialProps({ req }) {
 		const pageProps = {};
 
 		if(req && req.user) {

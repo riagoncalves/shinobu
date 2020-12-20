@@ -15,7 +15,7 @@ const CommandsTable = (props) => {
 				if(data.success == true) return window.location.assign('/commands');
 			})
 			.catch(error => console.log(error));
-	}
+	};
 
 	return (
 		<table className={`${props.title}`}>
