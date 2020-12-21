@@ -35,24 +35,34 @@ $section-name: #{$project-prefix}commands;
     overflow-y: scroll;
     max-height: 100%;
 
-    table {
-      margin: 4rem auto;
+    &-item {
+      padding: 2rem;
+    }
+  }
 
-      &:first-child {
-        margin-top: 0;
+  &-card {
+    margin-top: 1.5rem;
+    margin-left: 1rem;
+    padding: 1rem 5rem 1rem 2rem;
+    border-radius: 1rem;
+    border: 2px solid $gray;
+    background-color: $light-dark;
+
+    a {
+      padding: 0 .5rem;
+
+      &:first-of-type {
+        padding-left: 0;
       }
+    }
 
-      th, td {
-        padding: .5rem;
-        border: 2px solid $main;
-      }
+    &-info {
+      padding-top: 0.8rem;
+    }
 
-      tr {
-        &:nth-child(even) {
-          background-color: rgba($color: $main, $alpha: 0.1);
-        }
-      }
-
+    &-links {
+      padding-top: 0.8rem;
+      justify-content: flex-start;
     }
   }
 }

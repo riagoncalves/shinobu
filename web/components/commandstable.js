@@ -18,43 +18,32 @@ const CommandsTable = (props) => {
 	};
 
 	return (
-		<table className={`${props.title}`}>
-			<thead>
-				<tr>
-					<th colSpan="5" className="title-white title-xsl bg-main">
-						{props.title}
-					</th>
-				</tr>
-				<tr>
-					<th className="info-xsl info-white info-sbold">Name</th>
-					<th className="info-xsl info-white info-sbold">Description</th>
-					<th className="info-xsl info-white info-sbold">Usage</th>
-					<th className="info-xsl info-white info-sbold">Aliases</th>
-					{props.user && props.user.userID == process.env.ownerID &&
-						<th className="info-xsl info-white info-sbold">Actions</th>}
-				</tr>
-			</thead>
-			<tbody>
+		<div className="shinobu-commands-list-item flex flex-col flex-wrap justify-center items-center">
+			<h2 className="title-white title-sm">{props.title}</h2>
+			<div className="flex justify-center items-center flex-wrap">
 				{props.rows.map((row) => {
 					return (
-						<tr key={row.id}>
-							<td className="info-xsl info-gray">{row.name}</td>
-							<td className="info-xsl info-gray">{row.description}</td>
-							<td className="info-xsl info-gray">{row.usage}</td>
-							<td className="info-xsl info-gray">{row.aliases.join(', ')}</td>
+						<div className="shinobu-commands-card" key={row.id}>
+							<p className="info-sl info-white tal">{row.name}</p>
+							<p className="info-xsl info-white tal">{row.description}</p>
+							<div className="shinobu-commands-card-info">
+								<p className="info-xsl info-gray tal"><span className="info-bold info-white">Usage:</span> {row.usage}</p>
+								<p className="info-xsl info-gray tal"><span className="info-bold info-white">Aliases:</span> {row.aliases.join(', ')}</p>
+							</div>
 							{props.user && props.user.userID == process.env.ownerID &&
-								<td className="info-xsl info-gray flex flex-col">
+								<div className="info-xsl info-gray flex shinobu-commands-card-links">
 									<a href={`/commands/${row.id}/edit`} className="info-white info-xsl">Edit</a>
 									<a href='#' onClick={(e) => {
 										e.preventDefault();
 										handleDelete(row.id);
 									}} className="info-white info-xsl">Delete</a>
-								</td>}
-						</tr>
+								</div>
+							}
+						</div>
 					);
 				})}
-			</tbody>
-		</table>
+			</div>
+		</div>
 	);
 };
 
