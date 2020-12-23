@@ -10,7 +10,7 @@ module.exports = {
 			.setDescription('Commands List!')
 			.addFields([
 				{
-					name: `\`${prefix}bg list <bg_name>\``,
+					name: `\`${prefix}bg list\``,
 					value: 'List all available backgrounds!',
 				},
 				{
@@ -159,7 +159,7 @@ module.exports = {
 				.setDescription('Commands List!')
 				.addFields([
 					{
-						name: `\`${prefix}bg list <bg_name>\``,
+						name: `\`${prefix}bg list\``,
 						value: 'List all available backgrounds!',
 					},
 					{

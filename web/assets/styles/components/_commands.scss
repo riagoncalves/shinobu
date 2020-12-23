@@ -1,0 +1,72 @@
+$section-name: #{$project-prefix}commands;
+
+.#{$section-name} {
+
+  &-header {
+    padding-top: 2rem;
+    justify-content: flex-end;
+  }
+
+  &-container{
+    width: 100%;
+    max-height: calc(100vh - 50px);
+    overflow: hidden;
+  }
+
+  &-navigation {
+    padding: 3rem 0.5rem;
+    height: 100%;
+    justify-content: center;
+
+    nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      padding-top: 1rem;
+    }
+
+    @include screenSm {
+      display: none;
+    }
+  }
+
+  &-list {
+    flex: 1;
+    margin-top: 3rem;
+    padding: 0 .5rem 3rem;
+    overflow-y: scroll;
+    max-height: 100%;
+
+    &-item {
+      padding: 2rem;
+    }
+  }
+
+  &-card {
+    margin-top: 1.5rem;
+    margin-left: 1rem;
+    padding: 1rem 5rem 1rem 2rem;
+    border-radius: 1rem;
+    border: 2px solid $gray;
+    background-color: $light-dark;
+
+    a {
+      padding: 0 .5rem;
+
+      &:first-of-type {
+        padding-left: 0;
+      }
+    }
+
+    &-info {
+      padding-top: 0.8rem;
+    }
+
+    &-links {
+      padding-top: 0.8rem;
+      justify-content: flex-start;
+    }
+  }
+}

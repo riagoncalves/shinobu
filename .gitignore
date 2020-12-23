@@ -2,3 +2,5 @@ node_modules
 package-lock.json
 .env
 data/prefixes.json
+web/.next
+yarn-error.log

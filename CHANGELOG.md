@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.6.0] - 2020-12-24
+### Added
+- Bot Website
+
 ## [1.5.1] - 2020-05-27
 ### Added
 - Background system and commands (buy/list/preview/select)
