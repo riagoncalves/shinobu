@@ -1,6 +1,6 @@
 {
   "name": "shinobu",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "Discord bot built using Discord.js",
   "main": "index.js",
   "scripts": {
