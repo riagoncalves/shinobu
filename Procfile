@@ -1,2 +1,2 @@
-worker: node index.js
+web: yarn start
 release: npx sequelize-cli db:migrate
