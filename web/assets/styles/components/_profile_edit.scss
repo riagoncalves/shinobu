@@ -20,6 +20,10 @@ $section-name: #{$project-prefix}profile_edit;
     background-position: center top;
     filter: blur(5px);
     z-index: 1;
+
+    @include screenSm {
+      background-size: cover;
+    }
   }
 
   &-card {
@@ -31,12 +35,28 @@ $section-name: #{$project-prefix}profile_edit;
 
     &-info {
       padding: 0 2rem;
+
+      @include screenSm {
+        padding: .8rem 0 0 0;
+      }
     }
 
     img {
       width: 8rem;
       border-radius: 25%;
+
+      @include screenSm {
+        width: 5rem;
+      }
     }
+
+    @include screenSm {
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    } 
   }
 
   &-details {
@@ -118,6 +138,11 @@ $section-name: #{$project-prefix}profile_edit;
     padding-left: 2rem;
     padding-right: 2rem;
     margin: 0 auto;
+
+    @include screenSm {
+      padding-left: .5rem;
+      padding-right: .5rem;
+    }
   }
 
   .text-center {

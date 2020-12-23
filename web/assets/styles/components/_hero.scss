@@ -8,10 +8,26 @@ $section-name: #{$project-prefix}hero;
 
   .text-center {
     padding: 20rem 0;
+
+    @include screenXs {
+      padding: 0;
+      height: 100vh;
+      justify-content: center;
+    }
   }
 
   .btn-container {
     display: flex;
     padding: 2rem 0;
+
+    a {
+      @include screenXs {
+        margin-top: 1rem;
+      }
+    }
+
+    @include screenXs {
+      flex-direction: column;
+    }
   }
 }

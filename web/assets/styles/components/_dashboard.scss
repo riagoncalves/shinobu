@@ -59,6 +59,18 @@ $section-name: #{$project-prefix}dashboard;
       &:hover {
         background-color: $black;
       }
+
+      @include screenXs {
+        margin-top: 0.8rem;
+      }
+    }
+
+    @include screenXs {
+      padding-top: 1rem;
+      padding-bottom: 1.5rem;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
     }
   }
 }

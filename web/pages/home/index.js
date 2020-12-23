@@ -42,7 +42,7 @@ export default class Index extends React.Component {
 						<p className="info-lg info-white">Your personal discord assistant</p>
 						<div className="btn-container">
 							<DiscordBtn/>
-							<SecundaryBtn link="#" text="Learn more" />
+							<SecundaryBtn link="/commands" text="Learn more" />
 						</div>
 					</div>
 				</section>

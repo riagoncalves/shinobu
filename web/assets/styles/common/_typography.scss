@@ -31,6 +31,11 @@
     @extend .title;
     font-size: 6rem;
     line-height: 6.5rem;
+
+    @include screenXs {
+      font-size: 4rem;
+      line-height: 4.5rem;
+    }
   }
 
   &-black {

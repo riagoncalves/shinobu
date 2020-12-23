@@ -26,6 +26,10 @@ $section-name: #{$project-prefix}commands;
     a {
       padding-top: 1rem;
     }
+
+    @include screenSm {
+      display: none;
+    }
   }
 
   &-list {

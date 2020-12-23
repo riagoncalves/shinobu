@@ -58,7 +58,7 @@ export default class Profile extends React.Component {
 							<img src={edit} className="shinobu-profile-details-edit-img" />
 							<p className="shinobu-profile-details-edit-label info-xsl info-white">Edit profile</p>
 						</a>
-						<div className="flex">
+						<div className="shinobu-profile-details-container flex">
 							<div className="shinobu-profile-details-info flex flex-col flex-1">
 								<div className="shinobu-profile-details-info-level">
 									<p className="info-xlg info-white tal info-bold">Level {props.user.level}</p>
