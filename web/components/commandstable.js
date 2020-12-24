@@ -18,7 +18,7 @@ const CommandsTable = (props) => {
 	};
 
 	return (
-		<div className="shinobu-commands-list-item flex flex-col flex-wrap justify-center items-center">
+		<div className={`${props.title} shinobu-commands-list-item flex flex-col flex-wrap justify-center items-center`}>
 			<h2 className="title-white title-sm">{props.title}</h2>
 			<div className="flex justify-center items-center flex-wrap">
 				{props.rows.map((row) => {

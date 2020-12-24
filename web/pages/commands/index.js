@@ -7,8 +7,10 @@ export default class Commands extends React.Component {
 		const pageProps = {};
 
 		if(req && req.user) {
-			console.log(query);
 			pageProps.user = req.user;
+		}
+
+		if(query) {
 			pageProps.moderation = query.moderation;
 			pageProps.cosmetics = query.cosmetics;
 			pageProps.utility = query.utility;
@@ -16,6 +18,7 @@ export default class Commands extends React.Component {
 			pageProps.memes = query.memes;
 			pageProps.nsfw = query.nsfw;
 		}
+
 		return pageProps;
 	}
 
@@ -56,12 +59,12 @@ export default class Commands extends React.Component {
 						<div className="shinobu-commands-navigation">
 							<h3 className="title-sm title-white tal">Categories</h3>
 							<nav>
-								{props.moderation.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Moderation">Moderation</a>}
-								{props.cosmetics.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Cosmetics">Cosmetics</a>}
-								{props.utility.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Utility">Utility</a>}
-								{props.currency.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Currency">Currency</a>}
-								{props.memes.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="Memes">Memes</a>}
-								{props.nsfw.length > 0 && <a className="info-sl info-gray info-bold tal" href="" data-control="scroll" data-scroll="NSFW">NSFW</a>}
+								{props.moderation.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Moderation">Moderation</a>}
+								{props.cosmetics.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Cosmetics">Cosmetics</a>}
+								{props.utility.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Utility">Utility</a>}
+								{props.currency.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Currency">Currency</a>}
+								{props.memes.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Memes">Memes</a>}
+								{props.nsfw.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="NSFW">NSFW</a>}
 							</nav>
 						</div>
 						<div className="shinobu-commands-list">

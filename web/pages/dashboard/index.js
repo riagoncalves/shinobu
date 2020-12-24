@@ -7,7 +7,6 @@ export default class Dashboard extends React.Component {
 		const pageProps = {};
 
 		if(req && req.user) {
-			console.log(query);
 			pageProps.user = req.user;
 			pageProps.guilds = query.profile.guilds;
 			pageProps.botGuilds = query.botGuilds;

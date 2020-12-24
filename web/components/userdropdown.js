@@ -2,7 +2,6 @@ import React from 'react';
 import arrowDown from '../assets/images/down-arrow.svg';
 
 const UserDropdown = (props) => {
-	console.log(props.user);
 	return (
 		<div className="user-dropdown-container" data-control="dropdown">
 			<button className="user-dropdown">
