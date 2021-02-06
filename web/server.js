@@ -130,13 +130,16 @@ module.exports = client => {
 		});
 
 		server.get('/commands', async (req, res) => {
-			return app.render(req, res, '/commands', {
-				moderation: await models.Command.findAll({ where: { category: 'Moderation' } }),
-				cosmetics: await models.Command.findAll({ where: { category: 'Cosmetics' } }),
-				utility: await models.Command.findAll({ where: { category: 'Utility' } }),
-				currency: await models.Command.findAll({ where: { category: 'Currency' } }),
-				memes: await models.Command.findAll({ where: { category: 'Memes' } }),
-				nsfw: await models.Command.findAll({ where: { category: 'NSFW' } }),
+			await models.Command.findAll().then((commands) => {
+				console.log(commands);
+				return app.render(req, res, '/commands', {
+					moderation: commands.filter((command) => command.category == 'Moderation'),
+					cosmetics: commands.filter((command) => command.category == 'Cosmetics'),
+					utility: commands.filter((command) => command.category == 'Utility'),
+					currency: commands.filter((command) => command.category == 'Currency'),
+					memes: commands.filter((command) => command.category == 'Memes'),
+					nsfw: commands.filter((command) => command.category == 'NSFW'),
+				});
 			});
 		});
 
