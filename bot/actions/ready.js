@@ -82,6 +82,6 @@ module.exports = {
 			functions.prefixesJson();
 		}, 500);
 
-		webServer(client);
+		webServer();
 	},
 };
