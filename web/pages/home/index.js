@@ -5,48 +5,48 @@ import SecundaryBtn from '../../components/secundarybtn';
 import Router from 'next/router';
 
 export default class Index extends React.Component {
-	static async getInitialProps({ req }) {
-		const pageProps = {};
+  static async getInitialProps({ req }) {
+    const pageProps = {};
 
-		if(req && req.user) {
-			pageProps.user = req.user;
-		}
-		return pageProps;
-	}
+    if(req && req.user) {
+      pageProps.user = req.user;
+    }
+    return pageProps;
+  }
 
-	componentDidMount() {
-		Router.beforePopState(({ as }) => {
-			location.href = as;
-		});
-	}
+  componentDidMount() {
+    Router.beforePopState(({ as }) => {
+      location.href = as;
+    });
+  }
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			user: props.user,
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: props.user,
+    };
+  }
 
-	render() {
+  render() {
 
-		const props = {
-			...this.props,
-			user: this.state.user,
-		};
+    const props = {
+      ...this.props,
+      user: this.state.user,
+    };
 
-		return (
-			<Layout user={props.user}>
-				<section className="shinobu-hero">
-					<div className="text-center">
-						<h1 className="title-xl title-white">Shinobu</h1>
-						<p className="info-lg info-white">Your personal discord assistant</p>
-						<div className="btn-container">
-							<DiscordBtn/>
-							<SecundaryBtn link="/commands" text="Learn more" />
-						</div>
-					</div>
-				</section>
-			</Layout>
-		);
-	}
+    return (
+      <Layout user={props.user}>
+        <section className="shinobu-hero">
+          <div className="text-center">
+            <h1 className="title-xl title-white">Shinobu</h1>
+            <p className="info-lg info-white">Your personal discord assistant</p>
+            <div className="btn-container">
+              <DiscordBtn/>
+              <SecundaryBtn link="/commands" text="Learn more" />
+            </div>
+          </div>
+        </section>
+      </Layout>
+    );
+  }
 }
