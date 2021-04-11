@@ -1,14 +1,13 @@
 const express = require('express');
 const nextApp = require('next');
 const client = require('../bot/client.js');
-const bodyParser = require('body-parser');
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const DiscordStrategy = require('passport-discord').Strategy;
 const scopes = ['identify', 'email', 'guilds', 'guilds.join'];
-const models = require('../db/models');
+const User = require('../db/models').User;
 const initialDonuts = 2000;
 let discordProfile = {};
 
@@ -22,7 +21,7 @@ passport.use(
   async (accessToken, refreshToken, profile, cb) => {
     discordProfile = profile;
 
-    let user = await models.User
+    let user = await User
       .findOne({ where:
         {
           userID: profile.id,
@@ -30,7 +29,7 @@ passport.use(
       });
 
     if (!user) {
-      user = await models.User
+      user = await User
         .create({
           userID: profile.id,
           username: `${profile.username}#${profile.discriminator}`,
@@ -68,8 +67,11 @@ module.exports = () => {
 
     server.use(passport.initialize());
     server.use(passport.session());
-    server.use(bodyParser.urlencoded({ extended: true }));
-    server.use(bodyParser.json());
+
+    server.use(express.json());
+    server.use(express.urlencoded({
+      extended: true,
+    }));
 
     server.use((req, res, next) => {
       res.locals.app = app;
