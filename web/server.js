@@ -78,7 +78,6 @@ module.exports = () => {
     });
 
     server.use('/', require('./routes/public'));
-    server.use('/', require('./routes/auth'));
 
     server.all('*', (req, res) => {
       return handle(req, res);

@@ -32,7 +32,7 @@ export default class ProfileEdit extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('/profile/edit', {
+    fetch('/profile/update', {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',

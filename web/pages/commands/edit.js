@@ -22,7 +22,7 @@ export default class CommandsEdit extends React.Component {
   }
 
   handleSubmit(e, id) {
-    fetch(`/commands/${id}/edit`, {
+    fetch(`/commands/${id}/update`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',

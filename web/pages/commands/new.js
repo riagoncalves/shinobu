@@ -21,7 +21,7 @@ export default class CommandsNew extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('/commands/new', {
+    fetch('/commands/create', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
