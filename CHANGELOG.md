@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.6.1] - 2020-04-11
+### Added
+- Website and server files reorganize
+
 ## [1.6.0] - 2020-12-24
 ### Added
 - Bot Website
