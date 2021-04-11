@@ -1,5 +1,5 @@
 const express = require('express');
-const next = require('next');
+const nextApp = require('next');
 const client = require('../bot/client.js');
 const bodyParser = require('body-parser');
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -10,7 +10,7 @@ const DiscordStrategy = require('passport-discord').Strategy;
 const scopes = ['identify', 'email', 'guilds', 'guilds.join'];
 const models = require('../db/models');
 const initialDonuts = 2000;
-let profileStore = {};
+let discordProfile = {};
 
 passport.use(
   new DiscordStrategy({
@@ -20,7 +20,7 @@ passport.use(
     scope: scopes,
   },
   async (accessToken, refreshToken, profile, cb) => {
-    profileStore = profile;
+    discordProfile = profile;
 
     let user = await models.User
       .findOne({ where:
@@ -50,7 +50,7 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-const app = next({
+const app = nextApp({
   dev,
   dir: './web',
 });
@@ -71,244 +71,17 @@ module.exports = () => {
     server.use(bodyParser.urlencoded({ extended: true }));
     server.use(bodyParser.json());
 
+    server.use((req, res, next) => {
+      res.locals.app = app;
+      res.locals.discordProfile = discordProfile;
+      next();
+    });
+
+    server.use('/', require('./routes/public'));
+    server.use('/', require('./routes/auth'));
+
     server.all('*', (req, res) => {
       return handle(req, res);
-    });
-
-    server.get('/', (req, res) => {
-      res.setHeader('Content-Type', 'text/html');
-      return app.render(req, res, '/home', req.query);
-    });
-
-    server.get('/profile', async (req, res) => {
-      if(!req.user) return res.redirect('/');
-      const background = await models.Background
-        .findOne({
-          where: {
-            id: req.user.BackgroundId 
-          },
-        });
-
-      return app.render(req, res, '/profile', {
-        background: background ? background.link : 'https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/default-pfp.jpg',
-      });
-    });
-
-    server.get('/profile/edit', async (req, res) => {
-      if(!req.user) return res.redirect('/');
-
-      const background = await models.Background
-        .findOne({
-          where: {
-            id: req.user.BackgroundId,
-          },
-        });
-
-      const userbackgrounds = await models.UserBackground
-        .findAll(({
-          where:
-          {
-            UserId: req.user.id,
-          },
-          include: ['Background'],
-        }));
-
-      return app.render(req, res, '/profile/edit', {
-        background: background ? background.link : 'https://shinobu-discord.s3-eu-west-1.amazonaws.com/Profile/default-pfp.jpg',
-        inventory: userbackgrounds,
-      });
-    });
-
-    server.put('/profile/edit', async (req, res) => {
-      if(!req.user) return res.json({ success: false });
-
-      const user = await models.User
-        .findOne({
-          where: {
-            id: req.user.id,
-          },
-        });
-
-      if (
-        user.update({
-          title: req.body.title,
-          color: req.body.color,
-          BackgroundId: parseInt(req.body.BackgroundId),
-        })) {
-        req.login(user, function(err) {
-          if (err) return res.json({ success: false, error: err });
-          return res.json({ success: true });
-        });
-      }
-    });
-
-    server.get('/dashboard', (req, res) => {
-      if(!req.user) return res.redirect('/');
-      return app.render(req, res, '/dashboard',
-        {
-          profile: profileStore,
-          botGuilds: client.guilds,
-        },
-      );
-    });
-
-    server.get('/dashboard/:guildID', async (req, res) => {
-      if(!req.user) return res.redirect('/dashboard');
-      let guildConfirm = false;
-
-      client.guilds.cache.forEach(guild => {
-        console.log(guild);
-        if (guild.id == req.params.guildID && req.user.userID == guild.ownerID) {
-          guildConfirm = true;
-        }
-      });
-
-      if(!guildConfirm) return res.redirect('/dashboard');
-      const guild = client.guilds.cache.filter(
-        (sGuild) => sGuild.id == req.params.guildID);
-
-      const dbGuild = await models.Guild
-        .findOne({
-          where: {
-            guildID:req.params.guildID
-          },
-        });
-
-      if (!guild) return res.status(404);
-      if (!dbGuild) return res.status(404);
-
-      return app.render(req, res, '/dashboard/edit',
-        {
-          profile: profileStore,
-          guild: Array.from(guild.values())[0],
-          dbGuild: dbGuild.dataValues,
-        },
-      );
-    });
-
-    server.get('/commands', async (req, res) => {
-      await models.Command
-        .findAll()
-        .then(
-          (commands) => {
-            return app.render(req, res, '/commands', {
-              moderation: commands.filter(
-                (command) => command.category == 'Moderation'),
-              cosmetics: commands.filter(
-                (command) => command.category == 'Cosmetics'),
-              utility: commands.filter(
-                (command) => command.category == 'Utility'),
-              currency: commands.filter(
-                (command) => command.category == 'Currency'),
-              memes: commands.filter(
-                (command) => command.category == 'Memes'),
-              nsfw: commands.filter(
-                (command) => command.category == 'NSFW'),
-            });
-          });
-    });
-
-    server.get('/commands/new', (req, res) => {
-      if(!req.user) return res.redirect('/');
-      if (req.user.userID != process.env.OWNER_ID) return res.redirect('/');
-      return app.render(req, res, '/commands/new', req.query);
-    });
-
-    server.post('/commands/new', async (req, res) => {
-      if(!req.user) return res.redirect('/');
-      if (req.user.userID != process.env.OWNER_ID) return res.json({ success: false });
-
-      const command = await models.Command
-        .findOne({
-          where: {
-            name: req.body.name,
-          },
-        });
-
-      if (!command) {
-        const newCommand = models.Command.create(req.body);
-
-        if (newCommand) {
-          return res.json({ success: true });
-        }
-        else {
-          return res.json({ success: false });
-        }
-      }
-      else {
-        return res.json({
-          success: false,
-          error: 'Command already exists.',
-        });
-      }
-    });
-
-    server.delete('/commands/:id', async (req, res) => {
-      if(!req.user) return res.redirect('/');
-      if (req.user.userID != process.env.OWNER_ID) return res.json({ success: false });
-
-      const command = await models.Command
-        .findOne({
-          where: {
-            id: req.params.id,
-          },
-        });
-
-      if (command) {
-        command.destroy();
-        return res.json({ success: true });
-      }
-      else {
-        return res.json({ success: false });
-      }
-    });
-
-    server.get('/commands/:id/edit', async (req, res) => {
-      if(!req.user) return res.redirect('/');
-      if (req.user.userID != process.env.OWNER_ID) return res.redirect('/');
-
-      const command = await models.Command
-        .findOne({
-          where: {
-            id: req.params.id,
-          },
-        });
-
-      return app.render(req, res, '/commands/edit', {
-        command: command.dataValues,
-      });
-    });
-
-    server.put('/commands/:id/edit', async (req, res) => {
-      if(!req.user) return res.redirect('/');
-      if (req.user.userID != process.env.OWNER_ID) return res.json({ success: false });
-
-      const command = await models.Command
-        .findOne({
-          where: {
-            id: req.params.id,
-          },
-        });
-
-      if (command.update(req.body)) {
-        return res.json({ success: true });
-      }
-      else {
-        return res.json({ success: false });
-      }
-    });
-
-    server.get('/login', passport.authenticate('discord'));
-
-    server.get('/callback', passport.authenticate('discord', {
-      failureRedirect: '/',
-    }), (req, res) => {
-      res.redirect('/');
-    });
-
-    server.get('/logout', (req, res) => {
-      req.logout();
-      res.redirect('/');
     });
 
     server.listen(port, (err) => {
