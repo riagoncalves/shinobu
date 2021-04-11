@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/layout';
-import CommandsTable from '../../components/commandstable';
+import CommandsTable from '../../components/commandsTable';
 
 export default class Commands extends React.Component {
   static async getInitialProps({ req, query }) {

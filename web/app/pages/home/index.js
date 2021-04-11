@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/layout';
-import DiscordBtn from '../../components/discordbtn';
-import SecundaryBtn from '../../components/secundarybtn';
+import DiscordBtn from '../../components/discordButton';
+import SecundaryBtn from '../../components/secundaryButton';
 import Router from 'next/router';
 
 export default class Index extends React.Component {

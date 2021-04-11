@@ -52,7 +52,7 @@ passport.deserializeUser((user, done) => {
 
 const app = nextApp({
   dev,
-  dir: './web',
+  dir: './web/app',
 });
 
 const handle = app.getRequestHandler();

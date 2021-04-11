@@ -4,7 +4,7 @@
   "description": "Discord bot built using Discord.js",
   "main": "index.js",
   "scripts": {
-    "build": "cd web && next build",
+    "build": "cd web/app && next build",
     "start": "yarn build && node index.js"
   },
   "repository": {
