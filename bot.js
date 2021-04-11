@@ -1,5 +1,5 @@
 const actions = require('./bot/actions');
-const client = require('./bot/client.js');
+const client = require('./bot/client');
 
 for (const action in actions) {
   client.on(action, actions[action].init);

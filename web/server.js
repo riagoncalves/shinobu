@@ -1,6 +1,6 @@
 const express = require('express');
 const nextApp = require('next');
-const client = require('../bot/client.js');
+const client = require('../bot/client');
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const cookieSession = require('cookie-session');

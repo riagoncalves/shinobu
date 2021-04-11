@@ -1,4 +1,4 @@
-const client = require('../../../bot/client.js');
+const client = require('../../../bot/client');
 const Guild = require('../../../db/models').Guild;
 
 module.exports = {

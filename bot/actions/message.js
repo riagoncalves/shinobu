@@ -1,4 +1,4 @@
-const client = require('../client.js');
+const client = require('../client');
 const fs = require('fs');
 const commands = require('../commands');
 const models = require('../../db/models');
