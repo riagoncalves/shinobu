@@ -4,9 +4,12 @@
   "description": "Discord bot built using Discord.js",
   "main": "index.js",
   "scripts": {
-    "build": "cd web/app && next build",
-    "start": "yarn build && node index.js"
+    "precommit-msg": "echo Pre-commit checks... && exit 0",
+    "lint": "npx eslint **/*.js --ignore-pattern node_modules/",
+    "start": "yarn build && node index.js",
+    "build": "cd web/app && next build"
   },
+  "pre-commit": [ "precommit-msg", "lint" ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/riagoncalves/shinobu.git"
@@ -42,6 +45,7 @@
   },
   "devDependencies": {
     "eslint": "^7.19.0",
-    "eslint-plugin-react": "^7.22.0"
+    "eslint-plugin-react": "^7.22.0",
+    "pre-commit": "^1.2.2"
   }
 }
