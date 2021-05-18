@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://shinobubot.com/">
-    <img width="122" alt="shinobu" src="./wep/app/assets/images/donut.png">
+    <img width="122" alt="shinobu" src="web/app/assets/images/donut.png">
   </a>
 </p>
 
