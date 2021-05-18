@@ -27,7 +27,7 @@
 -   Clone this repo and run `yarn install`
 -   Create a copy of `.env.example` named `.env`
 -   Fill in with your env variables
--   Run `yarn start` to start
+-   Run `yarn start`
 
 ## Links
 
