@@ -1,8 +1,11 @@
 {
   "name": "shinobu",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Discord bot built using Discord.js",
   "main": "index.js",
+  "engines": {
+    "node": "16.13.1"
+  },
   "scripts": {
     "precommit-msg": "echo Pre-commit checks... && exit 0",
     "lint": "npx eslint **/*.js --ignore-pattern node_modules/",

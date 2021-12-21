@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.6.2] - 2021-21-21
+### Changed
+- Update dependecies
+
 ## [1.6.1] - 2020-04-11
 ### Added
 - Website and server files reorganize
