@@ -1,5 +1,3 @@
-import '../assets/styles/index.scss';
-import '../assets/scripts';
 import React from 'react';
 import Head from 'next/head';
 import Header from './header';

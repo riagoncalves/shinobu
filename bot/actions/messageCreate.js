@@ -50,18 +50,17 @@ const functions = {
 };
 
 module.exports = {
+  async init(message) {
+    if (message.author.bot) return;
+    if (message.channel.type === 'dm') return;
 
-  async init(msg) {
-    if (msg.author.bot) return;
-    if (msg.channel.type === 'dm') return;
-
-    functions.userChecker(msg.author, msg);
+    functions.userChecker(message.author, message);
 
     const prefixesFile = JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
-    const prefix = prefixesFile[msg.guild.id].prefix;
+    const prefix = prefixesFile[message.guild.id].prefix;
 
-    if (msg.content.startsWith(prefix)) functions.commandsRunner(msg, prefix);
-    if (msg.content.startsWith(process.env.PREFIX)) functions.commandsRunner(msg, process.env.PREFIX);
+    if (message.content.startsWith(prefix)) functions.commandsRunner(message, prefix);
+    if (message.content.startsWith(process.env.PREFIX)) functions.commandsRunner(message, process.env.PREFIX);
 
     return;
   },

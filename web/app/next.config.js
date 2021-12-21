@@ -1,25 +1,13 @@
-const withSass = require('@zeit/next-sass');
-const withCSS = require('@zeit/next-css');
-module.exports = withCSS(
-  withSass({
-    webpack(config) {
-      config.module.rules.push({
-        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 100000,
-          },
-        },
-      });
+const path = require('path');
 
-      return config;
-    },
-    env: {
-      ownerID: process.env.OWNER_ID,
-      inviteLink: process.env.INVITE_LINK,
-      serverInvite: process.env.SERVER_INVITE,
-      googleTag: process.env.G_TAG,
-    },
-  }),
-);
+module.exports = {
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'assets/styles')],
+  },
+  env: {
+    ownerID: process.env.OWNER_ID,
+    inviteLink: process.env.INVITE_LINK,
+    serverInvite: process.env.SERVER_INVITE,
+    googleTag: process.env.G_TAG,
+  },
+};

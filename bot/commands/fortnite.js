@@ -4,9 +4,9 @@ module.exports = {
   desc: function(prefix) {
     return `Gets searched user fortnite status!\nWrite \`${prefix}ftn <pc/psn/xb1> <player_name>\` to use.`;
   },
-  process: function(client, msg, args) {
+  process: function(client, message, args) {
     if (args[0] != 'pc' && args[0] != 'psn' && args[0] != 'xb1') {
-      msg.channel.send('Invalid parameters!');
+      message.channel.send('Invalid parameters!');
       return;
     }
 
@@ -18,10 +18,10 @@ module.exports = {
     }).then(res => res.json())
       .then(userInfo => {
         try {
-          msg.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);
+          message.channel.send(`${userInfo.epicUserHandle} killed ${userInfo.lifeTimeStats[10].value} players overall!`);
         }
         catch (e) {
-          msg.channel.send(userInfo.error);
+          message.channel.send(userInfo.error);
         }
       });
   },

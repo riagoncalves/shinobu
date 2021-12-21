@@ -1,6 +1,6 @@
 const models = require('../../db/models');
 const Canvas = require('canvas');
-const Discord = require('discord.js');
+const { MessageAttachment } = require('discord.js');
 
 const functions = {
   numFormatter(num) {
@@ -120,7 +120,7 @@ const functions = {
     const avatar = await Canvas.loadImage(photo);
     ctx.drawImage(avatar, 303, 152, 194, 194);
 
-    const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'profile.png');
+    const attachment = new MessageAttachment(canvas.toBuffer(), 'profile.png');
     return attachment;
   },
 };
@@ -129,17 +129,17 @@ module.exports = {
   desc: function(prefix) {
     return `Write \`${prefix}profile\` to see your own profile and \`${prefix}profile <user>\` to see other user profile.`;
   },
-  process: async function(client, msg) {
-    if(msg.mentions.users.first()) {
-      const user = await models.User.findOne({ where: { userID: msg.mentions.users.first().id } });
-      if(!user) return msg.channel.send('Invalid user!');
+  process: async function(client, message) {
+    if(message.mentions.users.first()) {
+      const user = await models.User.findOne({ where: { userID: message.mentions.users.first().id } });
+      if(!user) return message.channel.send('Invalid user!');
       const attachment = await functions.profileImage(user);
-      return msg.channel.send(attachment);
+      return message.channel.send(attachment);
     }
-    const user = await models.User.findOne({ where: { userID: msg.author.id } });
+    const user = await models.User.findOne({ where: { userID: message.author.id } });
 
     const attachment = await functions.profileImage(user);
 
-    msg.channel.send(attachment);
+    message.channel.send({ files: [attachment] });
   },
 };

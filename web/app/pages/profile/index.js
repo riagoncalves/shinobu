@@ -1,8 +1,7 @@
 import React from 'react';
+import Image from 'next/image';
 import Layout from '../../components/layout';
 import Router from 'next/router';
-import donut from '../../assets/images/donut.png';
-import edit from '../../assets/images/edit.svg';
 
 export default class Profile extends React.Component {
   static async getInitialProps({ req, query }) {
@@ -54,7 +53,9 @@ export default class Profile extends React.Component {
           </div>
           <div className="shinobu-profile-details container">
             <a href='/profile/edit' className="shinobu-profile-details-edit">
-              <img src={edit} className="shinobu-profile-details-edit-img" />
+              <div className='shinobu-profile-details-edit-img'>
+                <Image src="/images/edit.svg" alt="save" width="100%" height="100%" />
+              </div>
               <p className="shinobu-profile-details-edit-label info-xsl info-white">Edit profile</p>
             </a>
             <div className="shinobu-profile-details-container flex">
@@ -71,7 +72,9 @@ export default class Profile extends React.Component {
                 <div className="shinobu-profile-details-info-currency">
                   <h3 className="title-white title-xsl tal">Currency</h3>
                   <div className="flex items-center shinobu-profile-details-info-currency-single">
-                    <img src={donut} className="donuts-img" />
+                    <div className='donuts-img'>
+                      <Image src="/images/donut.png" alt="save" width="100%" height="100%" />
+                    </div>
                     <p className="info-gray info-xsl info-sbold tal donuts-label">Donuts:</p>
                     <p className="info-white info-xsl info-sbold tal">{numFormatter(props.user.donuts)}</p>
                   </div>

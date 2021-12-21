@@ -1,9 +1,11 @@
 import React from 'react';
-import discordLogo from '../assets/images/discord.svg';
+import Image from 'next/image';
 
 const DiscordBtn = () => (
   <a href={process.env.inviteLink} className="btn-primary btn-lg">
-    <img src={discordLogo} />
+    <div className='btn-img'>
+      <Image src="/images/discord.svg" alt="discord logo" width={35} height={35} />
+    </div>
     Add To Discord
   </a>
 );
