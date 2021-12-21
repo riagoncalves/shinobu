@@ -1,6 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
 import Layout from '../../components/layout';
-import save from '../../assets/images/save.svg';
 
 export default class CommandsEdit extends React.Component {
   static async getInitialProps({ req, query }) {
@@ -88,7 +88,9 @@ export default class CommandsEdit extends React.Component {
             </div>
             <div className="form-group">
               <button type="submit" className="shinobu-commands_new-save">
-                <img src={save} className="shinobu-commands_new-save-img" />
+                <div className='shinobu-commands_new-save-img'>
+                  <Image src="/images/save.svg" alt="save" width="100%" height="100%" />
+                </div>
                 <p className="shinobu-commands_new-save-label info-xsl info-white">Save</p>
               </button>
             </div>

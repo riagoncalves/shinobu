@@ -1,12 +1,12 @@
 const models = require('../../db/models');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
   desc: function(prefix) {
     return `\nWrite \`${prefix}inventory\` to list all user items.`;
   },
-  process: async function(client, msg, args, prefix) {
-    const user = await models.User.findOne({ where: { userID: msg.author.id } });
+  process: async function(client, message, args, prefix) {
+    const user = await models.User.findOne({ where: { userID: message.author.id } });
     const userbackgrounds = await models.UserBackground.findAll(({ where: { UserId: user.id }, include: ['Background'] }));
     const backgroundsList = [];
     userbackgrounds.forEach(background => {
@@ -16,13 +16,13 @@ module.exports = {
       });
     });
 
-    const richEmbed = new Discord.MessageEmbed()
+    const richEmbed = new MessageEmbed()
       .setColor('#d49100')
       .setTitle('📦 Inventory')
       .addField('Your items!', '**Backgrounds**')
       .addFields(backgroundsList)
-      .setFooter(`${msg.author.username}#${msg.author.discriminator}`, `${msg.author.avatarURL()}`);
+      .setFooter(`${message.author.username}#${message.author.discriminator}`, `${message.author.avatarURL()}`);
 
-    msg.channel.send(richEmbed);
+    message.channel.send({ embeds: [richEmbed] });
   },
 };

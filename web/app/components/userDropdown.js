@@ -1,5 +1,5 @@
 import React from 'react';
-import arrowDown from '../assets/images/down-arrow.svg';
+import Image from 'next/image';
 
 const UserDropdown = (props) => {
   return (
@@ -7,7 +7,9 @@ const UserDropdown = (props) => {
       <button className="user-dropdown">
         <img src={props.user.photo}/>
         <p className="info-white info-xsl info-sbold">{props.user.username.split('#')[0]}</p>
-        <img src={arrowDown} className="arrow-down" />
+        <div className='arrow-down'>
+          <Image src="/images/down-arrow.svg" alt="arrow down" width="100%" height="100%" />
+        </div>
       </button>
       <div className="user-dropdown-menu">
         <a href="/profile" className="info-xsl">Profile</a>

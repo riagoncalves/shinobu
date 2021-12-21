@@ -9,7 +9,10 @@
     "start": "yarn build && node index.js",
     "build": "cd web/app && next build"
   },
-  "pre-commit": [ "precommit-msg", "lint" ],
+  "pre-commit": [
+    "precommit-msg",
+    "lint"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/riagoncalves/shinobu.git"
@@ -21,31 +24,30 @@
   },
   "homepage": "https://github.com/riagoncalves/shinobu#readme",
   "dependencies": {
-    "@zeit/next-sass": "^1.0.1",
-    "canvas": "^2.6.1",
+    "canvas": "^2.8.0",
     "changelog-parser": "^2.8.0",
-    "cookie-session": "^1.4.0",
+    "cookie-session": "^2.0.0",
     "discord-youtube-api": "^0.1.0",
-    "discord.js": "^12.5.1",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
     "google-images": "^2.1.0",
-    "next": "^10.0.6",
-    "node-fetch": "^2.6.1",
-    "node-sass": "^5.0.0",
-    "passport": "^0.4.1",
+    "next": "^12.0.7",
+    "node-fetch": "2.6.1",
+    "node-sass": "^7.0.0",
+    "passport": "^0.5.2",
     "passport-discord": "^0.1.4",
-    "pg": "^8.5.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "sequelize": "^6.5.0",
-    "sequelize-cli": "^6.2.0",
-    "url-loader": "^4.1.1",
-    "webpack": "4"
+    "pg": "^8.7.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sass": "^1.45.0",
+    "sequelize": "^6.12.0",
+    "sequelize-cli": "^6.3.0",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "eslint": "^7.19.0",
-    "eslint-plugin-react": "^7.22.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-react": "^7.27.1",
     "pre-commit": "^1.2.2"
   }
 }

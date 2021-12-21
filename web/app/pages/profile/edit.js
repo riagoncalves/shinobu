@@ -1,7 +1,7 @@
 import React from 'react';
+import Image from 'next/image';
 import Router from 'next/router';
 import Layout from '../../components/layout';
-import save from '../../assets/images/save.svg';
 
 export default class ProfileEdit extends React.Component {
   static async getInitialProps({ req, query }) {
@@ -92,7 +92,9 @@ export default class ProfileEdit extends React.Component {
                 </select>
               </div>
               <button type="submit" className="shinobu-profile_edit-details-save">
-                <img src={save} className="shinobu-profile_edit-details-save-img" />
+                <div className='shinobu-profile_edit-details-save-img'>
+                  <Image src="/images/save.svg" alt="save" width="100%" height="100%" />
+                </div>
                 <p className="shinobu-profile_edit-details-save-label info-xsl info-white">Save profile</p>
               </button>
             </form>
