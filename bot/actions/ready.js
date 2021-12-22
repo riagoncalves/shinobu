@@ -27,7 +27,7 @@ const functions = {
               guildName: guild.name,
               banner: guild.iconURL,
               ownerID: guild.ownerId,
-              ownerName: owner.username || null,
+              ownerName: owner ? owner.username : '',
               prefix: process.env.DEFAULT_PREFIX,
             });
             console.log(`Creating ${guild.name}!`);
