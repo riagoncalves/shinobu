@@ -17,7 +17,7 @@ module.exports = {
     let guildConfirm = false;
 
     client.guilds.cache.forEach(guild => {
-      if (guild.id == req.params.guildID && req.user.userID == guild.ownerID) {
+      if (guild.id == req.params.guildID && req.user.userID == guild.ownerId) {
         guildConfirm = true;
       }
     });

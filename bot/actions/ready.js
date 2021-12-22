@@ -21,12 +21,12 @@ const functions = {
             console.log(`${guild.name} exists!`);
           }
           else {
-            const owner = await models.User.findOne({ where: { userID: guild.ownerID } });
+            const owner = await models.User.findOne({ where: { userID: guild.ownerId } });
             models.Guild.create({
               guildID: guild.id,
               guildName: guild.name,
               banner: guild.iconURL,
-              ownerID: guild.ownerID,
+              ownerID: guild.ownerId,
               ownerName: owner.username || null,
               prefix: process.env.DEFAULT_PREFIX,
             });

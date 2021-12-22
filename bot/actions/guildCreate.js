@@ -7,7 +7,7 @@ module.exports = {
       guildID: guild.id,
       guildName: guild.name,
       banner: guild.iconURL({ size: 512, format: 'png' }),
-      ownerID: guild.ownerID,
+      ownerID: guild.ownerId,
       ownerName:`${guild.owner.user.username}#${guild.owner.user.discriminator}`,
       prefix: process.env.DEFAULT_PREFIX,
     });

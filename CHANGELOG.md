@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.6.3] - 2021-21-22
+### Fixed
+- Crash due to using old API names
+
 ## [1.6.2] - 2021-21-21
 ### Changed
 - Update dependecies
