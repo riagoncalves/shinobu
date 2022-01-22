@@ -36,7 +36,7 @@
     "express": "^4.17.2",
     "google-images": "^2.1.0",
     "next": "^12.0.7",
-    "node-fetch": "2.6.1",
+    "node-fetch": "3.1.1",
     "node-sass": "^7.0.0",
     "passport": "^0.5.2",
     "passport-discord": "^0.1.4",
