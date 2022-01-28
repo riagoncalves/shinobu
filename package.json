@@ -35,7 +35,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "google-images": "^2.1.0",
-    "next": "^12.0.7",
+    "next": "^12.0.9",
     "node-fetch": "2.6.1",
     "node-sass": "^7.0.0",
     "passport": "^0.5.2",
