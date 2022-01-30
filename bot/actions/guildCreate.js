@@ -16,8 +16,13 @@ module.exports = {
     prefixesFile[guild.id] = {
       prefix: process.env.DEFAULT_PREFIX,
     };
-    fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
-      console.log('Updating prefixes.json!');
+    fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), (error) => {
+      if(error) {
+        console.log(`Prefixes File Error: ${error}`);
+      }
+      else {
+        console.log('Updating prefixes.json!');
+      }
     });
   },
 };
