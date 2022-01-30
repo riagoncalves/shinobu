@@ -57,9 +57,12 @@ module.exports = {
     functions.userChecker(message.author, message);
 
     const prefixesFile = JSON.parse(fs.readFileSync('./data/prefixes.json', 'utf8'));
-    const prefix = prefixesFile[message.guild.id].prefix;
 
-    if (message.content.startsWith(prefix)) functions.commandsRunner(message, prefix);
+    if(prefixesFile[message.guild.id]) {
+      const prefix = prefixesFile[message.guild.id].prefix;
+      if (message.content.startsWith(prefix)) functions.commandsRunner(message, prefix);
+    }
+
     if (message.content.startsWith(process.env.PREFIX)) functions.commandsRunner(message, process.env.PREFIX);
 
     return;

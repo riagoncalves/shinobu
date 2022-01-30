@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   User.associate = function(models) {
-    User.hasMany(models.UserBackground, { as: 'backgrounds' });
-    User.belongsTo(models.UserBackground, { as: 'Background' });
+    User.hasMany(models.UserBackground, { as: 'backgrounds', constraints: false });
+    User.belongsTo(models.UserBackground, { as: 'Background', constraints: false });
   };
 
   return User;

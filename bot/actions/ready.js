@@ -50,8 +50,13 @@ const functions = {
       };
     });
 
-    fs.writeFile('./data/prefixes.json', JSON.stringify(prefixes), () => {
-      console.log('Creating prefixes.json!');
+    fs.writeFile('./data/prefixes.json', JSON.stringify(prefixes), (error) => {
+      if(error) {
+        console.log(`Prefixes File Error: ${error}`);
+      }
+      else {
+        console.log('Creating prefixes.json!');
+      }
     });
   },
   /* sendLog(bot) {

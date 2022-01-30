@@ -15,8 +15,13 @@ module.exports = {
       prefixesFile[server.guildID] = {
         prefix: args[0],
       };
-      fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), () => {
-        console.log('Updating prefixes.json!');
+      fs.writeFile('./data/prefixes.json', JSON.stringify(prefixesFile), (error) => {
+        if(error) {
+          console.log(`Prefixes File Error: ${error}`);
+        }
+        else {
+          console.log('Updating prefixes.json!');
+        }
       });
       message.channel.send(`Your server new prefix is \`${args[0]}\`!`);
     }

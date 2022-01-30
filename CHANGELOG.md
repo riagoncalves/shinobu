@@ -1,11 +1,15 @@
 # Changelog
 
-## [1.6.3] - 2021-21-22
+## [1.6.4] - 2022-01-30
+### Fixed
+- Cycling dependecy
+
+## [1.6.3] - 2021-12-22
 ### Fixed
 - Crash due to using old API names
 - Crash due to owner not being a user before a guild is created
 
-## [1.6.2] - 2021-21-21
+## [1.6.2] - 2021-12-21
 ### Changed
 - Update dependecies
 
