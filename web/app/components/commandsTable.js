@@ -18,25 +18,25 @@ const CommandsTable = (props) => {
   };
 
   return (
-    <div className={`${props.title} shinobu-commands-list-item flex flex-col flex-wrap justify-center items-center`}>
-      <h2 className="title-white title-sm">{props.title}</h2>
+    <div className={`${props.title} p-8 flex flex-col flex-wrap justify-center items-center`}>
+      <h2 className="font-main text-white font-bold text-center text-2xl">{props.title}</h2>
       <div className="flex justify-center items-center flex-wrap">
         {props.rows.map((row) => {
           return (
-            <div className="shinobu-commands-card" key={row.id}>
-              <p className="info-sl info-white tal">{row.name}</p>
-              <p className="info-xsl info-white tal">{row.description}</p>
-              <div className="shinobu-commands-card-info">
-                <p className="info-xsl info-gray tal"><span className="info-bold info-white">Usage:</span> {row.usage}</p>
-                <p className="info-xsl info-gray tal"><span className="info-bold info-white">Aliases:</span> {row.aliases.join(', ')}</p>
+            <div className="mt-6 ml-4 pt-4 pb-4 pr-20 pl-8 border-2 border-solid border-zinc-300 rounded-2xl bg-zinc-700" key={row.id}>
+              <p className="font-main text-base text-white">{row.name}</p>
+              <p className="font-main text-xs text-white">{row.description}</p>
+              <div className="pt-3.5">
+                <p className="font-main text-xs text-zinc-300"><span className="font-bold text-white">Usage:</span> {row.usage}</p>
+                <p className="font-main text-xs text-zinc-300"><span className="font-bold text-white">Aliases:</span> {row.aliases.join(', ')}</p>
               </div>
               {props.user && props.user.userID == process.env.ownerID &&
-                <div className="info-xsl info-gray flex shinobu-commands-card-links">
-                  <a href={`/commands/${row.id}/edit`} className="info-white info-xsl">Edit</a>
+                <div className="font-main flex-col text-xs text-zinc-300 flex pt-3 justify-start shinobu-commands-card-links">
+                  <a href={`/commands/${row.id}/edit`} className="font-main text-white text-xs">Edit</a>
                   <a href='#' onClick={(e) => {
                     e.preventDefault();
                     handleDelete(row.id);
-                  }} className="info-white info-xsl">Delete</a>
+                  }} className="font-main text-white text-xs">Delete</a>
                 </div>
               }
             </div>

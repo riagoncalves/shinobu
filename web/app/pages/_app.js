@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/styles/index.scss';
+import '../styles/globals.css';
 import '../assets/scripts';
 
 function Shinobu({ Component, pageProps }) {

@@ -36,13 +36,13 @@ export default class Index extends React.Component {
 
     return (
       <Layout user={props.user}>
-        <section className="shinobu-hero">
-          <div className="text-center">
-            <h1 className="title-xl title-white">Shinobu</h1>
-            <p className="info-lg info-white">Your personal discord assistant</p>
-            <div className="btn-container">
-              <DiscordBtn/>
-              <SecundaryBtn link="/commands" text="Learn more" />
+        <section className="flex justify-center items-center flex-col">
+          <div className="flex flex-col items-center justify-center p-0 h-screen md:h-auto md:py-80">
+            <h1 className="font-main font-extrabold text-white text-center text-6xl md:text-8xl">Shinobu</h1>
+            <p className="font-main text-white text-center text-2xl">Your personal discord assistant</p>
+            <div className="flex py-8 flex-col md:flex-row">
+              <DiscordBtn className="mt-4"/>
+              <SecundaryBtn link="/commands" text="Learn more" className="mt-4" />
             </div>
           </div>
         </section>
