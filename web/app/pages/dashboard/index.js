@@ -33,19 +33,14 @@ export default class Dashboard extends React.Component {
     };
 
     const hasId = function(guildId) {
-      const guilds = Array.from(props.botGuilds.cache.values());
-      const ids = [];
-      guilds.forEach(guild => {
-        ids.push(guild.id);
-      });
-      return ids.includes(guildId.toString());
+      return props.botGuilds.cache != undefined && props.botGuilds.cache.get(guildId) != undefined;
     };
 
     return (
       <Layout user={props.user} title="Dashboard">
-        <section className="shinobu-dashboard">
-          <div className="text-center">
-            <h2 className="title-sm title-white">YOUR SERVERS</h2>
+        <section className="h-full block">
+          <div className="flex flex-col items-center">
+            <h2 className="font-main text-white font-extrabold text-2xl px-8 pb-16 pt-20">YOUR SERVERS</h2>
             {props.guilds.map((guild) => (
               guild.owner && <DashboardGuild guild={guild} botGuild={hasId(guild.id)} />
             ))}

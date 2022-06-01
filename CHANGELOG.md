@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.7.0] - 2022-06-01
+### Website
+#### Changed
+- Website is now using tailwind
+
 ## [1.6.4] - 2022-01-30
 ### Fixed
 - Cycling dependecy

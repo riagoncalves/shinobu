@@ -53,30 +53,30 @@ export default class CommandsEdit extends React.Component {
 
     return (
       <Layout user={props.user} title={`Edit ${props.command.name}`}>
-        <section className="shinobu-commands_new">
+        <section className="py-16 px-4">
           <form onSubmit={(e) => {
             e.preventDefault();
             this.handleSubmit(e, props.command.id);
           }}>
-            <div className="form-group">
-              <label className="info-md info-white" htmlFor="name">Name</label>
-              <input id="name" type="text" name="name" defaultValue={props.command.name}/>
+            <div className="flex pb-4 flex-col justify-center items-center">
+              <label className="pb-2 font-main text-xl text-white text-center" htmlFor="name">Name</label>
+              <input className='font-main py-2 px-3.5 border-2 border-solid border-transparent transition-all duration-150 active:border-brand active:outline-0 focus:outline-0 focus:border-brand' id="name" type="text" name="name" defaultValue={props.command.name}/>
             </div>
-            <div className="form-group">
-              <label className="info-md info-white" htmlFor="description">Description</label>
-              <input id="description" type="textarea" name="description" defaultValue={props.command.description}/>
+            <div className="flex py-4 flex-col justify-center items-center">
+              <label className="pb-2 font-main text-xl text-white text-center" htmlFor="description">Description</label>
+              <input className='font-main py-2 px-3.5 border-2 border-solid border-transparent transition-all duration-150 active:border-brand active:outline-0 focus:outline-0 focus:border-brand' id="description" type="textarea" name="description" defaultValue={props.command.description}/>
             </div>
-            <div className="form-group">
-              <label className="info-md info-white" htmlFor="usage">Usage</label>
-              <input id="usage" type="textarea" name="usage" defaultValue={props.command.usage}/>
+            <div className="flex py-4 flex-col justify-center items-center">
+              <label className="pb-2 font-main text-xl text-white text-center" htmlFor="usage">Usage</label>
+              <input className='font-main py-2 px-3.5 border-2 border-solid border-transparent transition-all duration-150 active:border-brand active:outline-0 focus:outline-0 focus:border-brand' id="usage" type="textarea" name="usage" defaultValue={props.command.usage}/>
             </div>
-            <div className="form-group">
-              <label className="info-md info-white" htmlFor="aliases">Aliases</label>
-              <input id="aliases" type="text" name="aliases" placeholder="a,b,c,d" defaultValue={props.command.aliases.join(',')}/>
+            <div className="flex py-4 flex-col justify-center items-center">
+              <label className="pb-2 font-main text-xl text-white text-center" htmlFor="aliases">Aliases</label>
+              <input className='font-main py-2 px-3.5 border-2 border-solid border-transparent transition-all duration-150 active:border-brand active:outline-0 focus:outline-0 focus:border-brand' id="aliases" type="text" name="aliases" placeholder="a,b,c,d" defaultValue={props.command.aliases.join(',')}/>
             </div>
-            <div className="form-group">
-              <label className="info-md info-white" htmlFor="category">Category</label>
-              <select name="category" id="category" defaultValue={props.command.category}>
+            <div className="flex py-4 flex-col justify-center items-center">
+              <label className="pb-2 font-main text-xl text-white text-center" htmlFor="category">Category</label>
+              <select className='font-main py-2 px-3.5 border-2 border-solid border-transparent transition-all duration-150 active:border-brand active:outline-0 focus:outline-0 focus:border-brand' name="category" id="category" defaultValue={props.command.category}>
                 <option selected disabled>Choose a Category</option>
                 <option value="Moderation">Moderation</option>
                 <option value="NSFW">NSFW</option>
@@ -86,12 +86,12 @@ export default class CommandsEdit extends React.Component {
                 <option value="Memes">Memes</option>
               </select>
             </div>
-            <div className="form-group">
-              <button type="submit" className="shinobu-commands_new-save">
-                <div className='shinobu-commands_new-save-img'>
+            <div className="flex py-4 flex-col justify-center items-center">
+              <button type="submit" className="flex p-2 items-center jutify-center bg-brand rounded-md transition-all duration-250 ease-in-out outline-0 border-0 cursor-pointer hover:bg-secondary">
+                <div className='w-3'>
                   <Image src="/images/save.svg" alt="save" width="100%" height="100%" />
                 </div>
-                <p className="shinobu-commands_new-save-label info-xsl info-white">Save</p>
+                <p className="pl-2 ml-2 border-l border-solid border-white text-white text-center font-main text-xs">Save</p>
               </button>
             </div>
           </form>

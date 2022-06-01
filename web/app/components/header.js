@@ -5,16 +5,18 @@ import UserDropdown from './userDropdown';
 
 const Header = (props) => {
   return (
-    <header className="shinobu-header">
-      <nav className="shinobu-header-menu">
+    <header className="flex">
+      <nav className="flex flex-1 items-center">
         <Link href='/'>
-          <a className="title-xsl title-white">Shinobu</a>
+          <a className="font-main text-xl font-bold text-white pr-4">Shinobu</a>
         </Link>
-        <a className="info-xsl info-white" href='/commands'>Commands</a>
-        <a href={process.env.serverInvite} className="info-xsl info-white" rel="noreferrer" target="_blank">Support server</a>
+        <a className="font-main text-white text-xs text-center px-4" href='/commands'>Commands</a>
+        <a href={process.env.serverInvite} className="font-main text-white text-xs text-center px-4" rel="noreferrer" target="_blank">Support server</a>
       </nav>
-      <div className="shinobu-header-profile">
-        { props.user ? <UserDropdown user={props.user} /> : <a href='/login' className="btn-primary btn-sl">Login</a> }
+      <div>
+        { props.user ? <UserDropdown user={props.user} />
+          :
+          <a href='/login' className="bg-brand text-xs rounded-md py-1 px-3.5 flex items-center justify-center mx-2 border-2 border-solid border-brand font-main text-white transition duration-350 ease-in-out hover:bg-secondary hover:border-secondary">Login</a> }
       </div>
     </header>
   );

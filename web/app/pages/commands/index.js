@@ -50,24 +50,24 @@ export default class Commands extends React.Component {
 
     return (
       <Layout user={props.user} title="Commands">
-        <section className="shinobu-commands">
+        <section className="block">
           {props.user && props.user.userID == process.env.ownerID &&
-          <div className="flex shinobu-commands-header">
-            <a href='/commands/new' className="btn-primary btn-sl">New Command</a>
+          <div className="flex pt-8 justify-end">
+            <a href='/commands/new' className="bg-brand text-xs rounded-md py-1 px-3.5 flex items-center justify-center mx-2 border-2 border-solid border-brand font-main text-white transition duration-350 ease-in-out hover:bg-secondary hover:border-secondary">New Command</a>
           </div>}
-          <div className="flex shinobu-commands-container">
-            <div className="shinobu-commands-navigation">
-              <h3 className="title-sm title-white tal">Categories</h3>
-              <nav>
-                {props.moderation.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Moderation">Moderation</a>}
-                {props.cosmetics.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Cosmetics">Cosmetics</a>}
-                {props.utility.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Utility">Utility</a>}
-                {props.currency.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Currency">Currency</a>}
-                {props.memes.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="Memes">Memes</a>}
-                {props.nsfw.length > 0 && <a className="info-sl info-gray info-bold tal" href="#" data-control="scroll" data-scroll="NSFW">NSFW</a>}
+          <div className="flex w-full">
+            <div className="h-full px-2 py-12 hidden md:inline">
+              <h3 className="font-main text-white font-extrabold text-3xl">Categories</h3>
+              <nav className='flex flex-col'>
+                {props.moderation.length > 0 && <a className="font-main text-base font-bold text-gray-400 transition-colors duration-200 hover:text-white pt-4" href="#" data-control="scroll" data-scroll="Moderation">Moderation</a>}
+                {props.cosmetics.length > 0 && <a className="font-main text-base font-bold text-gray-400 transition-colors duration-200 hover:text-white pt-4" href="#" data-control="scroll" data-scroll="Cosmetics">Cosmetics</a>}
+                {props.utility.length > 0 && <a className="font-main text-base font-bold text-gray-400 transition-colors duration-200 hover:text-white pt-4" href="#" data-control="scroll" data-scroll="Utility">Utility</a>}
+                {props.currency.length > 0 && <a className="font-main text-base font-bold text-gray-400 transition-colors duration-200 hover:text-white pt-4" href="#" data-control="scroll" data-scroll="Currency">Currency</a>}
+                {props.memes.length > 0 && <a className="font-main text-base font-bold text-gray-400 transition-colors duration-200 hover:text-white pt-4" href="#" data-control="scroll" data-scroll="Memes">Memes</a>}
+                {props.nsfw.length > 0 && <a className="font-main text-base font-bold text-gray-400 transition-colors duration-200 hover:text-white pt-4" href="#" data-control="scroll" data-scroll="NSFW">NSFW</a>}
               </nav>
             </div>
-            <div className="shinobu-commands-list">
+            <div className="flex-1 px-2 pb-12 mt-12">
               {props.moderation.length > 0 && <CommandsTable user={props.user} title="Moderation" rows={props.moderation}/>}
               {props.cosmetics.length > 0 && <CommandsTable user={props.user} title="Cosmetics" rows={props.cosmetics}/>}
               {props.utility.length > 0 && <CommandsTable user={props.user} title="Utility" rows={props.utility}/>}

@@ -37,7 +37,7 @@ const Layout = (props) => (
         }}
       />
     </Head>
-    <div className="shinobu-wrap">
+    <div className="bg-zinc-800 w-full h-full py-4 px-8">
       <Header user={props.user}/>
       {props.children}
     </div>
