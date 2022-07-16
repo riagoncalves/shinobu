@@ -17,6 +17,29 @@ module.exports = {
     });
   },
 
+  async public(req, res) {
+    const user = await User
+      .findOne({
+        where: {
+          userID: req.params.userID,
+        },
+      });
+
+    if(!user) return res.redirect('/');
+
+    const background = await Background
+      .findOne({
+        where: {
+          id: user.BackgroundId,
+        },
+      });
+
+    return res.locals.app.render(req, res, '/profile/public', {
+      user: user,
+      background: background ? background.link : process.env.DEFAULT_PFP,
+    });
+  },
+
   async edit(req, res) {
     if(!req.user) return res.redirect('/');
 

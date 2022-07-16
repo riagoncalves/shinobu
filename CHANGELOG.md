@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.0] - 2022-07-16
+### Website
+#### Added
+- Public profile
+
 ## [1.7.0] - 2022-06-01
 ### Website
 #### Changed
