@@ -25,4 +25,6 @@ router.get('/commands/:id/edit', publicController.commands.edit);
 router.put('/commands/:id/update', publicController.commands.update);
 router.delete('/commands/:id', publicController.commands.destroy);
 
+router.get('/leaderboard', publicController.leaderboard.index);
+
 module.exports = router;
