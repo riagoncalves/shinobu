@@ -4,11 +4,11 @@ import Layout from '../../components/layout';
 import Router from 'next/router';
 
 export default class Profile extends React.Component {
-  static async getInitialProps({ req, query }) {
+  static async getInitialProps({ query }) {
     const pageProps = {};
 
-    if(req && req.user) {
-      pageProps.user = req.user;
+    if(query) {
+      pageProps.user = query.user;
       pageProps.background = query.background;
     }
     return pageProps;
@@ -52,18 +52,6 @@ export default class Profile extends React.Component {
             </div>
           </div>
           <div className="py-12 rounded-2xl z-10 bg-zinc-800 w-full px-2 md:px-8 mx-auto max-w-screen-xl relative">
-            <a href={`users/${props.user.userID}`} className="py-1 px-2 flex absolute bottom-full items-center justify-center bg-brand rounded-t-md transition-colors duration-200 hover:bg-secondary right-36">
-              <div className='w-4'>
-                <Image src="/images/profile.svg" alt="save" width="100%" height="100%" />
-              </div>
-              <p className="font-main text-white text-xs pl-2 ml-2 border-solid border-l border-white">Public profile</p>
-            </a>
-            <a href='/profile/edit' className="py-1 px-2 flex absolute bottom-full items-center justify-center bg-brand rounded-t-md transition-colors duration-200 hover:bg-secondary right-4">
-              <div className='w-3'>
-                <Image src="/images/edit.svg" alt="save" width="100%" height="100%" />
-              </div>
-              <p className="font-main text-white text-xs pl-2 ml-2 border-solid border-l border-white">Edit profile</p>
-            </a>
             <div className="flex md:flex-row flex-col">
               <div className="flex flex-col flex-1 pr-4">
                 <div>

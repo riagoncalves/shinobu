@@ -13,6 +13,7 @@ router.get('/logout', publicController.sessions.destroy);
 router.get('/profile', publicController.profile.index);
 router.get('/profile/edit', publicController.profile.edit);
 router.put('/profile/update', publicController.profile.update);
+router.get('/users/:userID', publicController.profile.public);
 
 router.get('/dashboard', publicController.dashboard.index);
 router.get('/dashboard/:guildID', publicController.dashboard.show);
