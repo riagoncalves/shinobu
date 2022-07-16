@@ -37,7 +37,7 @@ export default class Profile extends React.Component {
 
     const props = {
       ...this.props,
-      loggedInUser: props.loggedInUser,
+      loggedInUser: this.state.loggedInUser,
       user: this.state.user,
       background: this.state.background,
     };
