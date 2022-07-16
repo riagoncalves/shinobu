@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.1] - 2022-07-16
+### Website
+#### Fixed
+- Public profile logged in user
+
 ## [1.8.0] - 2022-07-16
 ### Website
 #### Added

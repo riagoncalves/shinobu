@@ -4,8 +4,12 @@ import Layout from '../../components/layout';
 import Router from 'next/router';
 
 export default class Profile extends React.Component {
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ req, query }) {
     const pageProps = {};
+
+    if(req && req.user) {
+      pageProps.loggedInUser = req.user;
+    }
 
     if(query) {
       pageProps.user = query.user;
@@ -23,6 +27,7 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedInUser: props.loggedInUser,
       user: props.user,
       background: props.background,
     };
@@ -32,6 +37,7 @@ export default class Profile extends React.Component {
 
     const props = {
       ...this.props,
+      loggedInUser: props.loggedInUser,
       user: this.state.user,
       background: this.state.background,
     };
@@ -41,7 +47,7 @@ export default class Profile extends React.Component {
     }
 
     return (
-      <Layout user={props.user} title="Profile">
+      <Layout user={props.loggedInUser} title="Profile">
         <section className="flex relative w-full h-full mt-8 flex-col">
           <span className="absolute block w-full h-full top-0 left-0 bg-no-repeat bg-100% bg-top z-1 blur-sm" style={{ backgroundImage: `url(${props.background})` }}></span>
           <div className="flex flex-col items-start md:flex-row py-8 md:items-center z-10 w-full px-2 md:px-8 mx-auto max-w-screen-xl">
