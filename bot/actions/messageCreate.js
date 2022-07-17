@@ -8,7 +8,7 @@ const initialDonuts = 2000;
 const levelUpDonuts = 500;
 
 const functions = {
-  async giveExp(user, msg) {
+  async giveExp(user, msg, discordUser) {
     let finalExp = user.experience + messageExperience;
     const level = user.level * expMultiplier < finalExp ? user.level + 1 : user.level;
     const donuts = level > user.level ? user.donuts + levelUpDonuts : user.donuts;
@@ -20,6 +20,8 @@ const functions = {
     }
 
     user.update({
+      username: `${discordUser.username}#${discordUser.discriminator}`,
+      photo: discordUser.avatarURL({ size: 512, format: 'png' }),
       experience: finalExp,
       level: level,
       donuts: donuts,

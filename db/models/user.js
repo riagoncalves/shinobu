@@ -19,5 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsTo(models.UserBackground, { as: 'Background', constraints: false });
   };
 
+  User.prototype.nickname = function() {
+    return this.username.split('#')[0];
+  };
+
   return User;
 };

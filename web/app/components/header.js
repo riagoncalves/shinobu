@@ -11,6 +11,7 @@ const Header = (props) => {
           <a className="font-main text-xl font-bold text-white pr-4">Shinobu</a>
         </Link>
         <a className="font-main text-white text-xs text-center px-4" href='/commands'>Commands</a>
+        <a className="font-main text-white text-xs text-center px-4" href='/leaderboard'>Leaderboard</a>
         <a href={process.env.serverInvite} className="font-main text-white text-xs text-center px-4" rel="noreferrer" target="_blank">Support server</a>
       </nav>
       <div>

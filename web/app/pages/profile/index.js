@@ -69,7 +69,7 @@ export default class Profile extends React.Component {
                 <div>
                   <p className="font-main text-white font-extrabold text-2xl">Level {props.user.level}</p>
                   <span className="block relative mt-4 mb-2 w-full h-4 rounded-md bg-zinc-900">
-                    <span className="block absolute h-4 left-0 top-0 rounded-md bg-main" style={{ width: `${(props.user.experience / (props.user.level * 100)) * 100}%` }}></span>
+                    <span className="block absolute h-4 left-0 top-0 rounded-md bg-white" style={{ width: `${(props.user.experience / (props.user.level * 100)) * 100}%` }}></span>
                   </span>
                   <div>
                     <p className="font-main text-base text-gray-400 text-right"><span className="font-semibold text-white">{props.user.experience}</span> / {props.user.level * 100}</p>
