@@ -10,7 +10,9 @@ const LeaderboardUser = ({ user, rank }) => (
     </div>
     <div className="flex items-center flex-1 col-span-1 md:col-span-2 lg:col-span-4">
       {user.photo ?
-        <img className="w-10 rounded-full" src={user.photo}/>
+        <object data={user.photo} type="image/png" className='w-10 rounded-full'>
+          <img src={process.env.DEFAULT_PFP} className='w-10 rounded-full' />
+        </object>
         :
         <span className="font-main flex w-10 h-10 justify-center items-center border border-solid border-white rounded-full font-bold text-xs text-white uppercase">
           {user.username.split('#')[0].match(/\b(\w)/g).join('')}

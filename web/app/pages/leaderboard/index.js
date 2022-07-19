@@ -38,8 +38,6 @@ export default class Profile extends React.Component {
       users: this.state.users,
     };
 
-    console.log(props.users);
-
     return (
       <Layout user={props.user} title="Leaderboard">
         <section className="flex relative w-full h-full mt-8 flex-col">

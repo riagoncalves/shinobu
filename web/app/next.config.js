@@ -4,5 +4,6 @@ module.exports = {
     inviteLink: process.env.INVITE_LINK,
     serverInvite: process.env.SERVER_INVITE,
     googleTag: process.env.G_TAG,
+    DEFAULT_PFP: process.env.DEFAULT_PFP,
   },
 };

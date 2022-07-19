@@ -45,7 +45,9 @@ export default class Profile extends React.Component {
         <section className="flex relative w-full h-full mt-8 flex-col">
           <span className="absolute block w-full h-full top-0 left-0 bg-no-repeat bg-100% bg-top z-1 blur-sm" style={{ backgroundImage: `url(${props.background})` }}></span>
           <div className="flex flex-col items-start md:flex-row py-8 md:items-center z-10 w-full px-2 md:px-8 mx-auto max-w-screen-xl">
-            <img src={props.user.photo} className="w-20 md:w-32 rounded-3xl" />
+            <object data={props.user.photo} type="image/png" className='w-20 md:w-32 rounded-3xl'>
+              <img src={process.env.DEFAULT_PFP} className='w-20 md:w-32 rounded-3xl' />
+            </object>
             <div className="pt-3 md:px-8">
               <h2 className="font-main font-extrabold text-white text-3xl">{props.user.username.split('#')[0]}</h2>
               <p className="font-main text-base text-white">{props.user.title}</p>
