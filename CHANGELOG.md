@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.9.0] - 2022-07-19
+### Website
+#### Added
+- Leaderboard page
+
 ## [1.8.1] - 2022-07-16
 ### Website
 #### Fixed
