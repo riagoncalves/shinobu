@@ -4,6 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     link: DataTypes.STRING,
     value: DataTypes.INTEGER,
+    rank: DataTypes.ENUM(
+      'Common',
+      'Uncommon',
+      'Rare',
+      'Legendary',
+    ),
   }, {});
 
   Background.associate = function(models) {

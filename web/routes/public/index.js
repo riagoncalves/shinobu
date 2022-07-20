@@ -27,4 +27,6 @@ router.delete('/commands/:id', publicController.commands.destroy);
 
 router.get('/leaderboard', publicController.leaderboard.index);
 
+router.get('/shop/backgrounds', publicController.shop.backgrounds.index);
+
 module.exports = router;
