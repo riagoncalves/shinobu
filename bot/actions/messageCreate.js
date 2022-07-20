@@ -31,7 +31,7 @@ const functions = {
     const savedUser = await models.User.findOne({ where: { userID: user.id } });
     if (savedUser) {
       console.log(`${user.username}#${user.discriminator} exists!`);
-      this.giveExp(savedUser, msg);
+      this.giveExp(savedUser, msg, user);
     }
     else {
       models.User.create({
