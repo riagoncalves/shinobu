@@ -21,7 +21,7 @@ const functions = {
 
     user.update({
       username: `${discordUser.username}#${discordUser.discriminator}`,
-      photo: discordUser.avatarURL({ size: 512, format: 'png' }),
+      photo: discordUser.avatarURL({ size: 128, format: 'png' }),
       experience: finalExp,
       level: level,
       donuts: donuts,
@@ -37,7 +37,7 @@ const functions = {
       models.User.create({
         userID: user.id,
         username: `${user.username}#${user.discriminator}`,
-        photo: user.avatarURL({ size: 512, format: 'png' }),
+        photo: user.avatarURL({ size: 128, format: 'png' }),
         donuts: initialDonuts,
         dailyCheck: new Date(new Date().setDate(new Date().getDate() - 1)),
       });
