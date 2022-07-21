@@ -40,6 +40,9 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('Commands');
+    return Promise.all([
+      queryInterface.dropTable('Commands'),
+      queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Commands_category";'),
+    ]);
   },
 };

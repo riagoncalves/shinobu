@@ -10,6 +10,7 @@ module.exports = {
       'main': ['Montserrat', 'sans-seriff'],
     },
     backgroundSize: {
+      'cover': 'cover',
       '100%': '100%',
     },
     extend: {

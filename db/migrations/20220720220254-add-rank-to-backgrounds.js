@@ -8,12 +8,20 @@ module.exports = {
         'rank',
         {
           type: Sequelize.ENUM(
-            'Common',
-            'Uncommon',
-            'Rare',
-            'Legendary',
+            'common',
+            'uncommon',
+            'rare',
+            'legendary',
           ),
-          defaultValue: 'Common',
+          defaultValue: 'common',
+        },
+      ),
+      queryInterface.addColumn(
+        'Backgrounds',
+        'label',
+        {
+          type: Sequelize.STRING,
+          defaultValue: null,
         },
       ),
     ]);
@@ -22,6 +30,8 @@ module.exports = {
   down: async (queryInterface) => {
     return Promise.all([
       queryInterface.removeColumn('Backgrounds', 'rank'),
+      queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Backgrounds_rank";'),
+      queryInterface.removeColumn('Backgrounds', 'label'),
     ]);
   },
 };
