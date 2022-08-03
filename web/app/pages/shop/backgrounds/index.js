@@ -43,7 +43,7 @@ export default class Background extends React.Component {
               {props.backgrounds.map((background) => (
                 <article key={background.id} className='w-full rounded border overflow-hidden'>
                   <div className='w-full text-center py-2 bg-blue-900'>
-                    <h3 className="font-main text-white font-extrabold text-xl">{background.name}</h3>
+                    <h3 className="font-main text-white font-extrabold text-xl">{background.label}</h3>
                   </div>
                   <span className='block h-48 w-full border-t border-b border-solid border-black bg-no-repeat bg-cover bg-center' style={{ backgroundImage: `url(${background.link})` }}>
                   </span>
